@@ -59,7 +59,7 @@ class Dashboard extends StatelessWidget {
                   children: <Widget>[
                     SizedBox(
                       width: size.width * 0.40,
-                      height: size.height * 0.22,
+                      height: size.height * 0.25,
                       child: Card(
                         // color: Color.fromARGB(255, 21, 21, 21),
                         color: Colors.blue,
@@ -102,7 +102,7 @@ class Dashboard extends StatelessWidget {
                     ),
                     SizedBox(
                       width: size.width * 0.40,
-                      height: size.height * 0.22,
+                      height: size.height * 0.25,
                       child: Card(
                         // color: Color.fromARGB(255, 21, 21, 21),
                         color: Colors.blue,
@@ -145,7 +145,7 @@ class Dashboard extends StatelessWidget {
                     ),
                     SizedBox(
                       width: size.width * 0.40,
-                      height: size.height * 0.22,
+                      height: size.height * 0.25,
                       child: Card(
                         // color: Color.fromARGB(255, 21, 21, 21),
                         color: Colors.blue,
@@ -188,7 +188,7 @@ class Dashboard extends StatelessWidget {
                     ),
                     SizedBox(
                       width: size.width * 0.40,
-                      height: size.height * 0.22,
+                      height: size.height * 0.25,
                       child: Card(
                         // color: Color.fromARGB(255, 21, 21, 21),
                         color: Colors.blue,
