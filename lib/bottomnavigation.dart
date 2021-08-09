@@ -1,19 +1,26 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:orderapp/dashboard.dart';
+import 'package:orderapp/drawerpages/cart.dart';
+import 'package:orderapp/drawerpages/fevstore.dart';
 
 class BottomNavigation extends StatefulWidget {
   @override
   _BottomNavigationState createState() => _BottomNavigationState();
 }
 
+// Color color = Colors.blueAccent;
+
 String disp = '';
+
+int _page = 0;
 
 class _BottomNavigationState extends State<BottomNavigation> {
   @override
   Widget build(BuildContext context) {
     return CurvedNavigationBar(
       // key: _bottomNavigationKey,
-      index: 0,
+      index: _page,
       height: 60.0,
       items: <Widget>[
         Icon(Icons.favorite, size: 30, color: Colors.white),
@@ -25,6 +32,24 @@ class _BottomNavigationState extends State<BottomNavigation> {
       backgroundColor: Colors.white,
       animationCurve: Curves.easeInOut,
       animationDuration: Duration(milliseconds: 600),
+
+      onTap: (index) {
+        setState(() {
+          if (index == 0) {
+            _page = index;
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (BuildContext context) => FavStore()));
+          } else if (index == 1) {
+            _page = index;
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (BuildContext context) => Dashboard()));
+          } else {
+            _page = index;
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (BuildContext context) => Cart()));
+          }
+        });
+      },
 
       // onTap: (index) {
       //   setState(() {
@@ -45,7 +70,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
       // },
       //   _page = index;
     );
-    // letIndexChange: (index) => true,
+    //letIndexChange: (index) => true,
 
     //BOTTOM NAVIGATION
   }

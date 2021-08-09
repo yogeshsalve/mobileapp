@@ -5,6 +5,7 @@ import 'package:orderapp/drawer.dart';
 class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueAccent[700],
@@ -17,27 +18,28 @@ class Dashboard extends StatelessWidget {
       body: SafeArea(
           child: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            // Padding(
+            //   padding: const EdgeInsets.all(12.0),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: <Widget>[
+            //       // Icon(
+            //       //   Icons.menu,
+            //       //   color: Colors.white,
+            //       //   size: 52.0,
+            //       // ),
+            //       // Image.asset(
+            //       //   "images/assets/image.png",
+            //       //   width: 52.0,
+            //       // )
+            //     ],
+            //   ),
+            // ),
             Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  // Icon(
-                  //   Icons.menu,
-                  //   color: Colors.white,
-                  //   size: 52.0,
-                  // ),
-                  // Image.asset(
-                  //   "images/assets/image.png",
-                  //   width: 52.0,
-                  // )
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(18.0),
+              padding: const EdgeInsets.all(18),
               child: Text(
                 // "Welcome APL ORDER, \nSelect an option",
                 "Welcome User",
@@ -56,8 +58,8 @@ class Dashboard extends StatelessWidget {
                   runSpacing: 20.0,
                   children: <Widget>[
                     SizedBox(
-                      width: 160.0,
-                      height: 160.0,
+                      width: size.width * 0.40,
+                      height: size.height * 0.22,
                       child: Card(
                         // color: Color.fromARGB(255, 21, 21, 21),
                         color: Colors.blue,
@@ -71,26 +73,27 @@ class Dashboard extends StatelessWidget {
                             children: <Widget>[
                               Image.asset(
                                 "images/assets/outstanding.png",
-                                width: 64.0,
+                                width: size.height * 0.1,
                               ),
                               SizedBox(
-                                height: 10.0,
+                                height: size.height * 0.02,
                               ),
                               Text(
                                 "Outstanding",
                                 style: TextStyle(
-                                    color: Colors.white,
+                                    color: Colors.black,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 16.0),
+                                    fontSize: 18),
                               ),
                               SizedBox(
-                                height: 5.0,
+                                height: size.height * 0.01,
                               ),
                               Text(
                                 "Rs. 10000",
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontWeight: FontWeight.w100),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18),
                               )
                             ],
                           ),
@@ -98,8 +101,8 @@ class Dashboard extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      width: 160.0,
-                      height: 160.0,
+                      width: size.width * 0.40,
+                      height: size.height * 0.22,
                       child: Card(
                         // color: Color.fromARGB(255, 21, 21, 21),
                         color: Colors.blue,
@@ -113,26 +116,27 @@ class Dashboard extends StatelessWidget {
                             children: <Widget>[
                               Image.asset(
                                 "images/assets/note.png",
-                                width: 64.0,
+                                width: size.height * 0.1,
                               ),
                               SizedBox(
-                                height: 10.0,
+                                height: size.height * 0.02,
                               ),
                               Text(
                                 "Pending Orders",
                                 style: TextStyle(
-                                    color: Colors.white,
+                                    color: Colors.black,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 16.0),
+                                    fontSize: 18.0),
                               ),
                               SizedBox(
-                                height: 5.0,
+                                height: size.height * 0.01,
                               ),
                               Text(
                                 "12 Orders",
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontWeight: FontWeight.w100),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18.0),
                               )
                             ],
                           ),
@@ -140,8 +144,8 @@ class Dashboard extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      width: 160.0,
-                      height: 160.0,
+                      width: size.width * 0.40,
+                      height: size.height * 0.22,
                       child: Card(
                         // color: Color.fromARGB(255, 21, 21, 21),
                         color: Colors.blue,
@@ -155,26 +159,27 @@ class Dashboard extends StatelessWidget {
                             children: <Widget>[
                               Image.asset(
                                 "images/assets/calendar.png",
-                                width: 64.0,
+                                width: size.height * 0.1,
                               ),
                               SizedBox(
-                                height: 10.0,
+                                height: size.height * 0.02,
                               ),
                               Text(
                                 "Monthly Sale",
                                 style: TextStyle(
-                                    color: Colors.white,
+                                    color: Colors.black,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 16.0),
+                                    fontSize: 18.0),
                               ),
                               SizedBox(
-                                height: 5.0,
+                                height: size.height * 0.01,
                               ),
                               Text(
                                 "Rs. 100000",
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontWeight: FontWeight.w100),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18.0),
                               )
                             ],
                           ),
@@ -182,8 +187,8 @@ class Dashboard extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      width: 160.0,
-                      height: 160.0,
+                      width: size.width * 0.40,
+                      height: size.height * 0.22,
                       child: Card(
                         // color: Color.fromARGB(255, 21, 21, 21),
                         color: Colors.blue,
@@ -197,17 +202,17 @@ class Dashboard extends StatelessWidget {
                               children: <Widget>[
                                 Image.asset(
                                   "images/assets/settings.png",
-                                  width: 64.0,
+                                  width: size.height * 0.1,
                                 ),
                                 SizedBox(
-                                  height: 10.0,
+                                  height: size.height * 0.02,
                                 ),
                                 Text(
                                   "Yearly Sale",
                                   style: TextStyle(
-                                      color: Colors.white,
+                                      color: Colors.black,
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 16.0),
+                                      fontSize: 18.0),
                                 ),
                                 SizedBox(
                                   height: 5.0,
@@ -216,7 +221,8 @@ class Dashboard extends StatelessWidget {
                                   "Rs. 1200000",
                                   style: TextStyle(
                                       color: Colors.white,
-                                      fontWeight: FontWeight.w100),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18.0),
                                 )
                               ],
                             ),

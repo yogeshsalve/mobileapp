@@ -35,6 +35,7 @@ dependencies:
   font_awesome_flutter: ^8.8.1
   google_fonts: ^2.1.0
   dio: ^4.0.0
+  date_field: ^2.0.1
 
 dev_dependencies:
   flutter_test:

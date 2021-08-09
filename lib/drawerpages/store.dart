@@ -16,7 +16,7 @@ class Store extends StatefulWidget {
 class _StoreState extends State<Store> {
   String getData = '';
   // var url = Uri.parse('http://91weblessons.com/demo/api/mobile/api2.php');
-  var url = Uri.parse('https://yogeshsalve.com/APL-API/');
+  var url = Uri.parse('https://yogeshsalve.com/API/');
   List getList = [];
 
   Future fetchData() async {
@@ -38,6 +38,7 @@ class _StoreState extends State<Store> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueAccent[700],
@@ -47,6 +48,7 @@ class _StoreState extends State<Store> {
       bottomNavigationBar: BottomNavigation(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Card(
             color: Colors.white,
@@ -54,19 +56,26 @@ class _StoreState extends State<Store> {
               "images/container.png",
               // fit: BoxFit.cover,
 
-              height: 180.0,
-              width: 395.0,
+              height: size.height * 0.3,
+              width: size.height * 0.65,
             ),
           ),
-          SizedBox(
-            height: 10.0,
-          ),
-          Text(
-            "Click Below to Order",
-            style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                backgroundColor: Colors.blue),
+          // SizedBox(
+          //   height: size.height * 0.01,
+          // ),
+          Card(
+            color: Colors.orange[900],
+            child: Align(
+              alignment: Alignment.center,
+              child: Text(
+                "Click Below to Order",
+                style: TextStyle(
+                  fontSize: 21,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
           ),
           // Expanded(
           //   //   // flex: 1,
@@ -114,10 +123,12 @@ class _StoreState extends State<Store> {
                               ),
                             },
                             child: Container(
+                              height: size.height * 0.07,
+                              // width: size.height * 0.65,
                               child: Text(
                                 getList[index].toString(),
                                 style: TextStyle(
-                                  fontSize: 20.0,
+                                  fontSize: 21.0,
                                 ),
                               ),
                               padding: EdgeInsets.all(
