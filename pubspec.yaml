@@ -33,10 +33,11 @@ dependencies:
   # dio: ^4.0.0
   http: ^0.13.3
   font_awesome_flutter: ^8.8.1
-  google_fonts: ^2.1.0
+  # google_fonts: ^2.1.0
   dio: ^4.0.0
   date_field: ^2.0.1
-  url_launcher: ^6.0.9
+  # url_launcher: ^6.0.9
+  shared_preferences: ^2.0.6
 
 dev_dependencies:
   flutter_test:
