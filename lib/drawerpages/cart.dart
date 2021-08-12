@@ -19,7 +19,7 @@ class Cart extends StatefulWidget {
 
 class _CartState extends State<Cart> {
   List products = [];
-  var a;
+
   bool isLoading = false;
 
   @override
@@ -180,7 +180,7 @@ class _CartState extends State<Cart> {
                                 primary: Colors.red,
                               ),
                             )
-                          ])
+                          ]),
                     ],
                   )
                 ],

@@ -11,6 +11,7 @@ import 'package:orderapp/drawerpages/pendingorder.dart';
 import 'package:orderapp/drawerpages/printinvoice.dart';
 import 'package:orderapp/drawerpages/saleshistory.dart';
 import 'package:orderapp/drawerpages/store.dart';
+import 'package:orderapp/dropdowntest.dart';
 
 class MyDrawer extends StatelessWidget {
   @override
@@ -56,8 +57,11 @@ class MyDrawer extends StatelessWidget {
 
             //listTiles
             ListTile(
-              title: Text('ABC Pvt. Ltd.', style: TextStyle(fontSize: 20)),
-              tileColor: Colors.orangeAccent,
+              title: Text(
+                'ABC Pvt. Ltd.',
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              tileColor: Colors.blue,
               leading: Icon(Icons.account_circle),
               onTap: null,
             ),
@@ -69,7 +73,7 @@ class MyDrawer extends StatelessWidget {
 
             ListTile(
               title: Text('Store', style: TextStyle(fontSize: 20)),
-              tileColor: Colors.lightBlue,
+              tileColor: Colors.white10,
               leading: Icon(Icons.share),
               onTap: () => {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -79,7 +83,7 @@ class MyDrawer extends StatelessWidget {
 
             ListTile(
               title: Text('Favourite Store', style: TextStyle(fontSize: 20)),
-              tileColor: Colors.blue,
+              tileColor: Colors.white10,
               leading: Icon(Icons.more),
               onTap: () => {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -89,7 +93,7 @@ class MyDrawer extends StatelessWidget {
 
             ListTile(
               title: Text('Cart', style: TextStyle(fontSize: 20)),
-              tileColor: Colors.lightBlue,
+              tileColor: Colors.white10,
               leading: Icon(Icons.contact_support),
               onTap: () => {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -99,7 +103,7 @@ class MyDrawer extends StatelessWidget {
 
             ListTile(
               title: Text('Order Enquiry', style: TextStyle(fontSize: 20)),
-              tileColor: Colors.blue,
+              tileColor: Colors.white10,
               leading: Icon(Icons.contact_support),
               onTap: () => {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -109,7 +113,7 @@ class MyDrawer extends StatelessWidget {
 
             ListTile(
               title: Text('Pending Order', style: TextStyle(fontSize: 20)),
-              tileColor: Colors.lightBlue,
+              tileColor: Colors.white10,
               leading: Icon(Icons.contact_support),
               onTap: () => {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -120,7 +124,7 @@ class MyDrawer extends StatelessWidget {
             ListTile(
               title:
                   Text('Outstanding Balance', style: TextStyle(fontSize: 20)),
-              tileColor: Colors.blue,
+              tileColor: Colors.white10,
               leading: Icon(Icons.contact_support),
               onTap: () => {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -130,7 +134,7 @@ class MyDrawer extends StatelessWidget {
 
             ListTile(
               title: Text('Print Invoice', style: TextStyle(fontSize: 20)),
-              tileColor: Colors.lightBlue,
+              tileColor: Colors.white10,
               leading: Icon(Icons.contact_support),
               onTap: () => {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -140,7 +144,7 @@ class MyDrawer extends StatelessWidget {
 
             ListTile(
               title: Text('Certificate', style: TextStyle(fontSize: 20)),
-              tileColor: Colors.blue,
+              tileColor: Colors.white10,
               leading: Icon(Icons.contact_support),
               onTap: () => {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -150,7 +154,7 @@ class MyDrawer extends StatelessWidget {
 
             ListTile(
               title: Text('Ledger', style: TextStyle(fontSize: 20)),
-              tileColor: Colors.lightBlue,
+              tileColor: Colors.white10,
               leading: Icon(Icons.contact_support),
               onTap: () => {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -160,7 +164,7 @@ class MyDrawer extends StatelessWidget {
 
             ListTile(
               title: Text('Sales History', style: TextStyle(fontSize: 20)),
-              tileColor: Colors.blue,
+              tileColor: Colors.white10,
               leading: Icon(Icons.contact_support),
               onTap: () => {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -175,7 +179,7 @@ class MyDrawer extends StatelessWidget {
 
             ListTile(
               title: Text('Change Password', style: TextStyle(fontSize: 20)),
-              tileColor: Colors.lightBlue,
+              tileColor: Colors.white10,
               leading: Icon(Icons.contact_support),
               onTap: () => {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -185,9 +189,12 @@ class MyDrawer extends StatelessWidget {
 
             ListTile(
               title: Text('Log Out', style: TextStyle(fontSize: 20)),
-              tileColor: Colors.orange,
+              tileColor: Colors.blue,
               leading: Icon(Icons.contact_support),
-              onTap: null,
+              onTap: () => {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (BuildContext context) => Dropdown()))
+              },
             ),
             //ListTiles Ends Here
           ],

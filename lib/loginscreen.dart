@@ -1,8 +1,12 @@
-// import 'package:dio/dio.dart';
+//import 'dart:convert';
+
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:orderapp/dashboard.dart';
-
-// import 'ApiService.dart';
+// import 'package:orderapp/dashboard.dart';
+//import 'dart:convert';
 
 //new login screen
 class LoginScreen extends StatefulWidget {
@@ -11,69 +15,96 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
   String username = '';
   bool changeButton = false;
-  // final emailText = TextEditingController();
-  // final passwordText = TextEditingController();
+  var emailController = TextEditingController();
+  var passController = TextEditingController();
+  String message = '';
 
-  //MARK:API Call
-  // callLoginApi() {
-  //   final service = ApiServices();
+  //DIO COD STARTED //
+  Dio dio = new Dio();
 
-  //   service.apiCallLogin(
-  //     {
-  //       "email": emailText.text,
-  //       "password": passwordText.text,
-  //     },
-  //   ).then((value) {
-  //     if (value.error != null) {
-  //       print("get data >>>>>> " + value.error!);
-  //     } else {
-  //       // print(value.token!);
-  //       moveToDashboard(context);
-  //       //push
-  //     }
-  //   });
-  // }
+  Future postData(BuildContext context) async {
+    var response = await dio.post('https://yogeshsalve.com/API/login.php',
+        data: {'email': emailController.text, 'password': passController.text});
 
-  // DIO COD STARTED //
+    // var items = jsonDecode(response.data)['result'];
+    return response;
 
-  // Dio dio = new Dio();
-  // Future postData() async {
-  //   final String pathUrl = 'https://yogeshsalve.com/APL-API/login.php';
-  //   dynamic data = {
-  //     // 'title': 'foo',
-  //     // 'body': 'bar',
-  //     // 'userId': 1,
-  //     'username': 'prashant',
-  //     'password': 'prashant@123',
-  //   };
-  //   // var response = await dio.post(pathUrl,
-  //   //     data: data,
-  //   //     options: Options(headers: {
-  //   //       'Content-type': 'application/json; charset=UTF-8',
-  //   //     }));
-  //   var response = await dio.post('https://yogeshsalve.com/APL-API/login.php',
-  //       data: {'username': 'prashant', 'password': 'prashant@123'});
-  //   return response;
-  //   // return data;
-  // }
+    // if (response.statusCode == 200) {
+    //   var jsonResponse = json.decode(response.data);
+    //   return jsonResponse.sta
+    //   // if (jsonResponse != null) {
+    //   //   Navigator.push(
+    //   //       context, MaterialPageRoute(builder: (context) => Dashboard()));
+    //   // }
+    // }
 
-  // DIO CODE ENDS HERE //
-
-  final _formKey = GlobalKey<FormState>();
-
-  moveToDashboard(BuildContext context) async {
-    if (_formKey.currentState!.validate()) {
-      setState(() {
-        changeButton = true;
-      });
-
-      await Future.delayed(Duration(seconds: 1));
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (BuildContext context) => Dashboard()));
-    }
+    // var result = jsonDecode(response.result).toString();
+    // return result;
+    // if (response != null) {
+    //   Navigator.push(
+    //       context, MaterialPageRoute(builder: (context) => Dashboard()));
+    // } else {
+    //   ScaffoldMessenger.of(context)
+    //       .showSnackBar(SnackBar(content: Text("Invalid Credentials")));
+    // }
+    // var result = jsonDecode(response['status']);
+    //                     if (result == 406) {
+    //                       Navigator.of(context).pushReplacement(
+    //                           MaterialPageRoute(
+    //                               builder: (BuildContext context) =>
+    //                                   Dashboard()));
+    //                     }
+    // var items = await jsonDecode(response.data)['result'];
+    // return items;
+    // var result = jsonDecode(response.data);
+    // if (response.statusCode == 200) {
+    //   Navigator.push(
+    //       context, MaterialPageRoute(builder: (context) => Dashboard()));
+    // } else {
+    //   ScaffoldMessenger.of(context)
+    //       .showSnackBar(SnackBar(content: Text("Invalid Credentials")));
+    // }
   }
+  //DIO CODE ENDS HERE //
+
+// Future<void> login() async {
+  //   if (passController.text.isNotEmpty && emailController.text.isNotEmpty) {
+  //     var response = await http.post(
+  //         Uri.parse('https://yogeshsalve.com/API/login.php'),
+  //         // Uri.parse('https://reqres.in/api/login'),
+  //         body: ({
+  //           'email': emailController.text,
+  //           'password': passController.text
+  //         }));
+  //     if (response.statusCode == 200) {
+  //       Navigator.push(
+  //           context, MaterialPageRoute(builder: (context) => Dashboard()));
+  //     } else {
+  //       ScaffoldMessenger.of(context)
+  //           .showSnackBar(SnackBar(content: Text("Invalid Credentials")));
+  //     }
+  //   } else {
+  //     ScaffoldMessenger.of(context)
+  //         .showSnackBar(SnackBar(content: Text("Blank field not allowed")));
+  //   }
+  // }
+
+  // final _formKey = GlobalKey<FormState>();
+
+  // moveToDashboard(BuildContext context) async {
+  //   if (_formKey.currentState!.validate()) {
+  //     setState(() {
+  //       changeButton = true;
+  //     });
+
+  //     await Future.delayed(Duration(seconds: 1));
+  //     Navigator.of(context).pushReplacement(
+  //         MaterialPageRoute(builder: (BuildContext context) => Dashboard()));
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 alignment: Alignment.center,
                 margin: EdgeInsets.symmetric(horizontal: 40),
                 child: TextFormField(
-                  // controller: emailText,
+                  controller: emailController,
                   style: TextStyle(fontSize: 20),
                   decoration: InputDecoration(labelText: "Username"),
                   validator: (value) {
@@ -124,7 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     }
                     return null;
                   },
-                  onChanged: (value) {
+                  onChanged: (value) async {
                     username = value;
                     setState(() {});
                   },
@@ -135,7 +166,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 alignment: Alignment.center,
                 margin: EdgeInsets.symmetric(horizontal: 40),
                 child: TextFormField(
-                  // controller: passwordText,
+                  controller: passController,
                   style: TextStyle(fontSize: 20),
                   decoration: InputDecoration(labelText: "Password"),
                   validator: (value) {
@@ -162,17 +193,41 @@ class _LoginScreenState extends State<LoginScreen> {
                 color: Colors.blue,
                 borderRadius: BorderRadius.circular(changeButton ? 50 : 10),
                 child: InkWell(
-                  onTap: () => moveToDashboard(context),
+                  // onTap: () => moveToDashboard(context),
 
                   // onTap: () {
                   //   callLoginApi();
                   // },
-                  // onTap: () async {
-                  //   print('posting data');
-                  //   await postData().then((value) {
-                  //     print(value);
-                  //   });
+
+                  // onTap: () {
+                  //   login();
                   // },
+                  onTap: () async {
+                    if (_formKey.currentState!.validate()) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Processing Data')),
+                      );
+
+                      await postData(context).then((value) {
+                        print(value);
+
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => Dashboard()));
+
+                        // var result = jsonDecode(value);
+                        // print(result);
+                        // if (result['success'] == 1) {
+                        //   print("good");
+                        // }
+
+                        setState(() {
+                          changeButton = true;
+                        });
+                      });
+                    } else {}
+                  },
 
                   child: AnimatedContainer(
                     duration: Duration(seconds: 1),
@@ -192,10 +247,34 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
+              Text(message),
             ],
           ),
         ),
       ),
     );
   }
+
+  //create function to call post login api
+  // Future<void> login() async {
+  //   if (passController.text.isNotEmpty && emailController.text.isNotEmpty) {
+  //     var response = await http.post(
+  //         Uri.parse('https://yogeshsalve.com/API/login.php'),
+  //         // Uri.parse('https://reqres.in/api/login'),
+  //         body: ({
+  //           'email': emailController.text,
+  //           'password': passController.text
+  //         }));
+  //     if (response.statusCode == 200) {
+  //       Navigator.push(
+  //           context, MaterialPageRoute(builder: (context) => Dashboard()));
+  //     } else {
+  //       ScaffoldMessenger.of(context)
+  //           .showSnackBar(SnackBar(content: Text("Invalid Credentials")));
+  //     }
+  //   } else {
+  //     ScaffoldMessenger.of(context)
+  //         .showSnackBar(SnackBar(content: Text("Blank field not allowed")));
+  //   }
+  // }
 }

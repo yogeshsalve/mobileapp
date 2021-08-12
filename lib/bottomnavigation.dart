@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:orderapp/dashboard.dart';
 import 'package:orderapp/drawerpages/cart.dart';
 import 'package:orderapp/drawerpages/fevstore.dart';
+import 'package:orderapp/drawerpages/profile.dart';
+import 'package:orderapp/drawerpages/store.dart';
 
 class BottomNavigation extends StatefulWidget {
   @override
@@ -24,8 +26,10 @@ class _BottomNavigationState extends State<BottomNavigation> {
       height: 60.0,
       items: <Widget>[
         Icon(Icons.favorite, size: 30, color: Colors.white),
-        Icon(Icons.home, size: 60, color: Colors.white),
+        Icon(Icons.shop, size: 30, color: Colors.white),
+        Icon(Icons.home, size: 50, color: Colors.white),
         Icon(Icons.shopping_cart, size: 30, color: Colors.white),
+        Icon(Icons.person_outlined, size: 30, color: Colors.white),
       ],
       color: Colors.blueAccent.shade700,
       buttonBackgroundColor: Colors.deepOrange[400],
@@ -41,12 +45,20 @@ class _BottomNavigationState extends State<BottomNavigation> {
                 builder: (BuildContext context) => FavStore()));
           } else if (index == 1) {
             _page = index;
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (BuildContext context) => Store()));
+          } else if (index == 2) {
+            _page = index;
             Navigator.of(context).pushReplacement(MaterialPageRoute(
                 builder: (BuildContext context) => Dashboard()));
-          } else {
+          } else if (index == 3) {
             _page = index;
             Navigator.of(context).pushReplacement(
                 MaterialPageRoute(builder: (BuildContext context) => Cart()));
+          } else {
+            _page = index;
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (BuildContext context) => Profile()));
           }
         });
       },
