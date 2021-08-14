@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:orderapp/drawerpages/cart.dart';
 import 'package:orderapp/drawerpages/certificate.dart';
-import 'package:orderapp/drawerpages/changepassword.dart';
+// import 'package:orderapp/drawerpages/changepassword.dart';
 import 'package:orderapp/drawerpages/fevstore.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:orderapp/drawerpages/ledger.dart';
 import 'package:orderapp/drawerpages/orderenquiry.dart';
 import 'package:orderapp/drawerpages/outstanding.dart';
@@ -11,9 +11,21 @@ import 'package:orderapp/drawerpages/pendingorder.dart';
 import 'package:orderapp/drawerpages/printinvoice.dart';
 import 'package:orderapp/drawerpages/saleshistory.dart';
 import 'package:orderapp/drawerpages/store.dart';
-import 'package:orderapp/dropdowntest.dart';
+// import 'package:orderapp/dropdowntest.dart';
 
-class MyDrawer extends StatelessWidget {
+class MyDrawer extends StatefulWidget {
+  @override
+  _MyDrawerState createState() => _MyDrawerState();
+}
+
+class _MyDrawerState extends State<MyDrawer> {
+  String userName = "";
+  @override
+  void initState() {
+    super.initState();
+    getUserName();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -58,11 +70,14 @@ class MyDrawer extends StatelessWidget {
             //listTiles
             ListTile(
               title: Text(
-                'ABC Pvt. Ltd.',
+                userName,
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
               tileColor: Colors.blue,
-              leading: Icon(Icons.account_circle),
+              leading: Icon(
+                Icons.account_circle,
+                color: Colors.white,
+              ),
               onTap: null,
             ),
 
@@ -74,7 +89,10 @@ class MyDrawer extends StatelessWidget {
             ListTile(
               title: Text('Store', style: TextStyle(fontSize: 20)),
               tileColor: Colors.white10,
-              leading: Icon(Icons.share),
+              leading: Icon(
+                Icons.shop,
+                color: Colors.black,
+              ),
               onTap: () => {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
                     builder: (BuildContext context) => Store()))
@@ -84,7 +102,10 @@ class MyDrawer extends StatelessWidget {
             ListTile(
               title: Text('Favourite Store', style: TextStyle(fontSize: 20)),
               tileColor: Colors.white10,
-              leading: Icon(Icons.more),
+              leading: Icon(
+                Icons.favorite,
+                color: Colors.black,
+              ),
               onTap: () => {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
                     builder: (BuildContext context) => FavStore()))
@@ -94,7 +115,7 @@ class MyDrawer extends StatelessWidget {
             ListTile(
               title: Text('Cart', style: TextStyle(fontSize: 20)),
               tileColor: Colors.white10,
-              leading: Icon(Icons.contact_support),
+              leading: Icon(Icons.shopping_cart, color: Colors.black),
               onTap: () => {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
                     builder: (BuildContext context) => Cart()))
@@ -104,7 +125,10 @@ class MyDrawer extends StatelessWidget {
             ListTile(
               title: Text('Order Enquiry', style: TextStyle(fontSize: 20)),
               tileColor: Colors.white10,
-              leading: Icon(Icons.contact_support),
+              leading: Icon(
+                Icons.message,
+                color: Colors.black,
+              ),
               onTap: () => {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
                     builder: (BuildContext context) => OrderEnquiry()))
@@ -114,7 +138,10 @@ class MyDrawer extends StatelessWidget {
             ListTile(
               title: Text('Pending Order', style: TextStyle(fontSize: 20)),
               tileColor: Colors.white10,
-              leading: Icon(Icons.contact_support),
+              leading: Icon(
+                Icons.pending_actions,
+                color: Colors.black,
+              ),
               onTap: () => {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
                     builder: (BuildContext context) => PendingOrder()))
@@ -125,7 +152,10 @@ class MyDrawer extends StatelessWidget {
               title:
                   Text('Outstanding Balance', style: TextStyle(fontSize: 20)),
               tileColor: Colors.white10,
-              leading: Icon(Icons.contact_support),
+              leading: Icon(
+                Icons.account_balance_wallet_rounded,
+                color: Colors.black,
+              ),
               onTap: () => {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
                     builder: (BuildContext context) => Outstanding()))
@@ -135,7 +165,10 @@ class MyDrawer extends StatelessWidget {
             ListTile(
               title: Text('Print Invoice', style: TextStyle(fontSize: 20)),
               tileColor: Colors.white10,
-              leading: Icon(Icons.contact_support),
+              leading: Icon(
+                Icons.print,
+                color: Colors.black,
+              ),
               onTap: () => {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
                     builder: (BuildContext context) => PrintInvoice()))
@@ -145,7 +178,10 @@ class MyDrawer extends StatelessWidget {
             ListTile(
               title: Text('Certificate', style: TextStyle(fontSize: 20)),
               tileColor: Colors.white10,
-              leading: Icon(Icons.contact_support),
+              leading: Icon(
+                Icons.star_rate,
+                color: Colors.black,
+              ),
               onTap: () => {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
                     builder: (BuildContext context) => Certificate()))
@@ -155,7 +191,10 @@ class MyDrawer extends StatelessWidget {
             ListTile(
               title: Text('Ledger', style: TextStyle(fontSize: 20)),
               tileColor: Colors.white10,
-              leading: Icon(Icons.contact_support),
+              leading: Icon(
+                Icons.book,
+                color: Colors.black,
+              ),
               onTap: () => {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
                     builder: (BuildContext context) => Ledger()))
@@ -165,41 +204,26 @@ class MyDrawer extends StatelessWidget {
             ListTile(
               title: Text('Sales History', style: TextStyle(fontSize: 20)),
               tileColor: Colors.white10,
-              leading: Icon(Icons.contact_support),
+              leading: Icon(
+                Icons.stacked_line_chart,
+                color: Colors.black,
+              ),
               onTap: () => {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
                     builder: (BuildContext context) => SalesHistory()))
               },
             ),
 
-            // Divider(
-            //     thickness:2,
-            //     color: Colors.deepPurpleAccent[300],
-            // ),
-
-            ListTile(
-              title: Text('Change Password', style: TextStyle(fontSize: 20)),
-              tileColor: Colors.white10,
-              leading: Icon(Icons.contact_support),
-              onTap: () => {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (BuildContext context) => ChangePassword()))
-              },
-            ),
-
-            ListTile(
-              title: Text('Log Out', style: TextStyle(fontSize: 20)),
-              tileColor: Colors.blue,
-              leading: Icon(Icons.contact_support),
-              onTap: () => {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (BuildContext context) => Dropdown()))
-              },
-            ),
             //ListTiles Ends Here
           ],
         ),
       ),
     );
+  }
+
+  void getUserName() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    userName = pref.getString('usernamekey')!;
+    setState(() {});
   }
 }

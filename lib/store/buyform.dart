@@ -92,37 +92,50 @@ class _BuyFormState extends State<BuyForm> {
                   ),
                 ),
                 SizedBox(height: size.height * 0.01),
+
                 Container(
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(horizontal: 50),
-                  child: DropdownButton<String>(
-                    isExpanded: true,
-                    icon: Icon(Icons.arrow_drop_down_circle),
-                    style: TextStyle(color: Colors.green, fontSize: 22),
-                    // hint: Text("Select item"),
-                    items: [
-                      DropdownMenuItem<String>(
-                        child: Text('Item 1'),
-                        value: 'one',
-                      ),
-                      DropdownMenuItem<String>(
-                        child: Text('Item 2'),
-                        value: 'two',
-                      ),
-                      DropdownMenuItem<String>(
-                        child: Text('Item 3'),
-                        value: 'three',
-                      ),
-                    ],
-                    onChanged: (String? value) {
-                      setState(() {
-                        _value = value;
-                      });
-                    },
-                    hint: Text('Select Item'),
-                    value: _value,
+                  child: TextFormField(
+                    readOnly: true,
+                    controller: myController1..text = args,
+                    // controller: passwordText,
+                    style: TextStyle(fontSize: 18),
+                    decoration: InputDecoration(labelText: "category"),
                   ),
                 ),
+                // Container(
+                //   alignment: Alignment.center,
+                //   margin: EdgeInsets.symmetric(horizontal: 50),
+                //   child: DropdownButton<String>(
+                //     isExpanded: true,
+                //     icon: Icon(Icons.arrow_drop_down_circle),
+                //     style: TextStyle(color: Colors.green, fontSize: 22),
+                //     // hint: Text("Select item"),
+                //     items: [
+                //       DropdownMenuItem<String>(
+                //         child: Text('Item 1'),
+                //         value: 'one',
+                //       ),
+                //       DropdownMenuItem<String>(
+                //         child: Text('Item 2'),
+                //         value: 'two',
+                //       ),
+                //       DropdownMenuItem<String>(
+                //         child: Text('Item 3'),
+                //         value: 'three',
+                //       ),
+                //     ],
+                //     onChanged: (String? value) {
+                //       setState(() {
+                //         _value = value;
+                //       });
+                //     },
+                //     hint: Text('Select Item'),
+                //     value: _value,
+                //   ),
+                // ),
+
                 SizedBox(height: size.height * 0.01),
                 Container(
                   alignment: Alignment.center,

@@ -1,15 +1,63 @@
 import 'package:flutter/material.dart';
 import 'package:orderapp/bottomnavigation.dart';
 import 'package:orderapp/drawer.dart';
+import 'package:orderapp/drawerpages/changepassword.dart';
+import 'package:orderapp/loginscreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Dashboard extends StatelessWidget {
+class Dashboard extends StatefulWidget {
+  @override
+  _DashboardState createState() => _DashboardState();
+}
+
+class _DashboardState extends State<Dashboard> {
+  String userName = "";
+  @override
+  void initState() {
+    super.initState();
+    getUserName();
+  }
+
   @override
   Widget build(BuildContext context) {
+    void handleClick(String value) {
+      switch (value) {
+        case 'Change Password':
+          {
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (BuildContext context) => ChangePassword()));
+          }
+          break;
+        case 'Logout':
+          {
+            logoutUser();
+            // {
+            //   Navigator.of(context).pushReplacement(MaterialPageRoute(
+            //       builder: (BuildContext context) => LoginScreen()));
+            // }
+          }
+          break;
+      }
+    }
+
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueAccent[700],
         title: const Text('DashBoard'),
+        actions: <Widget>[
+          PopupMenuButton<String>(
+            onSelected: handleClick,
+            itemBuilder: (BuildContext context) {
+              return {'Change Password', 'Logout'}.map((String choice) {
+                return PopupMenuItem<String>(
+                  value: choice,
+                  child: Text(choice),
+                );
+              }).toList();
+            },
+          ),
+        ],
       ),
 
       // //BOTTOM NAVIGATION
@@ -21,31 +69,14 @@ class Dashboard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            // Padding(
-            //   padding: const EdgeInsets.all(12.0),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.center,
-            //     children: <Widget>[
-            //       // Icon(
-            //       //   Icons.menu,
-            //       //   color: Colors.white,
-            //       //   size: 52.0,
-            //       // ),
-            //       // Image.asset(
-            //       //   "images/assets/image.png",
-            //       //   width: 52.0,
-            //       // )
-            //     ],
-            //   ),
-            // ),
             Padding(
               padding: const EdgeInsets.all(18),
               child: Text(
                 // "Welcome APL ORDER, \nSelect an option",
-                "Welcome User",
+                "Welcome $userName",
                 style: TextStyle(
                     color: Colors.black,
-                    fontSize: 28.0,
+                    fontSize: 22.0,
                     fontWeight: FontWeight.bold),
                 textAlign: TextAlign.start,
               ),
@@ -83,7 +114,7 @@ class Dashboard extends StatelessWidget {
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 18),
+                                    fontSize: 15),
                               ),
                               SizedBox(
                                 height: size.height * 0.01,
@@ -126,7 +157,7 @@ class Dashboard extends StatelessWidget {
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 18.0),
+                                    fontSize: 15.0),
                               ),
                               SizedBox(
                                 height: size.height * 0.01,
@@ -169,7 +200,7 @@ class Dashboard extends StatelessWidget {
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 18.0),
+                                    fontSize: 15.0),
                               ),
                               SizedBox(
                                 height: size.height * 0.01,
@@ -212,7 +243,7 @@ class Dashboard extends StatelessWidget {
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 18.0),
+                                      fontSize: 15.0),
                                 ),
                                 SizedBox(
                                   height: 5.0,
@@ -240,5 +271,19 @@ class Dashboard extends StatelessWidget {
 
       drawer: MyDrawer(),
     );
+  }
+
+  void getUserName() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    userName = pref.getString('usernamekey')!;
+    setState(() {});
+  }
+
+//for logout button
+  void logoutUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (BuildContext context) => LoginScreen()));
   }
 }

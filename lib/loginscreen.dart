@@ -1,7 +1,8 @@
 // import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:orderapp/dashboard.dart';
-
+import 'package:orderapp/drawerpages/color.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'ApiService.dart';
 
 // import 'ApiService.dart';
@@ -17,8 +18,14 @@ class _LoginScreenState extends State<LoginScreen> {
   bool changeButton = false;
   final emailText = TextEditingController();
   final passwordText = TextEditingController();
-
+  bool _obscureText = true;
   final _formKey = GlobalKey<FormState>();
+
+  void _toggle() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
 
   //:API Call
   callLoginApi(BuildContext context) async {
@@ -77,9 +84,9 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return Material(
-      color: Colors.white,
-      child: SingleChildScrollView(
+    return Scaffold(
+      backgroundColor: white,
+      body: SingleChildScrollView(
         child: Form(
           key: _formKey,
           child: Column(
@@ -115,7 +122,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: TextFormField(
                   controller: emailText,
                   style: TextStyle(fontSize: 20),
-                  decoration: InputDecoration(labelText: "Username"),
+                  decoration: InputDecoration(
+                    labelText: "email",
+                    // prefixIcon: Icon(Icons.search),
+                    suffixIcon: Icon(Icons.email),
+                    // border: InputBorder.none,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                  ),
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Username cannot be empty";
@@ -135,7 +150,19 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: TextFormField(
                   controller: passwordText,
                   style: TextStyle(fontSize: 20),
-                  decoration: InputDecoration(labelText: "Password"),
+                  decoration: InputDecoration(
+                    labelText: "Password",
+                    suffixIcon: IconButton(
+                      icon: Icon(Icons.visibility_off_outlined),
+                      onPressed: () {
+                        _toggle();
+                      },
+                    ),
+                    // border: InputBorder.none,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                  ),
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Password cannot be empty";
@@ -144,7 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     }
                     return null;
                   },
-                  obscureText: true,
+                  obscureText: _obscureText,
                 ),
               ),
               Container(
@@ -164,6 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   onTap: () {
                     callLoginApi(context);
+                    setUserName(emailText.text);
                   },
                   // onTap: () async {
                   //   print('posting data');
@@ -195,5 +223,10 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> setUserName(userName) async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString('usernamekey', userName);
   }
 }
