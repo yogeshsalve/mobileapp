@@ -12,7 +12,13 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  String getData = "";
   String userName = "";
+  String id = "";
+  String username = "";
+  String email = "";
+  String company = "";
+  String address = "";
   @override
   void initState() {
     super.initState();
@@ -20,7 +26,6 @@ class _ProfileState extends State<Profile> {
     callLoginApi(context);
   }
 
-  var a = "";
 //////////////////////////////////
 
   callLoginApi(BuildContext context) async {
@@ -33,8 +38,14 @@ class _ProfileState extends State<Profile> {
       },
     ).then((value) {
       if (value.status == "200") {
-        a = value.status!;
-        setState(() {});
+        setState(() {
+          getData = value.address.toString();
+          id = value.id.toString();
+          username = value.username.toString();
+          email = value.email.toString();
+          company = value.company.toString();
+          address = value.address.toString();
+        });
         // Navigator.push(
         //     context, MaterialPageRoute(builder: (context) => Dashboard()));
       } else {}
@@ -102,7 +113,7 @@ class _ProfileState extends State<Profile> {
                                   child: Column(
                                     children: <Widget>[
                                       Text(
-                                        "Monthly Sale",
+                                        'Monthly Sale',
                                         style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 22.0,
@@ -174,11 +185,10 @@ class _ProfileState extends State<Profile> {
                       height: 10.0,
                     ),
                     Text(
-                      'Street:  B/21, Royal Indl Estate, Wadala\n'
-                      'City:   Mumbai\n'
-                      'State/province/area:    Maharashtra\n'
-                      'Phone number  02224121923\n'
-                      'Zip code  400031\n',
+                      'name: $username\n'
+                      'email: $email\n'
+                      'address: $address\n'
+                      'company: $company\n',
                       style: TextStyle(
                         fontSize: 22.0,
                         fontStyle: FontStyle.italic,

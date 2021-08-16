@@ -5,9 +5,6 @@ import 'package:orderapp/drawerpages/color.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'ApiService.dart';
 
-// import 'ApiService.dart';
-
-//new login screen
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -67,18 +64,6 @@ class _LoginScreenState extends State<LoginScreen> {
       });
     }
   }
-
-  // moveToDashboard(BuildContext context) async {
-  //   // if (_formKey.currentState!.validate()) {
-  //   //   setState(() {
-  //   //     changeButton = true;
-  //   //   });
-
-  //     await Future.delayed(Duration(seconds: 1));
-  //     Navigator.of(context).pushReplacement(
-  //         MaterialPageRoute(builder: (BuildContext context) => Dashboard()));
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -158,7 +143,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         _toggle();
                       },
                     ),
-                    // border: InputBorder.none,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),

@@ -56,7 +56,7 @@ class _StoreState extends State<Store> {
               "images/container.png",
               // fit: BoxFit.cover,
 
-              height: size.height * 0.3,
+              height: size.height * 0.2,
               width: size.height * 0.65,
             ),
           ),
@@ -123,7 +123,7 @@ class _StoreState extends State<Store> {
                               ),
                             },
                             child: Container(
-                              height: size.height * 0.07,
+                              height: size.height * 0.09,
                               // width: size.height * 0.65,
                               child: Text(
                                 getList[index].toString(),

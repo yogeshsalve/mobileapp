@@ -77,21 +77,21 @@ class _BuyFormState extends State<BuyForm> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 SizedBox(height: size.height * 0.03),
-                Container(
-                  color: Colors.white,
-                  alignment: Alignment.centerLeft,
-                  padding: EdgeInsets.symmetric(horizontal: 40),
-                  child: Center(
-                    child: Text(
-                      args,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF2661FA),
-                          fontSize: 22),
-                    ),
-                  ),
-                ),
-                SizedBox(height: size.height * 0.01),
+                // Container(
+                //   color: Colors.white,
+                //   alignment: Alignment.centerLeft,
+                //   padding: EdgeInsets.symmetric(horizontal: 40),
+                //   child: Center(
+                //     child: Text(
+                //       args,
+                //       style: TextStyle(
+                //           fontWeight: FontWeight.bold,
+                //           color: Color(0xFF2661FA),
+                //           fontSize: 22),
+                //     ),
+                //   ),
+                // ),
+                // SizedBox(height: size.height * 0.01),
 
                 Container(
                   alignment: Alignment.center,
@@ -104,37 +104,6 @@ class _BuyFormState extends State<BuyForm> {
                     decoration: InputDecoration(labelText: "category"),
                   ),
                 ),
-                // Container(
-                //   alignment: Alignment.center,
-                //   margin: EdgeInsets.symmetric(horizontal: 50),
-                //   child: DropdownButton<String>(
-                //     isExpanded: true,
-                //     icon: Icon(Icons.arrow_drop_down_circle),
-                //     style: TextStyle(color: Colors.green, fontSize: 22),
-                //     // hint: Text("Select item"),
-                //     items: [
-                //       DropdownMenuItem<String>(
-                //         child: Text('Item 1'),
-                //         value: 'one',
-                //       ),
-                //       DropdownMenuItem<String>(
-                //         child: Text('Item 2'),
-                //         value: 'two',
-                //       ),
-                //       DropdownMenuItem<String>(
-                //         child: Text('Item 3'),
-                //         value: 'three',
-                //       ),
-                //     ],
-                //     onChanged: (String? value) {
-                //       setState(() {
-                //         _value = value;
-                //       });
-                //     },
-                //     hint: Text('Select Item'),
-                //     value: _value,
-                //   ),
-                // ),
 
                 SizedBox(height: size.height * 0.01),
                 Container(
@@ -168,11 +137,12 @@ class _BuyFormState extends State<BuyForm> {
                     value: _value,
                   ),
                 ),
-                SizedBox(height: size.height * 0.1),
+                SizedBox(height: size.height * 0.05),
                 Container(
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(horizontal: 50),
                   child: TextFormField(
+                    readOnly: true,
                     controller: myController1,
                     // controller: passwordText,
                     style: TextStyle(fontSize: 18),
