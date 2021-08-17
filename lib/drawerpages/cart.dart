@@ -65,6 +65,17 @@ class _CartState extends State<Cart> {
         title: const Text('Cart'),
       ),
       body: getBody(),
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: Colors.orangeAccent[400],
+        foregroundColor: Colors.black,
+        onPressed: () {},
+        icon: Icon(Icons.check_box),
+        label: Text(
+          "Checkout",
+          style: TextStyle(),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       drawer: MyDrawer(),
       bottomNavigationBar: BottomNavigation(),
     );
@@ -89,6 +100,7 @@ class _CartState extends State<Cart> {
     return Padding(
       padding: const EdgeInsets.all(6.0),
       child: Card(
+        color: Colors.indigo[100],
         child: InkWell(
           onTap: () => {
             Navigator.of(context).pushReplacement(
@@ -118,10 +130,13 @@ class _CartState extends State<Cart> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
+                      SizedBox(
+                        height: 20,
+                      ),
                       Text(
                         "Item :" + " " + productOrder.toString(),
                         style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
+                            fontSize: 15, fontWeight: FontWeight.bold),
                       ),
                       SizedBox(
                         height: 10,

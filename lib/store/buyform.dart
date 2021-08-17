@@ -11,7 +11,7 @@ class BuyForm extends StatefulWidget {
   _BuyFormState createState() => _BuyFormState();
 }
 
-String _value = "";
+// String? _value;
 
 class _BuyFormState extends State<BuyForm> {
   // get myController => null;
@@ -19,7 +19,7 @@ class _BuyFormState extends State<BuyForm> {
   final myController2 = TextEditingController();
   final myController3 = TextEditingController();
   final myController4 = TextEditingController();
-  final myController5 = TextEditingController();
+  // final myController5 = TextEditingController();
 
   postData() async {
     //print('function executed successfully..!!');
@@ -129,13 +129,13 @@ class _BuyFormState extends State<BuyForm> {
                         value: 'three',
                       ),
                     ],
-                    onChanged: (String? value) {
-                      setState(() {
-                        _value = value!;
-                      });
-                    },
+                    // onChanged: (String? value) {
+                    //   setState(() {
+                    //     _value = value!;
+                    //   });
+                    // },
                     hint: Text('Select Item'),
-                    value: _value,
+                    // value: "1",
                   ),
                 ),
                 SizedBox(height: size.height * 0.05),
@@ -144,7 +144,7 @@ class _BuyFormState extends State<BuyForm> {
                   margin: EdgeInsets.symmetric(horizontal: 50),
                   child: TextFormField(
                     readOnly: true,
-                    controller: myController5..text = _value,
+                    // controller: myController5..text = _value,
                     // controller: passwordText,
                     style: TextStyle(fontSize: 18),
                     decoration: InputDecoration(labelText: "Item Name"),
