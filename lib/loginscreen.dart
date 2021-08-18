@@ -209,7 +209,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 margin: EdgeInsets.symmetric(horizontal: 40, vertical: 5),
                 child: InkWell(
                   child: Text(
-                    "Not Registered? SignUp Here",
+                    "SignUp Here",
                     style: TextStyle(fontSize: 22, color: Color(0XFF2661FA)),
                   ),
                   onTap: () {
