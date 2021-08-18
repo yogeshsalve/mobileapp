@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:orderapp/dashboard.dart';
 import 'package:orderapp/drawerpages/color.dart';
+import 'package:orderapp/register.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'ApiService.dart';
 
@@ -200,6 +201,21 @@ class _LoginScreenState extends State<LoginScreen> {
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18)),
                   ),
+                ),
+              ),
+              SizedBox(height: size.height * 0.03),
+              Container(
+                alignment: Alignment.center,
+                margin: EdgeInsets.symmetric(horizontal: 40, vertical: 5),
+                child: InkWell(
+                  child: Text(
+                    "Not Registered? SignUp Here",
+                    style: TextStyle(fontSize: 22, color: Color(0XFF2661FA)),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (BuildContext context) => Register()));
+                  },
                 ),
               ),
             ],

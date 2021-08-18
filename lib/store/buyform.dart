@@ -24,13 +24,14 @@ class _BuyFormState extends State<BuyForm> {
   postData() async {
     //print('function executed successfully..!!');
     try {
-      var response = await http
-          .post(Uri.parse("http://yogeshsalve.com/API/addtocart.php"), body: {
-        "item_name": myController1.text,
-        "available": myController2.text,
-        "uom": myController3.text,
-        "quantity": myController4.text
-      });
+      var response = await http.post(
+          Uri.parse("http://yogeshsalve.com/API/products/cart.php"),
+          body: {
+            "item_name": myController1.text,
+            "available": myController2.text,
+            "uom": myController3.text,
+            "quantity": myController4.text
+          });
       print(response.body);
     } catch (e) {
       print(e);
@@ -143,8 +144,9 @@ class _BuyFormState extends State<BuyForm> {
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(horizontal: 50),
                   child: TextFormField(
-                    readOnly: true,
-                    // controller: myController5..text = _value,
+                    readOnly: false,
+                    controller: myController1,
+                    //  controller: myController1..text = _value,
                     // controller: passwordText,
                     style: TextStyle(fontSize: 18),
                     decoration: InputDecoration(labelText: "Item Name"),

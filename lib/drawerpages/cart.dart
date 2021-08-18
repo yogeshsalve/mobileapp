@@ -1,15 +1,9 @@
-//import 'dart:js';
-
-//import 'dart:js';
-
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:orderapp/bottomnavigation.dart';
 import 'package:orderapp/drawer.dart';
+import 'package:orderapp/placeorder.dart';
 import 'package:orderapp/store/updatecart.dart';
-//import 'package:orderapp/splashscreen.dart';
-
 import 'package:http/http.dart' as http;
 
 class Cart extends StatefulWidget {
@@ -19,6 +13,7 @@ class Cart extends StatefulWidget {
 
 class _CartState extends State<Cart> {
   List products = [];
+  var delid = "";
 
   bool isLoading = false;
 
@@ -29,7 +24,7 @@ class _CartState extends State<Cart> {
   }
 
   fetchProduct() async {
-    var url = Uri.parse('http://yogeshsalve.com/API/addtocart.php');
+    var url = Uri.parse('https://yogeshsalve.com/API/products/cart.php');
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var items = jsonDecode(response.body)['result'];
@@ -44,18 +39,22 @@ class _CartState extends State<Cart> {
       });
   }
 
-  // List getList = [];
-
-  // Future fetchData() async {
-  //   http.Response response;
-  //   response = await http.get(url);
-
-  //   if (response.statusCode == 200) {
-  //     setState(() {
-  //       getList = json.decode(response.body);
-  //     });
-  //   }
-  // }
+  deleteData() async {
+    try {
+      var response = await http.post(
+          Uri.parse("https://yogeshsalve.com/API/products/deletecart.php"),
+          body: {
+            "id": delid,
+          });
+      print(response.body);
+      if (response.statusCode == 200) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Cart()));
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,11 +63,15 @@ class _CartState extends State<Cart> {
         backgroundColor: Colors.blueAccent[700],
         title: const Text('Cart'),
       ),
+      //body: Container(),
       body: getBody(),
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Colors.orangeAccent[400],
         foregroundColor: Colors.black,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => PlaceOrder()));
+        },
         icon: Icon(Icons.check_box),
         label: Text(
           "Checkout",
@@ -93,21 +96,29 @@ class _CartState extends State<Cart> {
 
   Widget getCard(item) {
     Size size = MediaQuery.of(context).size;
+    var id = item['id'];
     var productOrder = item['item_name'];
-    // var available = item['available'];
-    // var uom = item['uom'];
     var quantity = item['quantity'];
+    var available = item['available'];
+
+    List<String> names = [
+      id.toString(),
+      productOrder.toString(),
+      quantity.toString(),
+      available.toString(),
+    ];
+
     return Padding(
       padding: const EdgeInsets.all(6.0),
       child: Card(
         color: Colors.indigo[100],
         child: InkWell(
           onTap: () => {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (BuildContext context) => UpdateCart(),
-              ),
-            ),
+            // Navigator.of(context).pushReplacement(
+            //   MaterialPageRoute(
+            //     builder: (BuildContext context) => UpdateCart(),
+            //   ),
+            // ),
           },
           // elevation: 50,
           child: Padding(
@@ -115,17 +126,6 @@ class _CartState extends State<Cart> {
             child: ListTile(
               title: Row(
                 children: <Widget>[
-                  // Container(
-                  //   width: 60,
-                  //   height: 60,
-                  //   decoration: BoxDecoration(
-                  //       color: primary,
-                  //       borderRadius: BorderRadius.circular(60 / 2),
-                  //       image: DecorationImage(
-                  //           fit: BoxFit.cover,
-                  //           image: NetworkImage(
-                  //               "https://images.unsplash.com/photo-1628038340278-9818521002ac?ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDl8dG93SlpGc2twR2d8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"))),
-                  // ),
                   SizedBox(width: size.width * 0.03),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -134,35 +134,21 @@ class _CartState extends State<Cart> {
                         height: 20,
                       ),
                       Text(
-                        "Item :" + " " + productOrder.toString(),
+                        "Product :" + " " + productOrder.toString(),
                         style: TextStyle(
                             fontSize: 15, fontWeight: FontWeight.bold),
                       ),
                       SizedBox(
                         height: 10,
                       ),
-                      // Text(
-                      //   available.toString(),
-                      //   style: TextStyle(fontSize: 17),
-                      // ),
-                      // SizedBox(
-                      //   height: 10,
-                      // ),
-                      // Text(
-                      //   uom.toString(),
-                      //   style: TextStyle(fontSize: 17),
-                      // ),
-                      // SizedBox(
-                      //   height: 10,
-                      // ),
                       Text(
-                        quantity.toString(),
-                        style: TextStyle(fontSize: 17),
+                        "Quantity :" + " " + quantity,
+                        style: TextStyle(
+                            fontSize: 17, fontWeight: FontWeight.bold),
                       ),
                       SizedBox(
                         height: 10,
                       ),
-
                       Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
@@ -172,10 +158,9 @@ class _CartState extends State<Cart> {
                             ElevatedButton.icon(
                               icon: Icon(Icons.edit),
                               onPressed: () {
-                                Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            UpdateCart()));
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        UpdateCart(value: names)));
                               },
                               label: Text('Edit'),
                               style: ElevatedButton.styleFrom(
@@ -188,7 +173,37 @@ class _CartState extends State<Cart> {
                             ),
                             ElevatedButton.icon(
                               icon: Icon(Icons.delete),
-                              onPressed: () {},
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                    title: const Text('Alert'),
+                                    content: const Text('Are You Sure..?'),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(context, 'Cancel'),
+                                        child: const Text('Cancel'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            delid = id;
+                                            deleteData();
+                                          });
+                                        },
+                                        child: const Text('OK'),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                                //print(names[0]);
+                                // setState(() {
+                                //   delid = id;
+                                //   deleteData();
+                                // });
+                              },
                               label: Text('Delete'),
                               style: ElevatedButton.styleFrom(
                                 shape: StadiumBorder(),

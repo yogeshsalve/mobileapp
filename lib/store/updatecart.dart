@@ -1,21 +1,67 @@
 import 'package:flutter/material.dart';
 import 'package:orderapp/bottomnavigation.dart';
-// import 'package:orderapp/bottomnavigation.dart';
-// import 'package:orderapp/drawerpages/cart.dart';
-// import 'package:orderapp/drawerpages/store.dart';
-// import 'package:http/http.dart' as http;
+import 'package:http/http.dart' as http;
+import 'package:orderapp/drawerpages/cart.dart';
 
+// ignore: must_be_immutable
 class UpdateCart extends StatefulWidget {
-  const UpdateCart({Key? key}) : super(key: key);
+  List value;
+
+  UpdateCart({Key? key, required this.value}) : super(key: key);
 
   @override
-  _UpdateCartState createState() => _UpdateCartState();
+  _UpdateCartState createState() => _UpdateCartState(value);
 }
 
 class _UpdateCartState extends State<UpdateCart> {
+  // final myController1 = TextEditingController();
+  final myController1 = TextEditingController();
+  final myController2 = TextEditingController();
+  final myController3 = TextEditingController();
+  final myController4 = TextEditingController();
+  final myController5 = TextEditingController();
+
+  List value;
+
+  postData() async {
+    try {
+      var response = await http.post(
+          Uri.parse("https://yogeshsalve.com/API/products/updatecart.php"),
+          body: {
+            "id": myController1.text,
+            "quantity": myController3.text,
+          });
+      print(response.body);
+      if (response.statusCode == 200) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Cart()));
+      } else {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text('Alert'),
+            content: const Text('Try again...'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'Ok'),
+                child: const Text('Ok'),
+              ),
+            ],
+          ),
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  final _formKey = GlobalKey<FormState>();
+  _UpdateCartState(this.value);
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    var qty = value[2];
     // final args = ModalRoute.of(context)!.settings.arguments.toString();
     return Scaffold(
       appBar: AppBar(
@@ -32,77 +78,106 @@ class _UpdateCartState extends State<UpdateCart> {
       bottomNavigationBar: BottomNavigation(),
       body: Material(
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(height: size.height * 0.03),
-              Container(
-                alignment: Alignment.center,
-                margin: EdgeInsets.symmetric(horizontal: 50),
-                child: TextFormField(
-                  // controller: myController1,
-                  // controller: passwordText,
-                  style: TextStyle(fontSize: 18),
-                  decoration: InputDecoration(labelText: "Item Name"),
-                ),
-              ),
-              //availabe
-              Container(
-                alignment: Alignment.center,
-                margin: EdgeInsets.symmetric(horizontal: 50),
-                child: TextFormField(
-                  // controller: myController2,
-                  // controller: passwordText,
-                  style: TextStyle(fontSize: 20),
-                  decoration: InputDecoration(labelText: "Available"),
-                ),
-              ),
-              //uom
-              Container(
-                alignment: Alignment.center,
-                margin: EdgeInsets.symmetric(horizontal: 50),
-                child: TextFormField(
-                  // controller: myController2,
-                  // controller: passwordText,
-                  style: TextStyle(fontSize: 20),
-                  decoration: InputDecoration(labelText: "Available"),
-                ),
-              ),
-              //quantity
-              Container(
-                alignment: Alignment.center,
-                margin: EdgeInsets.symmetric(horizontal: 50),
-                child: TextFormField(
-                  // controller: myController2,
-                  // controller: passwordText,
-                  style: TextStyle(fontSize: 20),
-                  decoration: InputDecoration(labelText: "Available"),
-                ),
-              ),
-
-              SizedBox(height: size.height * 0.03),
-              Material(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(10),
-                child: InkWell(
-                  // onTap: () {
-                  //   // Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  //   //     builder: (BuildContext context) => Cart()));
-                  //   cart(context);
-                  // },
-                  child: Container(
-                    width: 150,
-                    height: 50,
-                    alignment: Alignment.center,
-                    child: Text("Update",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18)),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(height: size.height * 0.03),
+                Container(
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.symmetric(horizontal: 50),
+                  child: Visibility(
+                    visible: false,
+                    child: TextFormField(
+                      readOnly: true,
+                      controller: myController1..text = value[0],
+                      // controller: passwordText,
+                      style: TextStyle(fontSize: 18),
+                      decoration: InputDecoration(labelText: 'Id'),
+                    ),
                   ),
                 ),
-              ),
-            ],
+                //availabe
+                Container(
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.symmetric(horizontal: 50),
+                  child: TextFormField(
+                    readOnly: true,
+                    controller: myController2..text = value[1],
+                    // controller: passwordText,
+                    style: TextStyle(fontSize: 20),
+                    decoration: InputDecoration(labelText: 'Product Name'),
+                  ),
+                ),
+                //uom
+                Container(
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.symmetric(horizontal: 50),
+                  child: TextFormField(
+                    readOnly: true,
+                    controller: myController4..text = value[3],
+                    // controller: passwordText,
+                    style: TextStyle(fontSize: 20),
+                    decoration: InputDecoration(labelText: 'Available'),
+                  ),
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.symmetric(horizontal: 50),
+                  child: TextFormField(
+                    readOnly: true,
+                    controller: myController5..text = qty,
+                    //controller: myController3,
+                    style: TextStyle(fontSize: 20),
+                    decoration: InputDecoration(labelText: 'Old Quantity'),
+                    // onChanged: (value) {
+                    //   setState(() {
+                    //     value = qty;
+                    //   });
+                    // },
+                  ),
+                ),
+                //quantity
+                Container(
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.symmetric(horizontal: 50),
+                  child: TextFormField(
+                    //controller: myController3..text = qty,
+                    controller: myController3,
+                    style: TextStyle(fontSize: 20),
+                    decoration:
+                        InputDecoration(labelText: 'Enter new Quantity'),
+                    // onChanged: (value) {
+                    //   setState(() {
+                    //     value = qty;
+                    //   });
+                    // },
+                  ),
+                ),
+                SizedBox(height: size.height * 0.03),
+                Material(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(10),
+                  child: InkWell(
+                    onTap: () {
+                      postData();
+                      //print('hello');
+                    },
+                    child: Container(
+                      width: 150,
+                      height: 50,
+                      alignment: Alignment.center,
+                      child: Text("Update",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18)),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
