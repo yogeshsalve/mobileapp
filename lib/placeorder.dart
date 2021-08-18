@@ -68,7 +68,7 @@ class _PlaceOrderState extends State<PlaceOrder> {
             child: Align(
               alignment: Alignment.center,
               child: Text(
-                "Click Below to Order",
+                "Order Details",
                 style: TextStyle(
                   fontSize: 21,
                   fontWeight: FontWeight.bold,

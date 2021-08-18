@@ -83,7 +83,7 @@ class _RegisterState extends State<Register> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigation(),
+      // bottomNavigationBar: BottomNavigation(),
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
@@ -95,7 +95,7 @@ class _RegisterState extends State<Register> {
                 child: Image.asset(
                   'images/register.png',
                   fit: BoxFit.cover,
-                  height: size.height * 0.3,
+                  height: size.height * 0.2,
                 ),
               ),
 
@@ -121,9 +121,9 @@ class _RegisterState extends State<Register> {
                 margin: EdgeInsets.symmetric(horizontal: 40),
                 child: TextFormField(
                   controller: myController1,
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(fontSize: 18),
                   decoration: InputDecoration(
-                    labelText: "username",
+                    labelText: "Username",
                     // prefixIcon: Icon(Icons.search),
                     suffixIcon: Icon(Icons.person),
                     // border: InputBorder.none,
@@ -147,7 +147,7 @@ class _RegisterState extends State<Register> {
                 margin: EdgeInsets.symmetric(horizontal: 40),
                 child: TextFormField(
                   controller: myController2,
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(fontSize: 18),
                   decoration: InputDecoration(
                     labelText: "Email",
                     // prefixIcon: Icon(Icons.search),
@@ -174,7 +174,7 @@ class _RegisterState extends State<Register> {
                 margin: EdgeInsets.symmetric(horizontal: 40),
                 child: TextFormField(
                   controller: myController3,
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(fontSize: 18),
                   decoration: InputDecoration(
                     labelText: "Password",
                     suffixIcon: IconButton(
@@ -207,11 +207,11 @@ class _RegisterState extends State<Register> {
                 margin: EdgeInsets.symmetric(horizontal: 40),
                 child: TextFormField(
                   controller: myController4,
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(fontSize: 18),
                   decoration: InputDecoration(
                     labelText: "Company Name",
                     // prefixIcon: Icon(Icons.search),
-                    suffixIcon: Icon(Icons.email),
+                    suffixIcon: Icon(Icons.email_outlined),
                     // border: InputBorder.none,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
@@ -234,11 +234,11 @@ class _RegisterState extends State<Register> {
                 margin: EdgeInsets.symmetric(horizontal: 40),
                 child: TextFormField(
                   controller: myController5,
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(fontSize: 18),
                   decoration: InputDecoration(
                     labelText: "Address",
                     // prefixIcon: Icon(Icons.search),
-                    suffixIcon: Icon(Icons.email),
+                    suffixIcon: Icon(Icons.map),
                     // border: InputBorder.none,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
@@ -261,16 +261,17 @@ class _RegisterState extends State<Register> {
                 margin: EdgeInsets.symmetric(horizontal: 40),
                 child: TextFormField(
                   controller: myController6,
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(fontSize: 18),
                   decoration: InputDecoration(
                     labelText: "Contact No",
                     // prefixIcon: Icon(Icons.search),
-                    suffixIcon: Icon(Icons.email),
+                    suffixIcon: Icon(Icons.mobile_friendly),
                     // border: InputBorder.none,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                   ),
+                  keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Contact no. cannot be empty";
@@ -280,7 +281,7 @@ class _RegisterState extends State<Register> {
                 ),
               ),
 
-              SizedBox(height: size.height * 0.03),
+              SizedBox(height: size.height * 0.01),
               Material(
                 color: Colors.blue,
                 borderRadius: BorderRadius.circular(10),
