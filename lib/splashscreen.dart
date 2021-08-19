@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:orderapp/dashboard.dart';
 import 'dart:async';
 import 'package:orderapp/loginscreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Color color = Colors.white;
 
@@ -10,12 +12,14 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  String? userName;
   @override
   void initState() {
     super.initState();
+    getUserName();
     Timer(Duration(seconds: 3), () {
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (_) => LoginScreen()));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (_) => (userName == null ? LoginScreen() : Dashboard())));
     });
   }
 
@@ -55,5 +59,11 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       ),
     );
+  }
+
+  void getUserName() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    userName = pref.getString('usernamekey')!;
+    setState(() {});
   }
 }

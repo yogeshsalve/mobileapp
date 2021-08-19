@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:orderapp/bottomnavigation.dart';
 import 'package:orderapp/drawer.dart';
 import 'package:http/http.dart' as http;
+//import 'package:orderapp/drawerpages/cart.dart';
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:orderapp/store/buyform.dart';
 
@@ -14,6 +16,8 @@ class PlaceOrder extends StatefulWidget {
 }
 
 class _PlaceOrderState extends State<PlaceOrder> {
+  String? userName;
+  final myController = TextEditingController();
   String getData = '';
   // var url = Uri.parse('http://91weblessons.com/demo/api/mobile/api2.php');
   var url = Uri.parse('https://yogeshsalve.com/API/products/getcartorder.php');
@@ -30,12 +34,75 @@ class _PlaceOrderState extends State<PlaceOrder> {
     }
   }
 
+  postData() async {
+    try {
+      var response = await http.post(
+          Uri.parse("https://yogeshsalve.com/API/products/placeorder.php"),
+          body: {
+            "email": myController.text,
+          });
+      print(response.body);
+      var error = jsonDecode(response.body)['error'];
+      print(error);
+      if (error == "200") {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text('Alert'),
+            content: const Text('Order Placed Successfully..!!'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => BuyForm()));
+                },
+                child: const Text('Ok'),
+              ),
+            ],
+          ),
+        );
+      } else if (error == "400") {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text('Alert'),
+            content: const Text('Order Failed.. Try Again.'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'Ok'),
+                child: const Text('Ok'),
+              ),
+            ],
+          ),
+        );
+      } else {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text('Alert'),
+            content: const Text('Order Not Found'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'Ok'),
+                child: const Text('Ok'),
+              ),
+            ],
+          ),
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+    getUserName();
     fetchData();
   }
 
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -45,6 +112,20 @@ class _PlaceOrderState extends State<PlaceOrder> {
         title: const Text('Place Order'),
       ),
       drawer: MyDrawer(),
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: Colors.orangeAccent[400],
+        foregroundColor: Colors.black,
+        onPressed: () {
+          postData();
+          //print("Email Send Successfully...!!!");
+        },
+        icon: Icon(Icons.check_box),
+        label: Text(
+          "Send Email",
+          style: TextStyle(),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       bottomNavigationBar: BottomNavigation(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -68,7 +149,7 @@ class _PlaceOrderState extends State<PlaceOrder> {
             child: Align(
               alignment: Alignment.center,
               child: Text(
-                "Order Details",
+                "Click Below to Order",
                 style: TextStyle(
                   fontSize: 21,
                   fontWeight: FontWeight.bold,
@@ -142,8 +223,31 @@ class _PlaceOrderState extends State<PlaceOrder> {
                   );
                 },
               )),
+          Form(
+            key: _formKey,
+            child: Container(
+              alignment: Alignment.center,
+              margin: EdgeInsets.symmetric(horizontal: 50),
+              child: Visibility(
+                visible: true,
+                child: TextFormField(
+                  readOnly: true,
+                  controller: myController..text = userName!,
+                  // controller: passwordText,
+                  style: TextStyle(fontSize: 18),
+                  decoration: InputDecoration(labelText: 'Username'),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
+  }
+
+  void getUserName() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    userName = pref.getString('usernamekey')!;
+    setState(() {});
   }
 }

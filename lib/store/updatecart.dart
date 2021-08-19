@@ -66,6 +66,7 @@ class _UpdateCartState extends State<UpdateCart> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Update Cart"),
+        backgroundColor: Colors.blueAccent[700],
         automaticallyImplyLeading: true,
         // leading: IconButton(
         //   icon: Icon(Icons.arrow_back),

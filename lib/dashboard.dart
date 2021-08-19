@@ -282,7 +282,7 @@ class _DashboardState extends State<Dashboard> {
 //for logout button
   void logoutUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.clear();
+    prefs.remove('usernamekey');
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (BuildContext context) => LoginScreen()));
   }

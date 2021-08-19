@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:orderapp/bottomnavigation.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:orderapp/loginscreen.dart';
@@ -11,10 +10,7 @@ class Register extends StatefulWidget {
   _RegisterState createState() => _RegisterState();
 }
 
-// String? _value;
-
 class _RegisterState extends State<Register> {
-  // get myController => null;
   final myController1 = TextEditingController();
   final myController2 = TextEditingController();
   final myController3 = TextEditingController();
@@ -178,7 +174,9 @@ class _RegisterState extends State<Register> {
                   decoration: InputDecoration(
                     labelText: "Password",
                     suffixIcon: IconButton(
-                      icon: Icon(Icons.visibility_off_outlined),
+                      icon: Icon(_obscureText == true
+                          ? Icons.visibility_off_outlined
+                          : Icons.visibility_rounded),
                       onPressed: () {
                         _toggle();
                       },

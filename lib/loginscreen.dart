@@ -40,6 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
         },
       ).then((value) {
         if (value.error == "200") {
+          setUserName(emailText.text);
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => Dashboard()));
         } else {
@@ -139,7 +140,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   decoration: InputDecoration(
                     labelText: "Password",
                     suffixIcon: IconButton(
-                      icon: Icon(Icons.visibility_off_outlined),
+                      icon: Icon(_obscureText == true
+                          ? Icons.visibility_off_outlined
+                          : Icons.visibility_rounded),
                       onPressed: () {
                         _toggle();
                       },
@@ -176,7 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   onTap: () {
                     callLoginApi(context);
-                    setUserName(emailText.text);
+                    // setUserName(emailText.text);
                   },
                   // onTap: () async {
                   //   print('posting data');

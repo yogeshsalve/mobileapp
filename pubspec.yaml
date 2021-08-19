@@ -38,6 +38,7 @@ dependencies:
   date_field: ^2.0.1
   # url_launcher: ^6.0.9
   shared_preferences: ^2.0.6
+  mailer: ^5.0.2
 
 dev_dependencies:
   flutter_test:

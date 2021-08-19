@@ -149,10 +149,15 @@ class _BuyFormState extends State<BuyForm> {
                     //  controller: myController1..text = _value,
                     // controller: passwordText,
                     style: TextStyle(fontSize: 18),
-                    decoration: InputDecoration(labelText: "Item Name"),
+                    decoration: InputDecoration(
+                      labelText: "Item Name",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                    ),
                   ),
                 ),
-                // SizedBox(height: size.height * 0.01),
+                SizedBox(height: size.height * 0.01),
                 Container(
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(horizontal: 50),
@@ -160,10 +165,15 @@ class _BuyFormState extends State<BuyForm> {
                     controller: myController2,
                     // controller: passwordText,
                     style: TextStyle(fontSize: 20),
-                    decoration: InputDecoration(labelText: "Available"),
+                    decoration: InputDecoration(
+                      labelText: "Available",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                    ),
                   ),
                 ),
-                // SizedBox(height: size.height * 0.01),
+                SizedBox(height: size.height * 0.01),
                 Container(
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(horizontal: 50),
@@ -171,7 +181,12 @@ class _BuyFormState extends State<BuyForm> {
                     controller: myController3,
                     // controller: passwordText,
                     style: TextStyle(fontSize: 18),
-                    decoration: InputDecoration(labelText: "UOM"),
+                    decoration: InputDecoration(
+                      labelText: "UOM",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                    ),
                     validator: (value) {
                       if (value!.isEmpty) {
                         return "Please select UOM";
@@ -180,7 +195,7 @@ class _BuyFormState extends State<BuyForm> {
                     },
                   ),
                 ),
-                // SizedBox(height: size.height * 0.01),
+                SizedBox(height: size.height * 0.01),
                 Container(
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(horizontal: 50),
@@ -188,7 +203,12 @@ class _BuyFormState extends State<BuyForm> {
                     controller: myController4,
                     // controller: passwordText,
                     style: TextStyle(fontSize: 18),
-                    decoration: InputDecoration(labelText: "Quantity"),
+                    decoration: InputDecoration(
+                      labelText: "Quantity",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                    ),
                     keyboardType: TextInputType.number,
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -198,14 +218,14 @@ class _BuyFormState extends State<BuyForm> {
                     },
                   ),
                 ),
-                Container(
-                  alignment: Alignment.centerRight,
-                  margin: EdgeInsets.symmetric(horizontal: 40, vertical: 5),
-                  child: Text(
-                    "Enter Quantity",
-                    style: TextStyle(fontSize: 12, color: Color(0XFF2661FA)),
-                  ),
-                ),
+                // Container(
+                //   alignment: Alignment.centerRight,
+                //   margin: EdgeInsets.symmetric(horizontal: 40, vertical: 5),
+                //   child: Text(
+                //     "Enter Quantity",
+                //     style: TextStyle(fontSize: 12, color: Color(0XFF2661FA)),
+                //   ),
+                // ),
                 SizedBox(height: size.height * 0.03),
                 Material(
                   color: Colors.blue,
