@@ -5,6 +5,7 @@ import 'package:orderapp/drawer.dart';
 import 'package:orderapp/placeorder.dart';
 import 'package:orderapp/store/updatecart.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Cart extends StatefulWidget {
   @override
@@ -12,6 +13,7 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
+  String? userName;
   List products = [];
   var delid = "";
 
@@ -21,6 +23,7 @@ class _CartState extends State<Cart> {
   void initState() {
     super.initState();
     this.fetchProduct();
+    getUserName();
   }
 
   fetchProduct() async {
@@ -28,12 +31,19 @@ class _CartState extends State<Cart> {
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var items = jsonDecode(response.body)['result'];
-      // print(items);
+      //print(items);
+      List products2 = [];
+      for (var item in items) {
+        if (item['email'] == userName) {
+          print(item);
+          products2.add(item);
+        }
+      }
+      print(products);
       setState(() {
-        products = items;
+        products = products2;
       });
     } else
-      // print(response.body);
       setState(() {
         products = [];
       });
@@ -70,7 +80,10 @@ class _CartState extends State<Cart> {
         foregroundColor: Colors.black,
         onPressed: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => PlaceOrder()));
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      (products.length == 0 ? Cart() : PlaceOrder())));
         },
         icon: Icon(Icons.check_box),
         label: Text(
@@ -86,12 +99,21 @@ class _CartState extends State<Cart> {
 
   Widget getBody() {
     // List items = [];
-    return ListView.builder(
-        itemCount: products.length,
-        itemBuilder: (context, int index) {
-          // return Text("index $index");
-          return getCard(products[index]);
-        });
+    return Column(
+      children: <Widget>[
+        // Container(
+        //   child: Text((products.length == 0 ? "Disabled" : "Enabled")),
+        // ),
+        Expanded(
+          child: ListView.builder(
+              itemCount: products.length,
+              itemBuilder: (context, int index) {
+                // return Text("index $index");
+                return getCard(products[index]);
+              }),
+        )
+      ],
+    );
   }
 
   Widget getCard(item) {
@@ -198,11 +220,6 @@ class _CartState extends State<Cart> {
                                     ],
                                   ),
                                 );
-                                //print(names[0]);
-                                // setState(() {
-                                //   delid = id;
-                                //   deleteData();
-                                // });
                               },
                               label: Text('Delete'),
                               style: ElevatedButton.styleFrom(
@@ -220,5 +237,11 @@ class _CartState extends State<Cart> {
         ),
       ),
     );
+  }
+
+  void getUserName() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    userName = pref.getString('usernamekey')!;
+    setState(() {});
   }
 }

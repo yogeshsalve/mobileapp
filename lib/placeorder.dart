@@ -1,14 +1,13 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:orderapp/bottomnavigation.dart';
 import 'package:orderapp/drawer.dart';
-import 'package:http/http.dart' as http;
 //import 'package:orderapp/drawerpages/cart.dart';
-import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
-
+//import 'package:orderapp/placeorder.dart';
+//import 'package:orderapp/store/updatecart.dart';
+import 'package:http/http.dart' as http;
 import 'package:orderapp/store/buyform.dart';
-
-// import 'package:orderapp/store/dropdown.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PlaceOrder extends StatefulWidget {
   @override
@@ -16,22 +15,18 @@ class PlaceOrder extends StatefulWidget {
 }
 
 class _PlaceOrderState extends State<PlaceOrder> {
-  String? userName;
   final myController = TextEditingController();
-  String getData = '';
-  // var url = Uri.parse('http://91weblessons.com/demo/api/mobile/api2.php');
-  var url = Uri.parse('https://yogeshsalve.com/API/products/getcartorder.php');
-  List getList = [];
+  final _formKey = GlobalKey<FormState>();
+  String? userName;
+  List products = [];
+  var delid = "";
+  bool isLoading = false;
 
-  Future fetchData() async {
-    http.Response response;
-    response = await http.get(url);
-
-    if (response.statusCode == 200) {
-      setState(() {
-        getList = json.decode(response.body);
-      });
-    }
+  @override
+  void initState() {
+    super.initState();
+    this.fetchProduct();
+    getUserName();
   }
 
   postData() async {
@@ -95,29 +90,43 @@ class _PlaceOrderState extends State<PlaceOrder> {
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
-    getUserName();
-    fetchData();
+  fetchProduct() async {
+    var url = Uri.parse('https://yogeshsalve.com/API/products/cart.php');
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      var items = jsonDecode(response.body)['result'];
+      //print(items);
+      List products2 = [];
+      for (var item in items) {
+        if (item['email'] == userName) {
+          print(item);
+          products2.add(item);
+        }
+      }
+      print(products);
+      setState(() {
+        products = products2;
+      });
+    } else
+      setState(() {
+        products = [];
+      });
   }
 
-  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueAccent[700],
         title: const Text('Place Order'),
       ),
-      drawer: MyDrawer(),
+      //body: Container(),
+      body: getBody(),
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Colors.orangeAccent[400],
         foregroundColor: Colors.black,
         onPressed: () {
           postData();
-          //print("Email Send Successfully...!!!");
         },
         icon: Icon(Icons.check_box),
         label: Text(
@@ -126,110 +135,24 @@ class _PlaceOrderState extends State<PlaceOrder> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      drawer: MyDrawer(),
       bottomNavigationBar: BottomNavigation(),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Card(
-            color: Colors.white,
-            child: Image.asset(
-              "images/container.png",
-              // fit: BoxFit.cover,
+    );
+  }
 
-              height: size.height * 0.2,
-              width: size.height * 0.65,
-            ),
-          ),
-          // SizedBox(
-          //   height: size.height * 0.01,
-          // ),
-          Card(
-            color: Colors.orange[900],
-            child: Align(
-              alignment: Alignment.center,
-              child: Text(
-                "Click Below to Order",
-                style: TextStyle(
-                  fontSize: 21,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
-          // Expanded(
-          //   //   // flex: 1,
-
-          //   child: Text(
-          //     "Click Below to Buy",
-          //     style: TextStyle(fontSize: 16.0),
-          //   ),
-          //   //   //   child: Container(
-          //   //   //       alignment: Alignment.center,
-          //   //   //       color: Colors.lightBlue,
-          //   //   //       child: MyDropDown()),
-          // ),
-          Expanded(
-              flex: 6,
-              child: ListView.builder(
-                itemCount: getList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    // alignment: Alignment.center,
-                    // color: Colors.white,
-                    child: Center(
-                        child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        // GestureDetector(
-                        //   onTap: () {
-                        //     Navigator.of(context).pushReplacement(
-                        //       MaterialPageRoute(
-                        //         builder: (BuildContext context) => BuyForm(),
-                        //         settings:
-                        //             RouteSettings(arguments: getList[index]),
-                        //       ),
-                        //     );
-                        //   },
-                        Card(
-                          child: InkWell(
-                            onTap: () => {
-                              Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                  builder: (BuildContext context) => BuyForm(),
-                                  settings:
-                                      RouteSettings(arguments: getList[index]),
-                                ),
-                              ),
-                            },
-                            child: Container(
-                              height: size.height * 0.09,
-                              // width: size.height * 0.65,
-                              child: Text(
-                                getList[index].toString(),
-                                style: TextStyle(
-                                  fontSize: 21.0,
-                                ),
-                              ),
-                              padding: EdgeInsets.all(
-                                15.0,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    )),
-                  );
-                },
-              )),
-          Form(
+  Widget getBody() {
+    // List items = [];
+    return Column(
+      children: <Widget>[
+        Container(
+          // child: Text("data"),
+          child: Form(
             key: _formKey,
             child: Container(
               alignment: Alignment.center,
               margin: EdgeInsets.symmetric(horizontal: 50),
               child: Visibility(
-                visible: true,
+                visible: false,
                 child: TextFormField(
                   readOnly: true,
                   controller: myController..text = userName!,
@@ -240,7 +163,87 @@ class _PlaceOrderState extends State<PlaceOrder> {
               ),
             ),
           ),
-        ],
+        ),
+        Expanded(
+          child: ListView.builder(
+              itemCount: products.length,
+              itemBuilder: (context, int index) {
+                // return Text("index $index");
+                return getCard(products[index]);
+              }),
+        )
+      ],
+    );
+    // return ListView.builder(
+    //     itemCount: products.length,
+    //     itemBuilder: (context, int index) {
+    //       // return Text("index $index");
+    //       return getCard(products[index]);
+    //     });
+  }
+
+  Widget getCard(item) {
+    Size size = MediaQuery.of(context).size;
+    // var id = item['id'];
+    var productOrder = item['item_name'];
+    var quantity = item['quantity'];
+    //var available = item['available'];
+
+    // List<String> names = [
+    //   id.toString(),
+    //   productOrder.toString(),
+    //   quantity.toString(),
+    //   available.toString(),
+    // ];
+
+    return Padding(
+      padding: const EdgeInsets.all(6.0),
+      child: Card(
+        color: Colors.indigo[100],
+        child: InkWell(
+          onTap: () => {
+            // Navigator.of(context).pushReplacement(
+            //   MaterialPageRoute(
+            //     builder: (BuildContext context) => UpdateCart(),
+            //   ),
+            // ),
+          },
+          // elevation: 50,
+          child: Padding(
+            padding: const EdgeInsets.all(0.0),
+            child: ListTile(
+              title: Row(
+                children: <Widget>[
+                  SizedBox(width: size.width * 0.03),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        "Product :" + " " + productOrder.toString(),
+                        style: TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        "Quantity :" + " " + quantity,
+                        style: TextStyle(
+                            fontSize: 17, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }

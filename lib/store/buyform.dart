@@ -3,6 +3,7 @@ import 'package:orderapp/bottomnavigation.dart';
 import 'package:orderapp/drawerpages/cart.dart';
 import 'package:orderapp/drawerpages/store.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BuyForm extends StatefulWidget {
   // const BuyForm({Key? key}) : super(key: key);
@@ -14,12 +15,21 @@ class BuyForm extends StatefulWidget {
 // String? _value;
 
 class _BuyFormState extends State<BuyForm> {
+  String? userName;
   // get myController => null;
   final myController1 = TextEditingController();
   final myController2 = TextEditingController();
   final myController3 = TextEditingController();
   final myController4 = TextEditingController();
+  final myController5 = TextEditingController();
+  //var a = myController2.value;
+  //var b = myController4.value;
   // final myController5 = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    getUserName();
+  }
 
   postData() async {
     //print('function executed successfully..!!');
@@ -30,7 +40,8 @@ class _BuyFormState extends State<BuyForm> {
             "item_name": myController1.text,
             "available": myController2.text,
             "uom": myController3.text,
-            "quantity": myController4.text
+            "quantity": myController4.text,
+            "email": myController5.text
           });
       print(response.body);
     } catch (e) {
@@ -46,10 +57,31 @@ class _BuyFormState extends State<BuyForm> {
       //   changeButton = true;
       // });
 
-      await Future.delayed(Duration(seconds: 2));
-      postData();
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (BuildContext context) => Cart()));
+      var available1 = myController2.text;
+      var quantity1 = myController4.text;
+
+      var a = int.parse(available1);
+      var b = int.parse(quantity1);
+
+      if (a > b) {
+        await Future.delayed(Duration(seconds: 2));
+        postData();
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (BuildContext context) => Cart()));
+      } else {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+                  title: const Text('Alert'),
+                  content: const Text('Quantity should be less than available'),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'Cancel'),
+                      child: const Text('Ok'),
+                    ),
+                  ],
+                ));
+      }
     }
   }
 
@@ -79,22 +111,6 @@ class _BuyFormState extends State<BuyForm> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 SizedBox(height: size.height * 0.03),
-                // Container(
-                //   color: Colors.white,
-                //   alignment: Alignment.centerLeft,
-                //   padding: EdgeInsets.symmetric(horizontal: 40),
-                //   child: Center(
-                //     child: Text(
-                //       args,
-                //       style: TextStyle(
-                //           fontWeight: FontWeight.bold,
-                //           color: Color(0xFF2661FA),
-                //           fontSize: 22),
-                //     ),
-                //   ),
-                // ),
-                // SizedBox(height: size.height * 0.01),
-
                 Container(
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(horizontal: 50),
@@ -106,7 +122,6 @@ class _BuyFormState extends State<BuyForm> {
                     decoration: InputDecoration(labelText: "category"),
                   ),
                 ),
-
                 SizedBox(height: size.height * 0.01),
                 Container(
                   alignment: Alignment.center,
@@ -130,11 +145,7 @@ class _BuyFormState extends State<BuyForm> {
                         value: 'three',
                       ),
                     ],
-                    // onChanged: (String? value) {
-                    //   setState(() {
-                    //     _value = value!;
-                    //   });
-                    // },
+
                     hint: Text('Select Item'),
                     // value: "1",
                   ),
@@ -144,7 +155,7 @@ class _BuyFormState extends State<BuyForm> {
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(horizontal: 50),
                   child: TextFormField(
-                    readOnly: false,
+                    readOnly: true,
                     controller: myController1,
                     //  controller: myController1..text = _value,
                     // controller: passwordText,
@@ -218,14 +229,26 @@ class _BuyFormState extends State<BuyForm> {
                     },
                   ),
                 ),
-                // Container(
-                //   alignment: Alignment.centerRight,
-                //   margin: EdgeInsets.symmetric(horizontal: 40, vertical: 5),
-                //   child: Text(
-                //     "Enter Quantity",
-                //     style: TextStyle(fontSize: 12, color: Color(0XFF2661FA)),
-                //   ),
-                // ),
+                SizedBox(height: size.height * 0.01),
+                Container(
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.symmetric(horizontal: 50),
+                  child: Visibility(
+                    visible: false,
+                    child: TextFormField(
+                      controller: myController5..text = userName!,
+                      // controller: passwordText,
+                      style: TextStyle(fontSize: 18),
+                      decoration: InputDecoration(
+                        labelText: "Username",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                      ),
+                      keyboardType: TextInputType.number,
+                    ),
+                  ),
+                ),
                 SizedBox(height: size.height * 0.03),
                 Material(
                   color: Colors.blue,
@@ -256,5 +279,11 @@ class _BuyFormState extends State<BuyForm> {
     );
 
     // child: Text(args),
+  }
+
+  void getUserName() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    userName = pref.getString('usernamekey')!;
+    setState(() {});
   }
 }

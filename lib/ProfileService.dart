@@ -17,6 +17,7 @@ class ProfileServices {
         email: data["email"],
         company: data["companyname"],
         address: data["address"],
+        contactno: data["contactno"],
         status: data["error"].toString());
   }
 }
@@ -28,6 +29,7 @@ class LoginApiResponse {
   final String? company;
   final String? address;
   final String? status;
+  final String? contactno;
 
   LoginApiResponse(
       {this.id,
@@ -35,5 +37,6 @@ class LoginApiResponse {
       this.email,
       this.company,
       this.address,
+      this.contactno,
       this.status});
 }
