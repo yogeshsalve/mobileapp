@@ -16,6 +16,8 @@ class _CartState extends State<Cart> {
   String? userName;
   List products = [];
   var delid = "";
+  var itemNo = "";
+  var qty = "";
 
   bool isLoading = false;
 
@@ -55,6 +57,8 @@ class _CartState extends State<Cart> {
           Uri.parse("https://yogeshsalve.com/API/products/deletecart.php"),
           body: {
             "id": delid,
+            "Item_no": itemNo,
+            "quantity": qty,
           });
       print(response.body);
       if (response.statusCode == 200) {
@@ -122,6 +126,7 @@ class _CartState extends State<Cart> {
     var productOrder = item['item_name'];
     var quantity = item['quantity'];
     var available = item['available'];
+    var itemno = item['Item_no'];
 
     List<String> names = [
       id.toString(),
@@ -212,6 +217,8 @@ class _CartState extends State<Cart> {
                                         onPressed: () {
                                           setState(() {
                                             delid = id;
+                                            itemNo = itemno;
+                                            qty = quantity;
                                             deleteData();
                                           });
                                         },

@@ -23,10 +23,12 @@ class _BuyFormState extends State<BuyForm> {
   final myController3 = TextEditingController();
   final myController4 = TextEditingController();
   final myController5 = TextEditingController();
+  final myController6 = TextEditingController();
 
   var items = ['Default Item 11'];
   final _controller = TextEditingController();
   var available = '0';
+  var itemno = '0';
   //var a = myController2.value;
   //var b = myController4.value;
   // final myController5 = TextEditingController();
@@ -75,7 +77,16 @@ class _BuyFormState extends State<BuyForm> {
         }
       }
 
+      for (var i in items2) {
+        if (i['title'] == _controller.text) {
+          setState(() {
+            itemno = i['Item_no'];
+          });
+        }
+      }
+
       print(available);
+      print(itemno);
     }
   }
 
@@ -85,7 +96,8 @@ class _BuyFormState extends State<BuyForm> {
       var response = await http.post(
           Uri.parse("http://yogeshsalve.com/API/products/cart.php"),
           body: {
-            "item_name": myController1.text,
+            "Item_no": myController6.text,
+            "item_name": _controller.text,
             "available": myController2.text,
             "uom": myController3.text,
             "quantity": myController4.text,
@@ -158,7 +170,7 @@ class _BuyFormState extends State<BuyForm> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                SizedBox(height: size.height * 0.03),
+                SizedBox(height: size.height * 0.01),
                 Container(
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(horizontal: 50),
@@ -170,7 +182,7 @@ class _BuyFormState extends State<BuyForm> {
                     decoration: InputDecoration(labelText: "category"),
                   ),
                 ),
-                SizedBox(height: size.height * 0.01),
+                // SizedBox(height: size.height * 0.01),
                 Container(
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(horizontal: 30),
@@ -244,7 +256,7 @@ class _BuyFormState extends State<BuyForm> {
                 //   ),
                 // ),
 
-                SizedBox(height: size.height * 0.05),
+                SizedBox(height: size.height * 0.01),
                 Container(
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(horizontal: 50),
@@ -323,7 +335,28 @@ class _BuyFormState extends State<BuyForm> {
                     },
                   ),
                 ),
+
                 SizedBox(height: size.height * 0.01),
+                Container(
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.symmetric(horizontal: 50),
+                  child: Visibility(
+                    visible: false,
+                    child: TextFormField(
+                      controller: myController6..text = itemno,
+                      // controller: passwordText,
+                      style: TextStyle(fontSize: 18),
+                      decoration: InputDecoration(
+                        labelText: "Item no",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                      ),
+                      keyboardType: TextInputType.number,
+                    ),
+                  ),
+                ),
+                // SizedBox(height: size.height * 0.01),
                 Container(
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(horizontal: 50),
