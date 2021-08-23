@@ -29,6 +29,7 @@ class _BuyFormState extends State<BuyForm> {
   final _controller = TextEditingController();
   var available = '0';
   var itemno = '0';
+
   //var a = myController2.value;
   //var b = myController4.value;
   // final myController5 = TextEditingController();

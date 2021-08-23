@@ -24,7 +24,7 @@ class _DropDownState extends State<DropDown> {
     // var items2 = response.body;
     // items = items2 as List<String>;
     getList = json.decode(response.body);
-    List products2 = [];
+    // List products2 = [];
     for (var i in getList) {
       if (1 == 1) {
         print(i);
