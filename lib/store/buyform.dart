@@ -4,6 +4,7 @@ import 'package:orderapp/drawerpages/cart.dart';
 import 'package:orderapp/drawerpages/store.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 class BuyForm extends StatefulWidget {
   // const BuyForm({Key? key}) : super(key: key);
@@ -22,6 +23,10 @@ class _BuyFormState extends State<BuyForm> {
   final myController3 = TextEditingController();
   final myController4 = TextEditingController();
   final myController5 = TextEditingController();
+
+  var items = ['Default Item 11'];
+  final _controller = TextEditingController();
+  var available = '0';
   //var a = myController2.value;
   //var b = myController4.value;
   // final myController5 = TextEditingController();
@@ -29,6 +34,49 @@ class _BuyFormState extends State<BuyForm> {
   void initState() {
     super.initState();
     getUserName();
+    fetchProduct();
+  }
+
+  fetchProduct() async {
+    //List products = [];
+    var url = Uri.parse('https://yogeshsalve.com/API/products/productdata.php');
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      var items2 = jsonDecode(response.body);
+      // print(items);
+      //List products2 = [];
+      items.clear();
+      for (var item2 in items2) {
+        if (item2['category'] == myController1.text) {
+          // print(item['title']);
+          items.add(item2['title']);
+        }
+      }
+
+      print(items);
+      // setState(() {
+      //   items = products2;
+      // });
+    }
+  }
+
+//Fetch available
+  fetchAvailable() async {
+    var url = Uri.parse('https://yogeshsalve.com/API/products/productdata.php');
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      var items2 = jsonDecode(response.body);
+      // available.clear();
+      for (var i in items2) {
+        if (i['title'] == _controller.text) {
+          setState(() {
+            available = i['stock'];
+          });
+        }
+      }
+
+      print(available);
+    }
   }
 
   postData() async {
@@ -63,7 +111,7 @@ class _BuyFormState extends State<BuyForm> {
       var a = int.parse(available1);
       var b = int.parse(quantity1);
 
-      if (a > b) {
+      if (a >= b) {
         await Future.delayed(Duration(seconds: 2));
         postData();
         Navigator.of(context).pushReplacement(
@@ -125,38 +173,84 @@ class _BuyFormState extends State<BuyForm> {
                 SizedBox(height: size.height * 0.01),
                 Container(
                   alignment: Alignment.center,
-                  margin: EdgeInsets.symmetric(horizontal: 50),
-                  child: DropdownButton<String>(
-                    isExpanded: true,
-                    icon: Icon(Icons.arrow_drop_down_circle),
-                    style: TextStyle(color: Colors.green, fontSize: 22),
-                    // hint: Text("Select item"),
-                    items: [
-                      DropdownMenuItem<String>(
-                        child: Text('Item 1'),
-                        value: 'qwerty',
-                      ),
-                      DropdownMenuItem<String>(
-                        child: Text('Item 2'),
-                        value: 'two',
-                      ),
-                      DropdownMenuItem<String>(
-                        child: Text('Item 3'),
-                        value: 'three',
+                  margin: EdgeInsets.symmetric(horizontal: 30),
+                  child: new Column(
+                    children: [
+                      new Padding(
+                        padding: const EdgeInsets.all(24.0),
+                        child: new Row(
+                          children: <Widget>[
+                            new Expanded(
+                                child: new TextField(
+                              decoration: InputDecoration(
+                                labelText: "Available",
+                                // border: OutlineInputBorder(
+                                //   borderRadius: BorderRadius.circular(5.0),
+                                // ),
+                              ),
+                              controller: _controller,
+                              style: TextStyle(fontSize: 18),
+                              readOnly: true,
+                            )),
+                            new PopupMenuButton<String>(
+                              icon: const Icon(
+                                Icons.arrow_drop_down,
+                                size: 50.0,
+                              ),
+                              onSelected: (String value) {
+                                _controller.text = value;
+                                fetchAvailable();
+                              },
+                              itemBuilder: (BuildContext context) {
+                                return items
+                                    .map<PopupMenuItem<String>>((String value) {
+                                  return new PopupMenuItem(
+                                      child: new Text(value), value: value);
+                                }).toList();
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                     ],
-
-                    hint: Text('Select Item'),
-                    // value: "1",
                   ),
                 ),
+                //
+                // Container(
+                //   alignment: Alignment.center,
+                //   margin: EdgeInsets.symmetric(horizontal: 50),
+                //   child: DropdownButton<String>(
+                //     isExpanded: true,
+                //     icon: Icon(Icons.arrow_drop_down_circle),
+                //     style: TextStyle(color: Colors.green, fontSize: 22),
+                //     // hint: Text("Select item"),
+                //     items: [
+                //       DropdownMenuItem<String>(
+                //         child: Text('Item 1'),
+                //         value: 'qwerty',
+                //       ),
+                //       DropdownMenuItem<String>(
+                //         child: Text('Item 2'),
+                //         value: 'two',
+                //       ),
+                //       DropdownMenuItem<String>(
+                //         child: Text('Item 3'),
+                //         value: 'three',
+                //       ),
+                //     ],
+
+                //     hint: Text('Select Item'),
+                //     // value: "1",
+                //   ),
+                // ),
+
                 SizedBox(height: size.height * 0.05),
                 Container(
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(horizontal: 50),
                   child: TextFormField(
                     readOnly: true,
-                    controller: myController1,
+                    controller: _controller,
                     //  controller: myController1..text = _value,
                     // controller: passwordText,
                     style: TextStyle(fontSize: 18),
@@ -173,7 +267,7 @@ class _BuyFormState extends State<BuyForm> {
                   alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(horizontal: 50),
                   child: TextFormField(
-                    controller: myController2,
+                    controller: myController2..text = available,
                     // controller: passwordText,
                     style: TextStyle(fontSize: 20),
                     decoration: InputDecoration(
