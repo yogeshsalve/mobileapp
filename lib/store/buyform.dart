@@ -25,7 +25,7 @@ class _BuyFormState extends State<BuyForm> {
   final myController5 = TextEditingController();
   final myController6 = TextEditingController();
 
-  var items = ['Default Item 11'];
+  var items = ['Please wait..'];
   final _controller = TextEditingController();
   var available = '0';
   var itemno = '0';
@@ -228,34 +228,6 @@ class _BuyFormState extends State<BuyForm> {
                     ],
                   ),
                 ),
-                //
-                // Container(
-                //   alignment: Alignment.center,
-                //   margin: EdgeInsets.symmetric(horizontal: 50),
-                //   child: DropdownButton<String>(
-                //     isExpanded: true,
-                //     icon: Icon(Icons.arrow_drop_down_circle),
-                //     style: TextStyle(color: Colors.green, fontSize: 22),
-                //     // hint: Text("Select item"),
-                //     items: [
-                //       DropdownMenuItem<String>(
-                //         child: Text('Item 1'),
-                //         value: 'qwerty',
-                //       ),
-                //       DropdownMenuItem<String>(
-                //         child: Text('Item 2'),
-                //         value: 'two',
-                //       ),
-                //       DropdownMenuItem<String>(
-                //         child: Text('Item 3'),
-                //         value: 'three',
-                //       ),
-                //     ],
-
-                //     hint: Text('Select Item'),
-                //     // value: "1",
-                //   ),
-                // ),
 
                 SizedBox(height: size.height * 0.01),
                 Container(
@@ -281,7 +253,6 @@ class _BuyFormState extends State<BuyForm> {
                   margin: EdgeInsets.symmetric(horizontal: 50),
                   child: TextFormField(
                     controller: myController2..text = available,
-                    // controller: passwordText,
                     style: TextStyle(fontSize: 20),
                     decoration: InputDecoration(
                       labelText: "Available",
