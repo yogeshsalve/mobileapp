@@ -130,7 +130,7 @@ class _PlaceOrderState extends State<PlaceOrder> {
         },
         icon: Icon(Icons.check_box),
         label: Text(
-          "Send Email",
+          "Checkout",
           style: TextStyle(),
         ),
       ),

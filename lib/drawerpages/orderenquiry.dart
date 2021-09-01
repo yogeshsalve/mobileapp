@@ -59,45 +59,64 @@ class _OrderEnquiryState extends State<OrderEnquiry> {
             ),
             SizedBox(height: size.height * 0.05),
             DataTable(
+              columnSpacing: 0,
               columns: [
                 DataColumn(
                     label: Text(
-                  'ID',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  'Sr.No',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 )),
                 DataColumn(
-                    label: Text('Category',
+                    label: Text('Head',
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold))),
                 DataColumn(
-                    label: Text('Product',
+                    label: Text('Description',
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold))),
               ],
               rows: [
                 DataRow(cells: [
                   DataCell(Text('1')),
-                  DataCell(Text('NUT')),
+                  DataCell(Text('Order No')),
                   DataCell(Text('......')),
                 ]),
                 DataRow(cells: [
                   DataCell(Text('2')),
-                  DataCell(Text('BOLT')),
+                  DataCell(Text('Customer Order No.')),
                   DataCell(Text('......')),
                 ]),
                 DataRow(cells: [
                   DataCell(Text('3')),
-                  DataCell(Text('SCREW')),
+                  DataCell(Text('On Hold')),
                   DataCell(Text('......')),
                 ]),
                 DataRow(cells: [
                   DataCell(Text('4')),
-                  DataCell(Text('WASHER')),
+                  DataCell(Text('On Reference')),
                   DataCell(Text('......')),
                 ]),
                 DataRow(cells: [
-                  DataCell(Text('2')),
-                  DataCell(Text('ALLEN CAP')),
+                  DataCell(Text('5')),
+                  DataCell(Text('Order Description')),
+                  DataCell(Text('......')),
+                ]),
+                DataRow(cells: [
+                  DataCell(Text('6')),
+                  DataCell(Text('Order Date')),
+                  DataCell(Text('......')),
+                ]),
+                DataRow(cells: [
+                  DataCell(Text('7')),
+                  DataCell(Text('Expected Ship Date')),
+                  DataCell(Text('......')),
+                ]),
+                DataRow(cells: [
+                  DataCell(Text('8')),
+                  DataCell(Text('Order Total')),
                   DataCell(Text('......')),
                 ]),
               ],
