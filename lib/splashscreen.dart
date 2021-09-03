@@ -33,11 +33,6 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // logo here
-              // Image.asset(
-              //   'images/logo3.png',
-              //   height: size.height * 0.15,
-              // ),
               Container(
                 margin: EdgeInsets.all(10),
                 // width: size.width * 0.5,
@@ -49,7 +44,6 @@ class _SplashScreenState extends State<SplashScreen> {
                       fit: BoxFit.fill),
                 ),
               ),
-
               SizedBox(height: size.height * 0.05),
               CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),

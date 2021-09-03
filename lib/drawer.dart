@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:orderapp/drawerpages/cart.dart';
 import 'package:orderapp/drawerpages/certificate.dart';
-import 'package:orderapp/drawerpages/dropdown1.dart';
-import 'package:orderapp/drawerpages/email.dart';
-// import 'package:orderapp/drawerpages/changepassword.dart';
+
 import 'package:orderapp/drawerpages/fevstore.dart';
-// import 'package:orderapp/testpage.dart';
-// import 'package:orderapp/testpage.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:orderapp/drawerpages/ledger.dart';
@@ -16,7 +12,6 @@ import 'package:orderapp/drawerpages/pendingorder.dart';
 import 'package:orderapp/drawerpages/printinvoice.dart';
 import 'package:orderapp/drawerpages/saleshistory.dart';
 import 'package:orderapp/drawerpages/store.dart';
-// import 'package:orderapp/dropdowntest.dart';
 
 class MyDrawer extends StatefulWidget {
   @override
@@ -104,31 +99,31 @@ class _MyDrawerState extends State<MyDrawer> {
               },
             ),
 
-            ListTile(
-              title: Text('TEST', style: TextStyle(fontSize: 20)),
-              tileColor: Colors.white10,
-              leading: Icon(
-                Icons.shop,
-                color: Colors.black,
-              ),
-              onTap: () => {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (BuildContext context) => DropDown()))
-              },
-            ),
+            // ListTile(
+            //   title: Text('TEST', style: TextStyle(fontSize: 20)),
+            //   tileColor: Colors.white10,
+            //   leading: Icon(
+            //     Icons.shop,
+            //     color: Colors.black,
+            //   ),
+            //   onTap: () => {
+            //     Navigator.of(context).pushReplacement(MaterialPageRoute(
+            //         builder: (BuildContext context) => DropDown()))
+            //   },
+            // ),
 
-            ListTile(
-              title: Text('SendEmail', style: TextStyle(fontSize: 20)),
-              tileColor: Colors.white10,
-              leading: Icon(
-                Icons.shop,
-                color: Colors.black,
-              ),
-              onTap: () => {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (BuildContext context) => SendEmail()))
-              },
-            ),
+            // ListTile(
+            //   title: Text('SendEmail', style: TextStyle(fontSize: 20)),
+            //   tileColor: Colors.white10,
+            //   leading: Icon(
+            //     Icons.shop,
+            //     color: Colors.black,
+            //   ),
+            //   onTap: () => {
+            //     Navigator.of(context).pushReplacement(MaterialPageRoute(
+            //         builder: (BuildContext context) => SendEmail()))
+            //   },
+            // ),
 
             ListTile(
               title: Text('Favourite Store', style: TextStyle(fontSize: 20)),

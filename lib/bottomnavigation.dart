@@ -32,7 +32,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
         Icon(Icons.person_outlined, size: 30, color: Colors.white),
       ],
       color: Colors.blueAccent.shade700,
-      buttonBackgroundColor: Colors.deepOrange[400],
+      buttonBackgroundColor: Colors.black,
       backgroundColor: Colors.white,
       animationCurve: Curves.easeInOut,
       animationDuration: Duration(milliseconds: 600),
