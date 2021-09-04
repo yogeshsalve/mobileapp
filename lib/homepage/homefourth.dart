@@ -8,7 +8,7 @@ class Homefourth extends StatefulWidget {
 }
 
 class _HomefourthState extends State<Homefourth> {
-  int _index = 0;
+  int _index = -1;
   String getData = '';
   var url = Uri.parse('https://yogeshsalve.com/API/');
   List getList = [];
@@ -47,17 +47,17 @@ class _HomefourthState extends State<Homefourth> {
               return Transform.scale(
                 scale: i == _index ? 1 : 0.9,
                 child: Card(
-                  color: Colors.blueAccent,
+                  color: Colors.grey,
                   elevation: 6,
                   shape: CircleBorder(
-                    side: BorderSide(color: Colors.grey, width: 2.1),
+                    side: BorderSide(color: Colors.white, width: 2.1),
                   ),
                   child: Center(
                     child: Text(
                       getList[i].toString(),
                       style: TextStyle(
                           fontSize: 15,
-                          color: Colors.black,
+                          color: Colors.white,
                           fontWeight: FontWeight.bold),
                     ),
                   ),

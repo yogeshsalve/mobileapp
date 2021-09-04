@@ -6,7 +6,7 @@ class Homesixth extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
         child: Container(
-      color: Colors.blue[100],
+      color: Colors.blue[50],
       child: Padding(
         padding: const EdgeInsets.all(14.0),
         child: Column(
@@ -21,7 +21,7 @@ class Homesixth extends StatelessWidget {
                     child: Column(
                       children: [
                         Image.asset(
-                          "images/assets/note.png",
+                          "images/invoice.png",
                           width: size.height * 0.1,
                         ),
                         Text(
@@ -35,9 +35,12 @@ class Homesixth extends StatelessWidget {
                     ),
                   ),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
-                  ),
+                      borderRadius: BorderRadius.circular(10.0),
+                      color: Colors.grey[200],
+                      boxShadow: [
+                        BoxShadow(color: Colors.black, blurRadius: 12.0)
+                      ],
+                      border: Border.all(color: Colors.black)),
                 ),
                 SizedBox(
                   width: 20,
@@ -50,7 +53,7 @@ class Homesixth extends StatelessWidget {
                     child: Column(
                       children: [
                         Image.asset(
-                          "images/assets/note.png",
+                          "images/certificate.png",
                           width: size.height * 0.1,
                         ),
                         Text(
@@ -64,9 +67,12 @@ class Homesixth extends StatelessWidget {
                     ),
                   ),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
-                  ),
+                      borderRadius: BorderRadius.circular(10.0),
+                      color: Colors.grey[200],
+                      boxShadow: [
+                        BoxShadow(color: Colors.black, blurRadius: 12.0)
+                      ],
+                      border: Border.all(color: Colors.black)),
                 ),
 
                 SizedBox(
@@ -80,7 +86,7 @@ class Homesixth extends StatelessWidget {
                     child: Column(
                       children: [
                         Image.asset(
-                          "images/assets/note.png",
+                          "images/ledger.png",
                           width: size.height * 0.1,
                         ),
                         Text(
@@ -94,9 +100,12 @@ class Homesixth extends StatelessWidget {
                     ),
                   ),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
-                  ),
+                      borderRadius: BorderRadius.circular(10.0),
+                      color: Colors.grey[200],
+                      boxShadow: [
+                        BoxShadow(color: Colors.black, blurRadius: 12.0)
+                      ],
+                      border: Border.all(color: Colors.black)),
                 ),
               ], //<Widget>[]
               mainAxisAlignment: MainAxisAlignment.center,

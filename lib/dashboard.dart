@@ -5,6 +5,7 @@ import 'package:orderapp/drawerpages/changepassword.dart';
 import 'package:orderapp/homepage/homefifth.dart';
 import 'package:orderapp/homepage/homefourth.dart';
 import 'package:orderapp/homepage/homesixth.dart';
+import 'package:orderapp/homepage/homethreehalf.dart';
 import 'package:orderapp/homepage/top_bar.dart';
 import 'package:orderapp/loginscreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -48,7 +49,7 @@ class _DashboardState extends State<Dashboard> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.blue[700],
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
@@ -107,13 +108,15 @@ class _DashboardState extends State<Dashboard> {
               color: Colors.blue,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "Welcome $userName",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.start,
+                child: Center(
+                  child: Text(
+                    "Welcome $userName",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.start,
+                  ),
                 ),
               ),
             ),
@@ -124,10 +127,14 @@ class _DashboardState extends State<Dashboard> {
             SizedBox(
               height: size.height * 0.01,
             ),
-            Homefifth(),
+            Homehreehalf(),
             SizedBox(
               height: size.height * 0.01,
             ),
+            Homefifth(),
+            // SizedBox(
+            //   height: size.height * 0.01,
+            // ),
             Homesixth(),
             SizedBox(
               height: size.height * 0.01,

@@ -21,8 +21,11 @@ class Homefifth extends StatelessWidget {
                     child: Column(
                       children: [
                         Image.asset(
-                          "images/assets/note.png",
+                          "images/enquiry.png",
                           width: size.height * 0.1,
+                        ),
+                        SizedBox(
+                          height: size.height * 0.01,
                         ),
                         Text(
                           "Order Enquiry",
@@ -35,9 +38,12 @@ class Homefifth extends StatelessWidget {
                     ),
                   ),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
-                  ),
+                      borderRadius: BorderRadius.circular(10.0),
+                      color: Colors.grey[200],
+                      boxShadow: [
+                        BoxShadow(color: Colors.black, blurRadius: 12.0)
+                      ],
+                      border: Border.all(color: Colors.black)),
                 ),
                 SizedBox(
                   width: 20,
@@ -50,8 +56,11 @@ class Homefifth extends StatelessWidget {
                     child: Column(
                       children: [
                         Image.asset(
-                          "images/assets/note.png",
+                          "images/outstanding_balance.png",
                           width: size.height * 0.1,
+                        ),
+                        SizedBox(
+                          height: size.height * 0.01,
                         ),
                         Text(
                           "Outstanding",
@@ -64,9 +73,12 @@ class Homefifth extends StatelessWidget {
                     ),
                   ),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
-                  ),
+                      borderRadius: BorderRadius.circular(10.0),
+                      color: Colors.grey[200],
+                      boxShadow: [
+                        BoxShadow(color: Colors.black, blurRadius: 12.0)
+                      ],
+                      border: Border.all(color: Colors.black)),
                 ),
 
                 SizedBox(
@@ -80,8 +92,11 @@ class Homefifth extends StatelessWidget {
                     child: Column(
                       children: [
                         Image.asset(
-                          "images/assets/note.png",
+                          "images/history.png",
                           width: size.height * 0.1,
+                        ),
+                        SizedBox(
+                          height: size.height * 0.01,
                         ),
                         Center(
                           child: Text(
@@ -96,9 +111,16 @@ class Homefifth extends StatelessWidget {
                     ),
                   ),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
-                  ),
+                      borderRadius: BorderRadius.circular(10.0),
+                      color: Colors.grey[200],
+                      boxShadow: [
+                        BoxShadow(color: Colors.black, blurRadius: 12.0)
+                      ],
+                      border: Border.all(color: Colors.black)),
+                  // decoration: BoxDecoration(
+                  //   borderRadius: BorderRadius.circular(10),
+                  //   color: Colors.white,
+                  // ),
                 ),
               ], //<Widget>[]
               mainAxisAlignment: MainAxisAlignment.center,
