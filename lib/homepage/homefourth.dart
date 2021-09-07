@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:orderapp/product/product_grid.dart';
+
 class Homefourth extends StatefulWidget {
   @override
   _HomefourthState createState() => _HomefourthState();
@@ -46,19 +48,30 @@ class _HomefourthState extends State<Homefourth> {
             itemBuilder: (_, i) {
               return Transform.scale(
                 scale: i == _index ? 1 : 0.9,
-                child: Card(
-                  color: Colors.grey,
-                  elevation: 6,
-                  shape: CircleBorder(
-                    side: BorderSide(color: Colors.white, width: 2.1),
-                  ),
-                  child: Center(
-                    child: Text(
-                      getList[i].toString(),
-                      style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
+                child: InkWell(
+                  onTap: () => {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => Productgrid(),
+                        settings:
+                            RouteSettings(arguments: getList[i].toString()),
+                      ),
+                    ),
+                  },
+                  child: Card(
+                    color: Colors.grey,
+                    elevation: 6,
+                    shape: CircleBorder(
+                      side: BorderSide(color: Colors.white, width: 2.1),
+                    ),
+                    child: Center(
+                      child: Text(
+                        getList[i].toString(),
+                        style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
                 ),
