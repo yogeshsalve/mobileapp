@@ -12,7 +12,8 @@ class Homefourth extends StatefulWidget {
 class _HomefourthState extends State<Homefourth> {
   int _index = -1;
   String getData = '';
-  var url = Uri.parse('https://yogeshsalve.com/API/');
+  // var url = Uri.parse('https://yogeshsalve.com/API/');
+  var url = Uri.parse('http://114.143.151.6:901/categories');
   List getList = [];
 
   Future fetchData() async {
@@ -60,7 +61,7 @@ class _HomefourthState extends State<Homefourth> {
                   },
                   child: Card(
                     color: Colors.grey,
-                    elevation: 6,
+                    elevation: 10,
                     shape: CircleBorder(
                       side: BorderSide(color: Colors.white, width: 2.1),
                     ),

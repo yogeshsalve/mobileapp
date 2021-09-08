@@ -3,7 +3,8 @@ import 'dart:convert';
 
 class ApiServices {
   Future<LoginApiResponse> apiCallLogin(Map<String, dynamic> param) async {
-    var url = Uri.parse('https://yogeshsalve.com/API/users/login.php');
+    // var url = Uri.parse('https://yogeshsalve.com/API/users/login.php');
+    var url = Uri.parse('http://114.143.151.6:901/login');
     var response = await http.post(url, body: param);
 
     print('Response status: ${response.statusCode}');
@@ -13,14 +14,14 @@ class ApiServices {
     // print(data);
     return LoginApiResponse(
         token: data["token"],
-        error: data["error"],
+        error: data["login_status"],
         status: data["status"].toString());
   }
 }
 
 class LoginApiResponse {
   final String? token;
-  final String? error;
+  final int? error;
   final String? status;
 
   LoginApiResponse({this.token, this.error, this.status});

@@ -36,11 +36,12 @@ class _LoginScreenState extends State<LoginScreen> {
       });
       service.apiCallLogin(
         {
-          "email": emailText.text,
+          "username": emailText.text,
           "password": passwordText.text,
         },
       ).then((value) {
-        if (value.error == "200") {
+        // ignore: unrelated_type_equality_checks
+        if (value.error == 200) {
           setUserName(emailText.text);
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => Dashboard()));
@@ -49,7 +50,8 @@ class _LoginScreenState extends State<LoginScreen> {
             context: context,
             builder: (BuildContext context) => AlertDialog(
               title: const Text('Alert'),
-              content: const Text('Please enter correct email and password.'),
+              content:
+                  const Text('Please enter correct username and password.'),
               actions: <Widget>[
                 TextButton(
                   onPressed: () => Navigator.pop(context, 'Cancel'),

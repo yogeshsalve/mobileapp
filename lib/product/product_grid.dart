@@ -13,10 +13,12 @@ class Productgrid extends StatefulWidget {
 }
 
 class _ProductgridState extends State<Productgrid> {
+  final myController1 = TextEditingController();
   List products = [];
   @override
   void initState() {
     super.initState();
+    // WidgetsBinding.instance.addPostFrameCallback((_) => yourFunction(context));
     fetchProduct();
   }
 
@@ -29,9 +31,13 @@ class _ProductgridState extends State<Productgrid> {
       //List products2 = [];
       products.clear();
       for (var item2 in items2) {
-        if (item2['category'] == "NUT") {
+        if (item2['category'] == myController1.text) {
           // print(item['title']);
           products.add(item2['title']);
+
+          setState(() {
+            products = products;
+          });
         }
       }
 
@@ -42,8 +48,12 @@ class _ProductgridState extends State<Productgrid> {
     }
   }
 
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
+    int _itemCount = 0;
+    final args = ModalRoute.of(context)!.settings.arguments.toString();
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -61,9 +71,22 @@ class _ProductgridState extends State<Productgrid> {
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
+          Form(
+            key: _formKey,
+            child: Visibility(
+              visible: false,
+              child: TextFormField(
+                readOnly: true,
+                controller: myController1..text = args,
+                // controller: passwordText,
+                style: TextStyle(fontSize: 18),
+                decoration: InputDecoration(labelText: "category"),
+              ),
+            ),
+          ),
           TopBar(),
           Expanded(
-              flex: 6,
+              flex: 1,
               child: ListView.builder(
                 itemCount: products.length,
                 itemBuilder: (BuildContext context, int index) {
@@ -100,13 +123,13 @@ class _ProductgridState extends State<Productgrid> {
                                 ),
                               },
                               child: Container(
-                                height: size.height * 0.18,
+                                height: size.height * 0.16,
                                 // width: size.height * 0.65,
                                 child: Column(children: [
                                   Text(
                                     products[index].toString(),
                                     style: TextStyle(
-                                      fontSize: 21.0,
+                                      fontSize: 13.0,
                                     ),
                                   ),
                                   Padding(
@@ -118,19 +141,32 @@ class _ProductgridState extends State<Productgrid> {
                                         Icon(
                                           Icons.favorite,
                                           color: Colors.red,
-                                          size: 36.0,
-                                          semanticLabel:
-                                              'Text to announce in accessibility modes',
                                         ),
+                                        _itemCount != 0
+                                            ? new IconButton(
+                                                icon: new Icon(Icons.remove),
+                                                onPressed: () => setState(
+                                                    () => _itemCount--),
+                                              )
+                                            : new Container(),
+                                        new Text(_itemCount.toString()),
+                                        new IconButton(
+                                            icon: new Icon(Icons.add),
+                                            onPressed: () =>
+                                                setState(() => _itemCount++)),
                                         SizedBox(
                                           width: 10.0,
                                         ),
-                                        ElevatedButton(
-                                          onPressed: () {},
-                                          child: Text(
-                                              "Add to Cart".toUpperCase(),
-                                              style: TextStyle(fontSize: 14)),
+                                        Icon(
+                                          Icons.add_circle,
+                                          color: Colors.green,
                                         )
+                                        // ElevatedButton(
+                                        //   onPressed: () {},
+                                        //   child: Text(
+                                        //       "Add to Cart".toUpperCase(),
+                                        //       style: TextStyle(fontSize: 14)),
+                                        // )
                                       ],
                                     ),
                                   ),
