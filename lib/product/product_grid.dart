@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:orderapp/dashboard.dart';
-import 'package:orderapp/homepage/top_bar.dart';
+// import 'package:orderapp/homepage/top_bar.dart';
 
 class Productgrid extends StatefulWidget {
   const Productgrid({Key? key}) : super(key: key);
@@ -15,6 +15,8 @@ class Productgrid extends StatefulWidget {
 class _ProductgridState extends State<Productgrid> {
   final myController1 = TextEditingController();
   List products = [];
+  List products2 = [];
+  List productsdisplay = [];
   @override
   void initState() {
     super.initState();
@@ -33,10 +35,10 @@ class _ProductgridState extends State<Productgrid> {
       for (var item2 in items2) {
         if (item2['category'] == myController1.text) {
           // print(item['title']);
-          products.add(item2['title']);
-
+          products2.add(item2['title']);
           setState(() {
-            products = products;
+            products = products2;
+            productsdisplay = products2;
           });
         }
       }
@@ -84,11 +86,63 @@ class _ProductgridState extends State<Productgrid> {
               ),
             ),
           ),
-          TopBar(),
+          // TopBar(),
+
+          Container(
+            padding: EdgeInsets.all(5),
+            color: Colors.grey[350],
+            height: size.height * 0.10,
+            child: Column(
+              children: <Widget>[
+                Container(
+                    padding: EdgeInsets.only(left: 10, right: 10),
+                    margin: EdgeInsets.all(5),
+                    color: Colors.white,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Container(
+                          width: 300,
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'Search APLORDER Item',
+                                icon: Icon(Icons.search, color: Colors.blue)),
+                            onChanged: (text) {
+                              text.toLowerCase();
+                              setState(() {
+                                productsdisplay = products.where((products) {
+                                  products = products.toLowerCase();
+                                  return products.contains(text);
+                                }).toList();
+                              });
+                            },
+                          ),
+                        ),
+                        Icon(Icons.camera_alt, color: Colors.blue)
+                      ],
+                    )),
+              ],
+            ),
+          ),
+
+          // TextFormField(
+          //   style: TextStyle(fontSize: 18),
+          //   decoration: InputDecoration(labelText: "search"),
+          //   onChanged: (text) {
+          //     text.toLowerCase();
+          //     setState(() {
+          //       productsdisplay = products.where((products) {
+          //         products = products.toLowerCase();
+          //         return products.contains(text);
+          //       }).toList();
+          //     });
+          //   },
+          // ),
           Expanded(
               flex: 1,
               child: ListView.builder(
-                itemCount: products.length,
+                itemCount: productsdisplay.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
                     // alignment: Alignment.center,
@@ -118,7 +172,7 @@ class _ProductgridState extends State<Productgrid> {
                                     builder: (BuildContext context) =>
                                         Dashboard(),
                                     settings: RouteSettings(
-                                        arguments: products[index]),
+                                        arguments: productsdisplay[index]),
                                   ),
                                 ),
                               },
@@ -127,7 +181,7 @@ class _ProductgridState extends State<Productgrid> {
                                 // width: size.height * 0.65,
                                 child: Column(children: [
                                   Text(
-                                    products[index].toString(),
+                                    productsdisplay[index].toString(),
                                     style: TextStyle(
                                       fontSize: 13.0,
                                     ),
