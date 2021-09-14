@@ -26,6 +26,7 @@ class _ProductgridState extends State<Productgrid> {
 
   fetchProduct() async {
     var url = Uri.parse('https://yogeshsalve.com/API/products/productdata.php');
+
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var items2 = jsonDecode(response.body);
@@ -76,7 +77,7 @@ class _ProductgridState extends State<Productgrid> {
           Form(
             key: _formKey,
             child: Visibility(
-              visible: false,
+              visible: true,
               child: TextFormField(
                 readOnly: true,
                 controller: myController1..text = args,
