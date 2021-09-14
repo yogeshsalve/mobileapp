@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:orderapp/bottomnavigation.dart';
 import 'package:orderapp/dashboard.dart';
 // import 'package:orderapp/product/CategoryService.dart';
 import 'package:http/http.dart' as http;
 import 'package:orderapp/homepage/top_bar.dart';
+import 'package:orderapp/homepage/topbar1.dart';
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -65,11 +67,7 @@ class _CategoryProductState extends State<CategoryProduct> {
     }
 
     // items3 = items1;
-    print(myController1.text);
-    print("after" + productName);
-    print(productName);
-    print(productName);
-    print(productName);
+
     print(items3);
   }
 
@@ -128,7 +126,7 @@ class _CategoryProductState extends State<CategoryProduct> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueAccent[700],
-        title: const Text('Category Products Grid'),
+        title: TopBar1(),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () => Navigator.push(
@@ -137,6 +135,7 @@ class _CategoryProductState extends State<CategoryProduct> {
           ),
         ),
       ),
+      bottomNavigationBar: BottomNavigation(),
       // floatingActionButton: FloatingActionButton(
       //   onPressed: fetchProduct(),
       // ),
@@ -162,7 +161,7 @@ class _CategoryProductState extends State<CategoryProduct> {
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
-                    // decoration: InputDecoration(labelText: "category"),
+                    decoration: InputDecoration(hoverColor: Colors.amber),
                   ),
                 ),
               ),
@@ -174,8 +173,9 @@ class _CategoryProductState extends State<CategoryProduct> {
                 itemBuilder: (BuildContext ctxt, int index) {
                   return InkWell(
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(4.0),
                       child: Card(
+                        color: Colors.blue[200],
                         child: Column(
                           children: [
                             Column(
@@ -187,6 +187,7 @@ class _CategoryProductState extends State<CategoryProduct> {
                                     style: TextStyle(
                                       fontSize: 20.0,
                                     ),
+                                    textAlign: TextAlign.left,
                                   ),
                                 ),
                               ],
@@ -203,7 +204,7 @@ class _CategoryProductState extends State<CategoryProduct> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: Icon(
                                     Icons.add_circle,
-                                    color: Colors.green,
+                                    color: Colors.black,
                                     size: 40.0,
                                   ),
                                 ),
