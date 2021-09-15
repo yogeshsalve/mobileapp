@@ -3,8 +3,9 @@ import 'package:orderapp/bottomnavigation.dart';
 import 'package:orderapp/dashboard.dart';
 // import 'package:orderapp/product/CategoryService.dart';
 import 'package:http/http.dart' as http;
-import 'package:orderapp/homepage/top_bar.dart';
-import 'package:orderapp/homepage/topbar1.dart';
+// import 'package:orderapp/homepage/top_bar.dart';
+// import 'package:orderapp/homepage/topbar1.dart';
+// import 'package:orderapp/homepage/topbar1.dart';
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -29,7 +30,7 @@ class _CategoryProductState extends State<CategoryProduct> {
   List products2 = [];
   List items3 = [];
   List items1 = [];
-
+  List productsdisplay = [];
   @override
   void initState() {
     super.initState();
@@ -59,9 +60,11 @@ class _CategoryProductState extends State<CategoryProduct> {
       var items2 = jsonDecode(response.body);
       // print(items2);
       for (var item2 in items2) {
-        products2.add(item2['desc']);
+        products2.add(item2);
+        // products2.add(item2['itemno']);
         setState(() {
           items3 = products2;
+          productsdisplay = products2;
         });
       }
     }
@@ -123,10 +126,12 @@ class _CategoryProductState extends State<CategoryProduct> {
   @override
   Widget build(BuildContext context) {
     var args = ModalRoute.of(context)!.settings.arguments.toString();
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueAccent[700],
-        title: TopBar1(),
+        // title: TopBar1(),
+        title: Text("Products"),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () => Navigator.push(
@@ -140,9 +145,47 @@ class _CategoryProductState extends State<CategoryProduct> {
       //   onPressed: fetchProduct(),
       // ),
       body: Column(mainAxisAlignment: MainAxisAlignment.start,
+
           // crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            TopBar(),
+            // TopBar(),
+            Container(
+              padding: EdgeInsets.all(5),
+              color: Colors.grey[350],
+              height: size.height * 0.10,
+              child: Column(
+                children: [
+                  Container(
+                      padding: EdgeInsets.only(left: 10, right: 10),
+                      margin: EdgeInsets.all(5),
+                      color: Colors.white,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Container(
+                            width: size.width * 0.7,
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: 'Search APLORDER Item',
+                                  icon: Icon(Icons.search, color: Colors.blue)),
+                              onChanged: (text) {
+                                text.toLowerCase();
+                                setState(() {
+                                  productsdisplay = items3.where((items3) {
+                                    items3 = items3.toLowerCase();
+                                    return items3.contains(text);
+                                  }).toList();
+                                });
+                              },
+                            ),
+                          ),
+                          Icon(Icons.camera_alt, color: Colors.blue)
+                        ],
+                      )),
+                ],
+              ),
+            ),
             //----------
             Form(
               key: _formKey,
@@ -169,49 +212,78 @@ class _CategoryProductState extends State<CategoryProduct> {
             //--------------
             Expanded(
               child: new ListView.builder(
-                itemCount: items3.length,
+                itemCount: productsdisplay.length,
                 itemBuilder: (BuildContext ctxt, int index) {
                   return InkWell(
                     child: Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: Card(
+                        elevation: 10.0,
                         color: Colors.blue[200],
-                        child: Column(
-                          children: [
-                            Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: new Text(
-                                    items3[index].toString(),
-                                    style: TextStyle(
-                                      fontSize: 20.0,
-                                    ),
-                                    textAlign: TextAlign.left,
+                        child: Column(children: [
+                          Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: new Text(
+                                  productsdisplay[index]['desc'] +
+                                      "\n\n" +
+                                      productsdisplay[index]['itemno'] +
+                                      "\n\n" +
+                                      productsdisplay[index]['stock-colour'],
+                                  style: TextStyle(
+                                    fontSize: 20.0,
                                   ),
+                                  textAlign: TextAlign.left,
                                 ),
-                              ],
-                            ),
+                              ),
 
-                            // Icon(
-                            //   Icons.favorite,
-                            //   color: Colors.red,
-                            // ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Icon(
-                                    Icons.add_circle,
-                                    color: Colors.black,
-                                    size: 40.0,
-                                  ),
+                              //---
+                              // new Text(
+                              //   productsdisplay[index]['itemno'],
+                              //   style: TextStyle(
+                              //     fontSize: 20.0,
+                              //   ),
+                              //   textAlign: TextAlign.left,
+                              // ),
+                            ],
+                          ),
+
+                          // Icon(
+                          //   Icons.favorite,
+                          //   color: Colors.red,
+                          // ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Icon(
+                                  Icons.favorite,
+                                  color: Colors.red,
+                                  size: 40.0,
                                 ),
-                              ],
-                            )
-                          ],
-                        ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Icon(
+                                  Icons.add_circle,
+                                  color: Colors.black,
+                                  size: 40.0,
+                                ),
+                              ),
+
+                              //  Padding(
+                              //   padding: const EdgeInsets.all(8.0),
+                              //   child: Icon(
+                              //     Icons.add_circle,
+                              //     color: Colors.black,
+                              //     size: 40.0,
+                              //   ),
+                              // ),
+                            ],
+                          ),
+                        ]),
                       ),
                     ),
                   );

@@ -1,0 +1,9 @@
+1. home page designed
+2. login functionality - api consumption
+3. log out 
+4. sessions with shared preferences
+5. search for products from home page
+6. specific product list by clicking on dashboard buttons
+7. search items in specific category
+8. worked on bar chart and line chart. 
+9. working on fingerprint autentication module

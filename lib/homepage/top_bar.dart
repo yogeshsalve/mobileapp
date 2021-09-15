@@ -20,7 +20,7 @@ class TopBar extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Container(
-                    width: 300,
+                    width: size.width * 0.7,
                     child: TextField(
                       decoration: InputDecoration(
                           border: InputBorder.none,
