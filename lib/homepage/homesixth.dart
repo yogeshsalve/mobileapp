@@ -8,14 +8,14 @@ class Homesixth extends StatelessWidget {
         child: Container(
       color: Colors.blue[50],
       child: Padding(
-        padding: const EdgeInsets.all(14.0),
+        padding: const EdgeInsets.all(12.0),
         child: Column(
           children: [
             Row(
               children: <Widget>[
                 Container(
-                  width: 110,
-                  height: 110,
+                  width: size.width * 0.27,
+                  height: size.height * 0.15,
                   child: Card(
                     color: Colors.white,
                     child: Column(
@@ -43,11 +43,11 @@ class Homesixth extends StatelessWidget {
                       border: Border.all(color: Colors.black)),
                 ),
                 SizedBox(
-                  width: 20,
+                  width: size.width * 0.03,
                 ), //SizedBox
                 Container(
-                  width: 110,
-                  height: 110,
+                  width: size.width * 0.27,
+                  height: size.height * 0.15,
                   child: Card(
                     color: Colors.white,
                     child: Column(
@@ -76,11 +76,11 @@ class Homesixth extends StatelessWidget {
                 ),
 
                 SizedBox(
-                  width: 20,
+                  width: size.width * 0.03,
                 ), //SizedBox
                 Container(
-                  width: 110,
-                  height: 110,
+                  width: size.width * 0.29,
+                  height: size.height * 0.15,
                   child: Card(
                     color: Colors.white,
                     child: Column(

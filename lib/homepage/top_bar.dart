@@ -9,7 +9,7 @@ class TopBar extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(5),
       color: Colors.grey[350],
-      height: size.height * 0.10,
+      height: size.height * 0.09,
       child: Column(
         children: <Widget>[
           Container(
@@ -21,11 +21,14 @@ class TopBar extends StatelessWidget {
                 children: <Widget>[
                   Container(
                     width: size.width * 0.7,
-                    child: TextField(
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Search APLORDER Item',
-                          icon: Icon(Icons.search, color: dark_blue)),
+                    height: size.height * 0.06,
+                    child: Center(
+                      child: TextField(
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Search APLORDER Item',
+                            icon: Icon(Icons.search, color: dark_blue)),
+                      ),
                     ),
                   ),
                   Icon(Icons.camera_alt, color: dark_blue)

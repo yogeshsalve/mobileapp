@@ -10,16 +10,16 @@ class CategoryServices {
     // print('Response status: ${response.statusCode}');
     // print('Response body: ${response.body}');
 
-    return jsonDecode(response.body);
+    var data1 = jsonDecode(response.body);
 
     // print(data1);
-    // return ProductcategoryResponse(
-    //   desc: data1["data"]["desc"],
-    //   itemno: data1.data["itemno"],
-    //   stockcolour: data1.data["stock-colour"],
-    //   unit: data1.data["unit"],
-    //   status: data1.status,
-    // );
+    return ProductcategoryResponse(
+      desc: data1["data"]["desc"],
+      itemno: data1.data["itemno"],
+      stockcolour: data1.data["stock-colour"],
+      unit: data1.data["unit"],
+      status: data1.status,
+    );
   }
 }
 

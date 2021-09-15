@@ -135,7 +135,15 @@ class _DashboardState extends State<Dashboard> {
             // SizedBox(
             //   height: size.height * 0.01,
             // ),
+            // Container(
+            //   color: Colors.blue,
+            //   height: size.width * 0.01,
+            // ),
             Homesixth(),
+            Container(
+              color: Colors.blue,
+              height: size.width * 0.01,
+            ),
             SizedBox(
               height: size.height * 0.01,
             ),

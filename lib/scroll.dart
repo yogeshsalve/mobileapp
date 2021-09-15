@@ -4,7 +4,7 @@ import 'package:orderapp/bottomnavigation.dart';
 import 'dart:convert';
 
 import 'package:orderapp/dashboard.dart';
-import 'package:orderapp/homepage/top_bar.dart';
+// import 'package:orderapp/homepage/top_bar.dart';
 import 'package:orderapp/homepage/topbar1.dart';
 //import 'package:orderapp/bottomnavigation.dart';
 //import 'package:orderapp/drawer.dart';
@@ -36,7 +36,7 @@ class _PhotosListScreenState extends State<PhotosListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    //Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueAccent[700],

@@ -20,8 +20,8 @@ class Homefifth extends StatelessWidget {
                         builder: (BuildContext context) => OrderEnquiry()));
                   },
                   child: Container(
-                    width: 110,
-                    height: 110,
+                    width: size.width * 0.27,
+                    height: size.height * 0.15,
                     child: Card(
                       color: Colors.white,
                       child: Column(
@@ -53,11 +53,11 @@ class Homefifth extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  width: 20,
+                  width: size.width * 0.03,
                 ), //SizedBox
                 Container(
-                  width: 110,
-                  height: 110,
+                  width: size.width * 0.27,
+                  height: size.height * 0.15,
                   child: Card(
                     color: Colors.white,
                     child: Column(
@@ -89,11 +89,11 @@ class Homefifth extends StatelessWidget {
                 ),
 
                 SizedBox(
-                  width: 20,
+                  width: size.width * 0.03,
                 ), //SizedBox
                 Container(
-                  width: 110,
-                  height: 110,
+                  width: size.width * 0.29,
+                  height: size.height * 0.15,
                   child: Card(
                     color: Colors.white,
                     child: Column(
