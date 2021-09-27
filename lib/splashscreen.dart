@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:orderapp/dashboard.dart';
 import 'dart:async';
 import 'package:orderapp/loginscreen.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:shared_preferences/shared_preferences.dart';
 
 Color color = Colors.white;

@@ -1,4 +1,3 @@
-// import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:orderapp/dashboard.dart';
 import 'package:orderapp/drawerpages/color.dart';
@@ -6,6 +5,11 @@ import 'package:orderapp/drawerpages/color.dart';
 import 'package:orderapp/register.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'ApiService.dart';
+
+// for dio package with cookiejar
+// import 'package:cookie_jar/cookie_jar.dart';
+
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -19,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final passwordText = TextEditingController();
   bool _obscureText = true;
   final _formKey = GlobalKey<FormState>();
-
+  final storage = new FlutterSecureStorage();
   void _toggle() {
     setState(() {
       _obscureText = !_obscureText;
