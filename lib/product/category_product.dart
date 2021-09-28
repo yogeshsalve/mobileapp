@@ -37,6 +37,7 @@ class _CategoryProductState extends State<CategoryProduct> {
   List items3 = [];
   List items1 = [];
   List productsdisplay = [];
+  String userCookie = '';
   @override
   void initState() {
     super.initState();
@@ -57,12 +58,18 @@ class _CategoryProductState extends State<CategoryProduct> {
     // var map = new Map<String, dynamic>();
     // map['category'] = myController1.text;
 
+    // ---------------token-------------------
+    // final SharedPreferences pref = await SharedPreferences.getInstance();
+    userCookie = pref.getString('userCookiekey')!;
+    setState(() {});
+
+    print(userCookie);
+
+    // -------------token ------------------------
+
     var url = Uri.parse('http://114.143.151.6:901/products-by-category');
-    var response = await http.post(url, body: {
-      "category": productName
-    }, headers: {
-      'Cookie': "session=cLmSPlij6RiMs2xCCvtWMQLVUE755gItrrfKoRNN290"
-    });
+    var response = await http.post(url,
+        body: {"category": productName}, headers: {'Cookie': userCookie});
 
     items3.clear();
     if (response.statusCode == 200) {
@@ -131,7 +138,7 @@ class _CategoryProductState extends State<CategoryProduct> {
   // }
 
   final _formKey = GlobalKey<FormState>();
-  final _cartkey = GlobalKey<FormState>();
+  // final _cartkey = GlobalKey<FormState>();
   String productName = '';
   var a;
   @override
@@ -249,13 +256,12 @@ class _CategoryProductState extends State<CategoryProduct> {
                               message: 'No Stock',
                               child: Icon(
                                 Icons.circle,
-                                size: 40.0,
+                                size: 20.0,
                                 color: Colors.red,
                               ),
                             ),
                           ),
                         ),
-
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: GestureDetector(
@@ -268,13 +274,12 @@ class _CategoryProductState extends State<CategoryProduct> {
                               message: '15 to 20 Days',
                               child: Icon(
                                 Icons.circle,
-                                size: 40.0,
+                                size: 20.0,
                                 color: Colors.yellow,
                               ),
                             ),
                           ),
                         ),
-
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: GestureDetector(
@@ -287,13 +292,12 @@ class _CategoryProductState extends State<CategoryProduct> {
                               message: '10 to 15 Days',
                               child: Icon(
                                 Icons.circle,
-                                size: 40.0,
+                                size: 20.0,
                                 color: Colors.orange,
                               ),
                             ),
                           ),
                         ),
-
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: GestureDetector(
@@ -306,13 +310,12 @@ class _CategoryProductState extends State<CategoryProduct> {
                               message: '3 to 4 Days',
                               child: Icon(
                                 Icons.circle,
-                                size: 40.0,
+                                size: 20.0,
                                 color: Colors.blue[900],
                               ),
                             ),
                           ),
                         ),
-
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: GestureDetector(
@@ -325,21 +328,12 @@ class _CategoryProductState extends State<CategoryProduct> {
                               message: 'Total Stock',
                               child: Icon(
                                 Icons.circle,
-                                size: 40.0,
+                                size: 20.0,
                                 color: Colors.green,
                               ),
                             ),
                           ),
                         ),
-
-                        // child: Center(
-                        //     child: Text(
-                        //   args,
-                        //   style: TextStyle(
-                        //       fontSize: 24.0,
-                        //       fontWeight: FontWeight.bold,
-                        //       color: Colors.white),
-                        // )),
                       ])),
             ),
             //----------
@@ -399,351 +393,43 @@ class _CategoryProductState extends State<CategoryProduct> {
                             Radius.circular(10.0),
                           ),
                         ),
-                        child: Column(children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: Align(
-                                  alignment: Alignment.topRight,
-                                  child: InkWell(
-                                    onTap: () =>
-                                        Navigator.pop(context, 'Favourite'),
-                                    child: Icon(
-                                      Icons.favorite,
-                                      color: Colors.red,
-                                      size: 24.0,
-                                    ),
+                        child: Column(
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                ListTile(
+                                  leading: Icon(
+                                    Icons.circle,
+                                    size: 30.0,
+                                    color: getColor(),
+                                  ),
+                                  title: Text(
+                                    "Product :" +
+                                        " " +
+                                        productsdisplay[index]['desc']
+                                            .toString(),
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 15),
+                                  ),
+                                  subtitle: Text(
+                                    "Item No :" +
+                                        " " +
+                                        productsdisplay[index]['itemno']
+                                            .toString(),
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 15),
+                                  ),
+                                  trailing: Text(
+                                    productsdisplay[index]['unit'],
+                                    style: TextStyle(
+                                        color: Colors.green, fontSize: 15),
                                   ),
                                 ),
-                              ),
-
-                              Padding(
-                                padding: const EdgeInsets.all(2.0),
-                                child: new Text(
-                                  productsdisplay[index]['desc'] +
-                                      "\n" +
-                                      "Item No: " +
-                                      productsdisplay[index]['itemno'],
-                                  // "\t" +
-                                  // "Unit :" +
-                                  // productsdisplay[index]['unit'],
-                                  //--------
-
-                                  //--------------
-                                  style: TextStyle(
-                                    fontSize: 20.0,
-                                    color: Colors.black,
-                                  ),
-                                  textAlign: TextAlign.left,
-                                ),
-                              ),
-
-                              //---
-                              // new Text(
-
-                              //   productsdisplay[index]['itemno'],
-                              //   style: TextStyle(
-                              //     fontSize: 20.0,
-                              //   ),
-                              //   textAlign: TextAlign.left,
-                              // ),
-                            ],
-                          ),
-
-                          // Icon(
-                          //   Icons.favorite,
-                          //   color: Colors.red,
-                          // ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Icon(
-                                  Icons.circle,
-                                  size: 40.0,
-                                  color: getColor(),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: InkWell(
-                                  onTap: () {
-                                    //##############
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) =>
-                                          AlertDialog(
-                                        // backgroundColor: Colors.lightBlue[50],
-
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(32.0),
-                                            ),
-                                            side: BorderSide(
-                                                color: Colors.red, width: 3.0)),
-
-                                        title: Column(
-                                          children: [
-                                            Align(
-                                              alignment: Alignment.topRight,
-                                              child: InkWell(
-                                                onTap: () => Navigator.pop(
-                                                    context, 'Cancel'),
-                                                child: CircleAvatar(
-                                                  radius: 16.0,
-                                                  backgroundColor: Colors.red,
-                                                  child: Icon(
-                                                    Icons.close,
-                                                    color: Colors.white,
-                                                    size: 30.0,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            Center(
-                                              child: const Text(
-                                                'ADD TO CART',
-                                                style: TextStyle(
-                                                    fontSize: 18.0,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-
-                                        // content: const Text('Are You Sure..?'),
-                                        actions: <Widget>[
-                                          Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                // Text(
-                                                //   "Description: \t" +
-                                                //       productsdisplay[index]
-                                                //           ['desc'],
-                                                // ),
-                                                // Text(
-                                                //   "Item No: \t" +
-                                                //       productsdisplay[index]
-                                                //           ['itemno'],
-                                                // ),
-                                                //------------------
-                                                Form(
-                                                  key: _cartkey,
-                                                  child: Visibility(
-                                                    visible: true,
-                                                    child: Column(
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(8.0),
-                                                          child: TextFormField(
-                                                            readOnly: true,
-                                                            controller: myController2
-                                                              ..text =
-                                                                  productsdisplay[
-                                                                          index]
-                                                                      ['desc'],
-                                                            textAlign: TextAlign
-                                                                .center,
-
-                                                            // controller: passwordText,
-                                                            style: TextStyle(
-                                                              fontSize: 18,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                            ),
-                                                            decoration:
-                                                                InputDecoration(
-                                                              labelText:
-                                                                  "Description",
-                                                              border:
-                                                                  OutlineInputBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            5.0),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        //---------------------
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(8.0),
-                                                          child: TextFormField(
-                                                            readOnly: true,
-                                                            controller: myController3
-                                                              ..text =
-                                                                  productsdisplay[
-                                                                          index]
-                                                                      [
-                                                                      'itemno'],
-                                                            textAlign: TextAlign
-                                                                .center,
-
-                                                            // controller: passwordText,
-                                                            style: TextStyle(
-                                                              fontSize: 18,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                            ),
-                                                            decoration:
-                                                                InputDecoration(
-                                                              labelText:
-                                                                  "Item No",
-                                                              border:
-                                                                  OutlineInputBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            5.0),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        //--------
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(8.0),
-                                                          child: TextFormField(
-                                                            readOnly: true,
-
-                                                            controller: myController4
-                                                              ..text =
-                                                                  productsdisplay[
-                                                                          index]
-                                                                      ['unit'],
-                                                            textAlign: TextAlign
-                                                                .center,
-
-                                                            // controller: passwordText,
-                                                            style: TextStyle(
-                                                              fontSize: 18,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                            ),
-                                                            decoration:
-                                                                InputDecoration(
-                                                              labelText: "UOM",
-                                                              border:
-                                                                  OutlineInputBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            5.0),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-
-                                                        //------------------------
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(8.0),
-                                                          child: TextFormField(
-                                                            readOnly: true,
-                                                            controller:
-                                                                myController1
-                                                                  ..text = args,
-                                                            textAlign: TextAlign
-                                                                .center,
-
-                                                            // controller: passwordText,
-                                                            style: TextStyle(
-                                                              fontSize: 18,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                            ),
-                                                            decoration:
-                                                                InputDecoration(
-                                                              labelText:
-                                                                  "Quantity",
-                                                              border:
-                                                                  OutlineInputBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            5.0),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                                //----------form end -----
-                                              ]),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Container(
-                                                child: ElevatedButton(
-                                                  child: Text('ADD'),
-                                                  // onPressed: () {
-                                                  //   print('Pressed');
-                                                  // },
-                                                  onPressed: () {},
-                                                  style: ElevatedButton
-                                                      .styleFrom(
-                                                          primary:
-                                                              Colors.deepPurple,
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                                  horizontal:
-                                                                      60,
-                                                                  vertical: 10),
-                                                          textStyle: TextStyle(
-                                                              fontSize: 15,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                          shape:
-                                                              StadiumBorder()),
-                                                ),
-                                              ),
-                                              // TextButton(
-                                              //   onPressed: () {
-                                              //     setState(() {
-                                              //       // delid = id;
-                                              //       // itemNo = itemno;
-                                              //       // qty = quantity;
-                                              //       // deleteData();
-                                              //     });
-                                              //   },
-                                              //   child: const Text('OK'),
-                                              // ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                    //##############
-                                  },
-                                  child: Icon(
-                                    Icons.add_circle,
-                                    color: Colors.black,
-                                    size: 40.0,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ]),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   );

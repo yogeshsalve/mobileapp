@@ -47,9 +47,16 @@ class _LoginScreenState extends State<LoginScreen> {
       ).then((value) {
         var cook = value.cookie;
 
+        // RegExp reg2 = new RegExp(r'/[^;]*/');
+
+        // RegExpMatch? firstMatch = reg2.firstMatch(cook!);
+        // print(
+        //     'First match: ${cook.substring(firstMatch!.start, firstMatch.end)}');
+
         print(cook);
         if (value.error == 200) {
           setUserName(emailText.text);
+          setCookie(cook);
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => Dashboard()));
         } else {
@@ -241,5 +248,10 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> setUserName(userName) async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setString('usernamekey', userName);
+  }
+
+  Future<void> setCookie(userCookie) async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString('userCookiekey', userCookie);
   }
 }

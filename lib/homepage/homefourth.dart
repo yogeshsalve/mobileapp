@@ -17,6 +17,9 @@ class Homefourth extends StatefulWidget {
 class _HomefourthState extends State<Homefourth> {
   int _index = -1;
   String getData = '';
+  String userCookie = '';
+  var xyz = "session=QwJyeKwiLowATLO7DRCqY28gcTH6EikHe0VE6cAYhCw";
+
   // var url = Uri.parse('https://yogeshsalve.com/API/');
   var url = Uri.parse('http://114.143.151.6:901/categories');
   List getList1 = [];
@@ -24,11 +27,26 @@ class _HomefourthState extends State<Homefourth> {
   List getList2 = [];
   String productName = '';
   // var cookie;
+
+  @override
+  void initState() {
+    super.initState();
+    this.fetchData();
+    // getCookie();
+  }
+
   Future fetchData() async {
+// ---------------token-------------------
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    userCookie = pref.getString('userCookiekey')!;
+    setState(() {});
+
+    print(userCookie);
+
+    // -------------token ------------------------
+
     http.Response response;
-    response = await http.get(url, headers: {
-      'Cookie': "session=cLmSPlij6RiMs2xCCvtWMQLVUE755gItrrfKoRNN290"
-    });
+    response = await http.get(url, headers: {'Cookie': userCookie});
 
     if (response.statusCode == 200) {
       setState(() {
@@ -41,14 +59,7 @@ class _HomefourthState extends State<Homefourth> {
         }
       });
       print(getList);
-      //   });
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    fetchData();
   }
 
   @override
@@ -99,6 +110,7 @@ class _HomefourthState extends State<Homefourth> {
           ),
         ),
       ),
+      // child: Text(userCookie),
     );
   }
 
@@ -106,4 +118,10 @@ class _HomefourthState extends State<Homefourth> {
     final SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setString('product', productName);
   }
+
+  // void getCookie() async {
+  //   final SharedPreferences pref = await SharedPreferences.getInstance();
+  //   userCookie = pref.getString('userCookiekey')!;
+  //   setState(() {});
+  // }
 }
