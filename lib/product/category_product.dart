@@ -58,7 +58,11 @@ class _CategoryProductState extends State<CategoryProduct> {
     // map['category'] = myController1.text;
 
     var url = Uri.parse('http://114.143.151.6:901/products-by-category');
-    var response = await http.post(url, body: {"category": productName});
+    var response = await http.post(url, body: {
+      "category": productName
+    }, headers: {
+      'Cookie': "session=cLmSPlij6RiMs2xCCvtWMQLVUE755gItrrfKoRNN290"
+    });
 
     items3.clear();
     if (response.statusCode == 200) {

@@ -23,9 +23,12 @@ class _HomefourthState extends State<Homefourth> {
   List getList = [];
   List getList2 = [];
   String productName = '';
+  // var cookie;
   Future fetchData() async {
     http.Response response;
-    response = await http.get(url);
+    response = await http.get(url, headers: {
+      'Cookie': "session=cLmSPlij6RiMs2xCCvtWMQLVUE755gItrrfKoRNN290"
+    });
 
     if (response.statusCode == 200) {
       setState(() {

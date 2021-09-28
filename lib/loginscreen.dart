@@ -24,6 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _obscureText = true;
   final _formKey = GlobalKey<FormState>();
   final storage = new FlutterSecureStorage();
+
   void _toggle() {
     setState(() {
       _obscureText = !_obscureText;
@@ -44,7 +45,9 @@ class _LoginScreenState extends State<LoginScreen> {
           "password": passwordText.text,
         },
       ).then((value) {
-        // ignore: unrelated_type_equality_checks
+        var cook = value.cookie;
+
+        print(cook);
         if (value.error == 200) {
           setUserName(emailText.text);
           Navigator.push(
