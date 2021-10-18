@@ -15,8 +15,8 @@ class _TestState extends State<Test> {
   final _baseUrl = 'http://114.143.151.6:901/order-inquiry-list';
 
   // At the beginning, we fetch the first 20 posts
-  int _page = 1;
-  int _limit = 8;
+  int _page = 0;
+  int _limit = 20;
   String userCookie = '';
 
   // There is next page or not
@@ -46,8 +46,8 @@ class _TestState extends State<Test> {
       _isFirstLoadRunning = true;
     });
     try {
-      final res = await http.post(Uri.parse("$_baseUrl"),
-          body: {"limit": _limit.toString(), "page": _page.toString()},
+      final res = await http.post(
+          Uri.parse("$_baseUrl?_page=$_page&_limit=$_limit"),
           headers: {'Cookie': userCookie});
       setState(() {
         _posts = json.decode(res.body);
@@ -73,9 +73,8 @@ class _TestState extends State<Test> {
       });
       _page += 1; // Increase _page by 1
       try {
-        final res = await http.post(Uri.parse("$_baseUrl"),
-            body: {"limit": _limit.toString(), "page": _page.toString()},
-            headers: {'Cookie': userCookie});
+        final res =
+            await http.get(Uri.parse("$_baseUrl?_page=$_page&_limit=$_limit"));
 
         final List fetchedPosts = json.decode(res.body);
         if (fetchedPosts.length > 0) {

@@ -4,9 +4,10 @@ import 'package:orderapp/drawerpages/cart.dart';
 import 'package:orderapp/drawerpages/certificate.dart';
 
 import 'package:orderapp/drawerpages/fevstore.dart';
+import 'package:orderapp/testpage.dart';
 // import 'package:orderapp/product/product_grid.dart';
 
-// import 'package:orderapp/testpage.dart';
+//
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:orderapp/drawerpages/ledger.dart';
@@ -116,18 +117,18 @@ class _MyDrawerState extends State<MyDrawer> {
               },
             ),
 
-            // ListTile(
-            //   title: Text('SendEmail', style: TextStyle(fontSize: 20)),
-            //   tileColor: Colors.white10,
-            //   leading: Icon(
-            //     Icons.shop,
-            //     color: Colors.black,
-            //   ),
-            //   onTap: () => {
-            //     Navigator.of(context).pushReplacement(MaterialPageRoute(
-            //         builder: (BuildContext context) => SendEmail()))
-            //   },
-            // ),
+            ListTile(
+              title: Text('Test', style: TextStyle(fontSize: 20)),
+              tileColor: Colors.white10,
+              leading: Icon(
+                Icons.shop,
+                color: Colors.black,
+              ),
+              onTap: () => {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (BuildContext context) => Test()))
+              },
+            ),
 
             ListTile(
               title: Text('Favourite Store', style: TextStyle(fontSize: 20)),

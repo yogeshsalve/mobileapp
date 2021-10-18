@@ -4,6 +4,7 @@ import 'package:orderapp/drawer.dart';
 import 'package:orderapp/drawerpages/changepassword.dart';
 import 'package:orderapp/homepage/homefifth.dart';
 import 'package:orderapp/homepage/homefourth.dart';
+import 'package:orderapp/homepage/homeseventh.dart';
 import 'package:orderapp/homepage/homesixth.dart';
 import 'package:orderapp/homepage/homethreehalf.dart';
 import 'package:orderapp/homepage/top_bar.dart';
@@ -142,13 +143,14 @@ class _DashboardState extends State<Dashboard> {
             //   height: size.width * 0.01,
             // ),
             Homesixth(),
-            Container(
-              color: Colors.blue,
-              height: size.width * 0.01,
-            ),
+            // Container(
+            //   color: Colors.blue,
+            //   height: size.width * 0.01,
+            // ),
             SizedBox(
               height: size.height * 0.01,
             ),
+            HomeSeventh(),
             Container(
               height: size.height * 0.15,
               width: size.width * 1,
