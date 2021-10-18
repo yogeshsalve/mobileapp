@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:orderapp/dashboard.dart';
 import 'package:orderapp/drawerpages/color.dart';
@@ -8,8 +10,6 @@ import 'ApiService.dart';
 
 // for dio package with cookiejar
 // import 'package:cookie_jar/cookie_jar.dart';
-
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -23,7 +23,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final passwordText = TextEditingController();
   bool _obscureText = true;
   final _formKey = GlobalKey<FormState>();
-  final storage = new FlutterSecureStorage();
 
   void _toggle() {
     setState(() {
@@ -57,8 +56,12 @@ class _LoginScreenState extends State<LoginScreen> {
         if (value.error == 200) {
           setUserName(emailText.text);
           setCookie(cook);
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Dashboard()));
+          Timer(Duration(seconds: 3), () {
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (_) => Dashboard()));
+          });
+          // Navigator.push(
+          //     context, MaterialPageRoute(builder: (context) => Dashboard()));
         } else {
           showDialog(
             context: context,

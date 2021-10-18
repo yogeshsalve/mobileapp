@@ -1,15 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:orderapp/bottomnavigation.dart';
 import 'package:orderapp/dashboard.dart';
-// import 'package:orderapp/product/CategoryService.dart';
 import 'package:http/http.dart' as http;
-// import 'package:orderapp/splashscreen.dart';
-// import 'package:orderapp/splashscreen.dart';
-// import 'package:orderapp/homepage/top_bar.dart';
-// import 'package:orderapp/homepage/topbar1.dart';
-// import 'package:orderapp/homepage/topbar1.dart';
 import 'dart:convert';
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CategoryProduct extends StatefulWidget {
@@ -26,6 +19,11 @@ var myController4 = TextEditingController();
 var myController5 = TextEditingController();
 var productName;
 // var productName1 = productName;
+var myController11 = TextEditingController();
+var myController22 = TextEditingController();
+var myController33 = TextEditingController();
+var myController44 = TextEditingController();
+var myController55 = TextEditingController();
 
 class _CategoryProductState extends State<CategoryProduct> {
   String desc = "";
@@ -43,10 +41,6 @@ class _CategoryProductState extends State<CategoryProduct> {
     super.initState();
     // this.getProductName();
     fetchProduct();
-
-    // this.myController1.text = "";
-
-    //callproductcategoryApi(context);
   }
 
   fetchProduct() async {
@@ -90,54 +84,8 @@ class _CategoryProductState extends State<CategoryProduct> {
     print(items3);
   }
 
-// Future.delayed(Duration.zero, () async {
-//   myFunction();
-// });
-  //------------------------- above wala working ------------------------
-
-  // postData() async {
-  //   //print('function executed successfully..!!');
-  //   try {
-  //     var response = await http.post(
-  //         Uri.parse("http://114.143.151.6:901/products-by-category"),
-  //         body: {
-  //           "category": myController1.text,
-  //         });
-  //     print(response.body);
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  // }
-
-  //--------------------------------------------------------------------------
-
-  // callproductcategoryApi(BuildContext context) async {
-  //   final service = CategoryServices();
-  //   await Future.delayed(Duration(seconds: 1));
-
-  //   service.apiCallproductcategory(
-  //     {
-  //       "category": myController1.text,
-  //     },
-  //   ).then((value) {
-  //     print(value.status);
-  //     // print(value.data[0]["desc"]);
-
-  //     // if (value.status == 200) {
-  //     //   setState(() {
-  //     //     desc = value.desc.toString();
-  //     //     // print(desc);
-  //     //     // itemno = value.itemno.toString();
-  //     //     // stockcolour = value.stockcolour.toString();
-  //     //     // unit = value.unit.toString();
-  //     //   });
-  //     //   // Navigator.push(
-  //     //   //     context, MaterialPageRoute(builder: (context) => Dashboard()));
-  //     // } else {}
-  //   });
-  // }
-
   final _formKey = GlobalKey<FormState>();
+  final _formKey2 = GlobalKey<FormState>();
   // final _cartkey = GlobalKey<FormState>();
   String productName = '';
   var a;
@@ -167,9 +115,11 @@ class _CategoryProductState extends State<CategoryProduct> {
       // floatingActionButton: FloatingActionButton(
       //   onPressed: fetchProduct(),
       // ),
+
       body: Column(mainAxisAlignment: MainAxisAlignment.start,
 
           // crossAxisAlignment: CrossAxisAlignment.stretch,
+
           children: <Widget>[
             // TopBar(),
             Container(
@@ -224,23 +174,6 @@ class _CategoryProductState extends State<CategoryProduct> {
                         width: 1.0,
                       )),
                   height: 60.0,
-
-                  //          child: GestureDetector(
-                  //   onTap: () {
-                  //     final dynamic tooltip = _toolTipKey.currentState;
-                  //     tooltip.ensureTooltipVisible();
-                  //   },
-                  //   child: Tooltip(
-                  //     key: _toolTipKey,
-                  //     message: 'button is disabled',
-                  //     child: Radio(
-                  //       groupValue: null,
-                  //       onChanged: null,
-                  //       value: null,
-                  //     ),
-                  //   ),
-                  // ),
-                  //-----
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -359,83 +292,320 @@ class _CategoryProductState extends State<CategoryProduct> {
                 ),
               ),
             ),
+            if (productsdisplay.isNotEmpty)
+              //--------------
+              Expanded(
+                child: new ListView.builder(
+                  itemCount: productsdisplay.length,
+                  itemBuilder: (BuildContext ctxt, int index) {
+                    getColor() {
+                      if (productsdisplay[index]['stock-colour'] == "RED")
+                        return Colors.red;
+                      else if (productsdisplay[index]['stock-colour'] ==
+                          "YELLOW")
+                        return Colors.yellow;
+                      else if (productsdisplay[index]['stock-colour'] ==
+                          "ORANGE")
+                        return Colors.orange;
+                      else if (productsdisplay[index]['stock-colour'] == "BLUE")
+                        return Colors.blue;
+                      else if (productsdisplay[index]['stock-colour'] ==
+                          "GREEN") return Colors.green;
+                    }
 
-            //--------------
-            Expanded(
-              child: new ListView.builder(
-                itemCount: productsdisplay.length,
-                itemBuilder: (BuildContext ctxt, int index) {
-                  getColor() {
-                    if (productsdisplay[index]['stock-colour'] == "RED")
-                      return Colors.red;
-                    else if (productsdisplay[index]['stock-colour'] == "YELLOW")
-                      return Colors.yellow;
-                    else if (productsdisplay[index]['stock-colour'] == "ORANGE")
-                      return Colors.orange;
-                    else if (productsdisplay[index]['stock-colour'] == "BLUE")
-                      return Colors.blue;
-                    else if (productsdisplay[index]['stock-colour'] == "GREEN")
-                      return Colors.green;
-                  }
-
-                  return InkWell(
-                    child: Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Card(
-                        elevation: 16.0,
-                        color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                            color: Colors.black,
-                            width: 2.0,
-                          ),
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(10.0),
-                          ),
-                        ),
-                        child: Column(
-                          children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                ListTile(
-                                  leading: Icon(
-                                    Icons.circle,
-                                    size: 30.0,
-                                    color: getColor(),
-                                  ),
-                                  title: Text(
-                                    "Product :" +
-                                        " " +
-                                        productsdisplay[index]['desc']
-                                            .toString(),
-                                    style: TextStyle(
-                                        color: Colors.black, fontSize: 15),
-                                  ),
-                                  subtitle: Text(
-                                    "Item No :" +
-                                        " " +
-                                        productsdisplay[index]['itemno']
-                                            .toString(),
-                                    style: TextStyle(
-                                        color: Colors.black, fontSize: 15),
-                                  ),
-                                  trailing: Text(
-                                    productsdisplay[index]['unit'],
-                                    style: TextStyle(
-                                        color: Colors.green, fontSize: 15),
-                                  ),
-                                ),
-                              ],
+                    return InkWell(
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Card(
+                          elevation: 16.0,
+                          color: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                              color: Colors.black,
+                              width: 2.0,
                             ),
-                          ],
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(10.0),
+                            ),
+                          ),
+                          child: Column(
+                            children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) =>
+                                              new AlertDialog(
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                32.0))),
+                                                contentPadding:
+                                                    EdgeInsets.only(top: 10.0),
+                                                content: SingleChildScrollView(
+                                                  child: Container(
+                                                    width: size.width * 1,
+                                                    child: Form(
+                                                      key: _formKey2,
+                                                      child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          children: <Widget>[
+                                                            SizedBox(
+                                                                height:
+                                                                    size.height *
+                                                                        0.01),
+                                                            Container(
+                                                              alignment:
+                                                                  Alignment
+                                                                      .center,
+                                                              margin: EdgeInsets
+                                                                  .symmetric(
+                                                                      horizontal:
+                                                                          50),
+                                                              child:
+                                                                  TextFormField(
+                                                                // readOnly: true,
+                                                                controller: myController11
+                                                                  ..text = productsdisplay[
+                                                                              index]
+                                                                          [
+                                                                          'itemno']
+                                                                      .toString(),
+
+                                                                // controller: passwordText,
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        18),
+                                                                decoration:
+                                                                    InputDecoration(
+                                                                        labelText:
+                                                                            "Item"),
+                                                              ),
+                                                            ),
+                                                            SizedBox(
+                                                                height:
+                                                                    size.height *
+                                                                        0.01),
+                                                            Container(
+                                                              alignment:
+                                                                  Alignment
+                                                                      .center,
+                                                              margin: EdgeInsets
+                                                                  .symmetric(
+                                                                      horizontal:
+                                                                          50),
+                                                              child:
+                                                                  TextFormField(
+                                                                // readOnly: true,
+                                                                controller:
+                                                                    myController22,
+
+                                                                // controller: passwordText,
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        18),
+                                                                decoration:
+                                                                    InputDecoration(
+                                                                        labelText:
+                                                                            "Quantity"),
+                                                              ),
+                                                            ),
+                                                            SizedBox(
+                                                                height:
+                                                                    size.height *
+                                                                        0.01),
+                                                            Container(
+                                                              alignment:
+                                                                  Alignment
+                                                                      .center,
+                                                              margin: EdgeInsets
+                                                                  .symmetric(
+                                                                      horizontal:
+                                                                          50),
+                                                              child:
+                                                                  TextFormField(
+                                                                // readOnly: true,
+                                                                controller:
+                                                                    myController33,
+
+                                                                // controller: passwordText,
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        18),
+                                                                decoration:
+                                                                    InputDecoration(
+                                                                        labelText:
+                                                                            "Uom"),
+                                                              ),
+                                                            ),
+                                                            SizedBox(
+                                                                height:
+                                                                    size.height *
+                                                                        0.01),
+                                                            Container(
+                                                              alignment:
+                                                                  Alignment
+                                                                      .center,
+                                                              margin: EdgeInsets
+                                                                  .symmetric(
+                                                                      horizontal:
+                                                                          50),
+                                                              child:
+                                                                  TextFormField(
+                                                                // readOnly: true,
+                                                                controller:
+                                                                    myController44,
+
+                                                                // controller: passwordText,
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        18),
+                                                                decoration:
+                                                                    InputDecoration(
+                                                                        labelText:
+                                                                            "Stock Status"),
+                                                              ),
+                                                            ),
+                                                            SizedBox(
+                                                                height:
+                                                                    size.height *
+                                                                        0.01),
+                                                            Container(
+                                                              alignment:
+                                                                  Alignment
+                                                                      .center,
+                                                              margin: EdgeInsets
+                                                                  .symmetric(
+                                                                      horizontal:
+                                                                          50),
+                                                              child:
+                                                                  TextFormField(
+                                                                // readOnly: true,
+                                                                controller:
+                                                                    myController55,
+
+                                                                // controller: passwordText,
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        18),
+                                                                decoration:
+                                                                    InputDecoration(
+                                                                        labelText:
+                                                                            "All Uom"),
+                                                              ),
+                                                            ),
+                                                            SizedBox(
+                                                                height:
+                                                                    size.height *
+                                                                        0.05),
+                                                            Material(
+                                                              color:
+                                                                  Colors.blue,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10),
+                                                              child: InkWell(
+                                                                onTap: () {
+                                                                  // Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                                                  //     builder: (BuildContext context) => Cart()));
+                                                                  // cart(context);
+                                                                },
+                                                                child:
+                                                                    Container(
+                                                                  width: 150,
+                                                                  height: 50,
+                                                                  alignment:
+                                                                      Alignment
+                                                                          .center,
+                                                                  child: Text(
+                                                                      "Add To Cart",
+                                                                      style: TextStyle(
+                                                                          color: Colors
+                                                                              .white,
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          fontSize:
+                                                                              18)),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            SizedBox(
+                                                                height:
+                                                                    size.height *
+                                                                        0.1),
+                                                          ]),
+                                                    ),
+                                                  ),
+                                                ),
+                                                // title: new Text('Warning'),
+                                                // content: new Text(
+                                                //     'Hi this is Flutter Alert Dialog'),
+                                                // actions: <Widget>[
+                                                //   new IconButton(
+                                                //       icon: new Icon(Icons.close),
+                                                //       onPressed: () {
+                                                //         Navigator.pop(context);
+                                                //       })
+                                                // ],
+                                              ));
+                                    },
+                                    child: ListTile(
+                                      leading: Icon(
+                                        Icons.circle,
+                                        size: 30.0,
+                                        color: getColor(),
+                                      ),
+                                      title: Text(
+                                        "Product :" +
+                                            " " +
+                                            productsdisplay[index]['desc']
+                                                .toString(),
+                                        style: TextStyle(
+                                            color: Colors.black, fontSize: 15),
+                                      ),
+                                      subtitle: Text(
+                                        "Item No :" +
+                                            " " +
+                                            productsdisplay[index]['itemno']
+                                                .toString(),
+                                        style: TextStyle(
+                                            color: Colors.black, fontSize: 15),
+                                      ),
+                                      trailing: Text(
+                                        productsdisplay[index]['unit'],
+                                        style: TextStyle(
+                                            color: Colors.green, fontSize: 15),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
-            ),
+            if (productsdisplay.isEmpty)
+              Padding(
+                padding: const EdgeInsets.all(160.0),
+                child: Center(
+                  child: SizedBox(
+                    child: CircularProgressIndicator(),
+                    width: 60,
+                    height: 60,
+                  ),
+                ),
+              ),
           ]),
     );
   }

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:orderapp/drawerpages/balance_summary.dart';
 import 'package:orderapp/drawerpages/cart.dart';
 import 'package:orderapp/drawerpages/certificate.dart';
 
 import 'package:orderapp/drawerpages/fevstore.dart';
 // import 'package:orderapp/product/product_grid.dart';
-import 'package:orderapp/scroll.dart';
+
+// import 'package:orderapp/testpage.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:orderapp/drawerpages/ledger.dart';
@@ -72,7 +74,7 @@ class _MyDrawerState extends State<MyDrawer> {
             //listTiles
             ListTile(
               title: Text(
-                userName,
+                "Hello" + "\t" + userName,
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
               tileColor: Colors.blue,
@@ -102,7 +104,7 @@ class _MyDrawerState extends State<MyDrawer> {
             ),
 
             ListTile(
-              title: Text('TEST', style: TextStyle(fontSize: 20)),
+              title: Text('Balance Summary', style: TextStyle(fontSize: 20)),
               tileColor: Colors.white10,
               leading: Icon(
                 Icons.shop,
@@ -110,7 +112,7 @@ class _MyDrawerState extends State<MyDrawer> {
               ),
               onTap: () => {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (BuildContext context) => PhotosListScreen()))
+                    builder: (BuildContext context) => BalanceSummary()))
               },
             ),
 

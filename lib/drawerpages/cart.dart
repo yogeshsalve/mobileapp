@@ -30,8 +30,6 @@ class _CartState extends State<Cart> {
   }
 
   fetchProduct() async {
-    // var url = Uri.parse('https://yogeshsalve.com/API/products/cart.php');
-
     // ---------------token-------------------
     final SharedPreferences pref = await SharedPreferences.getInstance();
     userCookie = pref.getString('userCookiekey')!;
