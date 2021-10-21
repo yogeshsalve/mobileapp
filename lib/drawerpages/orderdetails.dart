@@ -6,6 +6,7 @@ import 'package:orderapp/dashboard.dart';
 // import 'package:orderapp/drawer.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:http/http.dart' as http;
+// import 'package:orderapp/homepage/top_bar.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -42,7 +43,7 @@ class _OrderDetailsState extends State<OrderDetails> {
 
     var url = Uri.parse('http://114.143.151.6:901/order-inquiry-list');
     var response = await http.post(url,
-        body: {"limit": "5", "page": "1"}, headers: {'Cookie': userCookie});
+        body: {"limit": "1000", "page": "1"}, headers: {'Cookie': userCookie});
 
     if (response.statusCode == 200) {
       var items = jsonDecode(response.body);
@@ -85,68 +86,101 @@ class _OrderDetailsState extends State<OrderDetails> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
+      // appBar: AppBar(
+      //   backgroundColor: Colors.blueAccent[700],
+      //   title: const Text('Order Details List'),
+      //   leading: BackButton(
+      //       color: Colors.white,
+      //       onPressed: () => Navigator.push(
+      //           context, MaterialPageRoute(builder: (context) => Dashboard()))),
+      // ),
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent[700],
-        title: const Text('Order Details List'),
+        elevation: 0,
+        backgroundColor: Colors.blue[700],
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Container(
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    // width: size.width * 0.2,
+                    child: Text("Order Enquiry Details"),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
         leading: BackButton(
             color: Colors.white,
             onPressed: () => Navigator.push(
                 context, MaterialPageRoute(builder: (context) => Dashboard()))),
       ),
-      //body: Container(),
-      body: ListView.builder(
-          itemCount: products.length,
-          itemBuilder: (BuildContext context, int index) {
-            return InkWell(
-              onTap: () {},
-              child: Card(
-                elevation: 16.0,
-                child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ListTile(
-                      leading: Icon(Icons.list),
-                      title: Text(
-                        "expected_date :" +
-                            " " +
-                            products[index]['expected_date'].toString(),
-                        style: TextStyle(color: Colors.black, fontSize: 15),
-                      ),
-                      subtitle: Text(
-                        "on_hold :" +
-                            " " +
-                            products[index]['on_hold'].toString() +
-                            "\n" +
-                            "order_date :" +
-                            " " +
-                            products[index]['order_date'].toString() +
-                            "\n" +
-                            "order_number :" +
-                            " " +
-                            products[index]['order_number'].toString() +
-                            "\n" +
-                            "order_total :" +
-                            " " +
-                            products[index]['order_total'].toString() +
-                            "\n" +
-                            "orduniq :" +
-                            " " +
-                            products[index]['orduniq'].toString() +
-                            "\n" +
-                            "po_number :" +
-                            " " +
-                            products[index]['po_number'].toString() +
-                            "\n" +
-                            "reference :" +
-                            " " +
-                            products[index]['reference'].toString() +
-                            "\n",
-                        style: TextStyle(color: Colors.black, fontSize: 15),
-                      ),
-                    )),
-              ),
-            );
-          }),
+
+      body: Column(
+        children: [
+          //------------------------------------------
+          Expanded(
+            child: ListView.builder(
+                itemCount: products.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return InkWell(
+                    onTap: () {},
+                    child: Card(
+                      elevation: 16.0,
+                      child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ListTile(
+                            leading: Icon(Icons.list),
+                            title: Text(
+                              "expected_date :" +
+                                  " " +
+                                  products[index]['expected_date'].toString(),
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 15),
+                            ),
+                            subtitle: Text(
+                              "on_hold :" +
+                                  " " +
+                                  products[index]['on_hold'].toString() +
+                                  "\n" +
+                                  "order_date :" +
+                                  " " +
+                                  products[index]['order_date'].toString() +
+                                  "\n" +
+                                  "order_number :" +
+                                  " " +
+                                  products[index]['order_number'].toString() +
+                                  "\n" +
+                                  "order_total :" +
+                                  " " +
+                                  products[index]['order_total'].toString() +
+                                  "\n" +
+                                  "orduniq :" +
+                                  " " +
+                                  products[index]['orduniq'].toString() +
+                                  "\n" +
+                                  "po_number :" +
+                                  " " +
+                                  products[index]['po_number'].toString() +
+                                  "\n" +
+                                  "reference :" +
+                                  " " +
+                                  products[index]['reference'].toString() +
+                                  "\n",
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 15),
+                            ),
+                          )),
+                    ),
+                  );
+                }),
+          ),
+        ],
+      ),
 
       // drawer: MyDrawer(),
       bottomNavigationBar: BottomNavigation(),

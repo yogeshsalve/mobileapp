@@ -119,7 +119,7 @@ class _TestState extends State<Test> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Kindacode.com'),
+        title: Text('Order Enquiry List'),
       ),
       body: _isFirstLoadRunning
           ? Center(

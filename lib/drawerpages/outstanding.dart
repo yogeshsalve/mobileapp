@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:orderapp/bottomnavigation.dart';
+import 'package:orderapp/dashboard.dart';
 import 'package:orderapp/drawer.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -83,6 +84,10 @@ class _OutstandingState extends State<Outstanding> {
       appBar: AppBar(
         backgroundColor: Colors.blueAccent[700],
         title: const Text('Outstanding Balance'),
+        leading: BackButton(
+            color: Colors.white,
+            onPressed: () => Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Dashboard()))),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -138,7 +143,7 @@ class _OutstandingState extends State<Outstanding> {
           ],
         ),
       ),
-      drawer: MyDrawer(),
+      // drawer: MyDrawer(),
       bottomNavigationBar: BottomNavigation(),
     );
   }

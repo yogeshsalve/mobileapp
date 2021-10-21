@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:orderapp/dashboard.dart';
 import 'package:orderapp/drawerpages/color.dart';
 
-import 'package:orderapp/register.dart';
+// import 'package:orderapp/register.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'ApiService.dart';
 
@@ -130,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: emailText,
                   style: TextStyle(fontSize: 20),
                   decoration: InputDecoration(
-                    labelText: "email",
+                    labelText: "Username",
                     // prefixIcon: Icon(Icons.search),
                     suffixIcon: Icon(Icons.email),
                     // border: InputBorder.none,
@@ -227,20 +227,20 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               SizedBox(height: size.height * 0.03),
-              Container(
-                alignment: Alignment.center,
-                margin: EdgeInsets.symmetric(horizontal: 40, vertical: 5),
-                child: InkWell(
-                  child: Text(
-                    "SignUp Here",
-                    style: TextStyle(fontSize: 22, color: Color(0XFF2661FA)),
-                  ),
-                  onTap: () {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (BuildContext context) => Register()));
-                  },
-                ),
-              ),
+              // Container(
+              //   alignment: Alignment.center,
+              //   margin: EdgeInsets.symmetric(horizontal: 40, vertical: 5),
+              //   child: InkWell(
+              //     child: Text(
+              //       "SignUp Here",
+              //       style: TextStyle(fontSize: 22, color: Color(0XFF2661FA)),
+              //     ),
+              //     onTap: () {
+              //       Navigator.of(context).pushReplacement(MaterialPageRoute(
+              //           builder: (BuildContext context) => Register()));
+              //     },
+              //   ),
+              // ),
             ],
           ),
         ),

@@ -149,7 +149,7 @@ class _CategoryProductState extends State<CategoryProduct> {
                                   text.toLowerCase();
                                   setState(() {
                                     productsdisplay = items3.where((items3) {
-                                      items3 = items3.toLowerCase();
+                                      items3 = items3.toString().toLowerCase();
                                       return items3.contains(text);
                                     }).toList();
                                   });
