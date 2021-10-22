@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:orderapp/bottomnavigation.dart';
 import 'package:orderapp/dashboard.dart';
 import 'package:http/http.dart' as http;
+import 'package:orderapp/product/product_detail.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -11,6 +12,15 @@ class CategoryProduct extends StatefulWidget {
   @override
   _CategoryProductState createState() => _CategoryProductState();
 }
+
+class Todo {
+  final String title;
+  final String description;
+
+  const Todo(this.title, this.description);
+}
+
+final todos = [];
 
 var myController1 = TextEditingController();
 var myController2 = TextEditingController();
@@ -85,7 +95,7 @@ class _CategoryProductState extends State<CategoryProduct> {
   }
 
   final _formKey = GlobalKey<FormState>();
-  final _formKey2 = GlobalKey<FormState>();
+  //final _formKey2 = GlobalKey<FormState>();
   // final _cartkey = GlobalKey<FormState>();
   String productName = '';
   var a;
@@ -149,8 +159,9 @@ class _CategoryProductState extends State<CategoryProduct> {
                                   text.toLowerCase();
                                   setState(() {
                                     productsdisplay = items3.where((items3) {
-                                      items3 = items3.toString().toLowerCase();
-                                      return items3.contains(text);
+                                      items3 = items3.toString();
+                                      items3 = items3.toLowerCase();
+                                      return items3.contains(text.toString());
                                     }).toList();
                                   });
                                 },
@@ -335,226 +346,28 @@ class _CategoryProductState extends State<CategoryProduct> {
                                 children: [
                                   InkWell(
                                     onTap: () {
-                                      showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) =>
-                                              new AlertDialog(
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                32.0))),
-                                                contentPadding:
-                                                    EdgeInsets.only(top: 10.0),
-                                                content: SingleChildScrollView(
-                                                  child: Container(
-                                                    width: size.width * 1,
-                                                    child: Form(
-                                                      key: _formKey2,
-                                                      child: Column(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          children: <Widget>[
-                                                            SizedBox(
-                                                                height:
-                                                                    size.height *
-                                                                        0.01),
-                                                            Container(
-                                                              alignment:
-                                                                  Alignment
-                                                                      .center,
-                                                              margin: EdgeInsets
-                                                                  .symmetric(
-                                                                      horizontal:
-                                                                          50),
-                                                              child:
-                                                                  TextFormField(
-                                                                // readOnly: true,
-                                                                controller: myController11
-                                                                  ..text = productsdisplay[
-                                                                              index]
-                                                                          [
-                                                                          'itemno']
-                                                                      .toString(),
-
-                                                                // controller: passwordText,
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        18),
-                                                                decoration:
-                                                                    InputDecoration(
-                                                                        labelText:
-                                                                            "Item"),
-                                                              ),
-                                                            ),
-                                                            SizedBox(
-                                                                height:
-                                                                    size.height *
-                                                                        0.01),
-                                                            Container(
-                                                              alignment:
-                                                                  Alignment
-                                                                      .center,
-                                                              margin: EdgeInsets
-                                                                  .symmetric(
-                                                                      horizontal:
-                                                                          50),
-                                                              child:
-                                                                  TextFormField(
-                                                                // readOnly: true,
-                                                                controller:
-                                                                    myController22,
-
-                                                                // controller: passwordText,
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        18),
-                                                                decoration:
-                                                                    InputDecoration(
-                                                                        labelText:
-                                                                            "Quantity"),
-                                                              ),
-                                                            ),
-                                                            SizedBox(
-                                                                height:
-                                                                    size.height *
-                                                                        0.01),
-                                                            Container(
-                                                              alignment:
-                                                                  Alignment
-                                                                      .center,
-                                                              margin: EdgeInsets
-                                                                  .symmetric(
-                                                                      horizontal:
-                                                                          50),
-                                                              child:
-                                                                  TextFormField(
-                                                                // readOnly: true,
-                                                                controller:
-                                                                    myController33,
-
-                                                                // controller: passwordText,
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        18),
-                                                                decoration:
-                                                                    InputDecoration(
-                                                                        labelText:
-                                                                            "Uom"),
-                                                              ),
-                                                            ),
-                                                            SizedBox(
-                                                                height:
-                                                                    size.height *
-                                                                        0.01),
-                                                            Container(
-                                                              alignment:
-                                                                  Alignment
-                                                                      .center,
-                                                              margin: EdgeInsets
-                                                                  .symmetric(
-                                                                      horizontal:
-                                                                          50),
-                                                              child:
-                                                                  TextFormField(
-                                                                // readOnly: true,
-                                                                controller:
-                                                                    myController44,
-
-                                                                // controller: passwordText,
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        18),
-                                                                decoration:
-                                                                    InputDecoration(
-                                                                        labelText:
-                                                                            "Stock Status"),
-                                                              ),
-                                                            ),
-                                                            SizedBox(
-                                                                height:
-                                                                    size.height *
-                                                                        0.01),
-                                                            Container(
-                                                              alignment:
-                                                                  Alignment
-                                                                      .center,
-                                                              margin: EdgeInsets
-                                                                  .symmetric(
-                                                                      horizontal:
-                                                                          50),
-                                                              child:
-                                                                  TextFormField(
-                                                                // readOnly: true,
-                                                                controller:
-                                                                    myController55,
-
-                                                                // controller: passwordText,
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        18),
-                                                                decoration:
-                                                                    InputDecoration(
-                                                                        labelText:
-                                                                            "All Uom"),
-                                                              ),
-                                                            ),
-                                                            SizedBox(
-                                                                height:
-                                                                    size.height *
-                                                                        0.05),
-                                                            Material(
-                                                              color:
-                                                                  Colors.blue,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10),
-                                                              child: InkWell(
-                                                                onTap: () {
-                                                                  // Navigator.of(context).pushReplacement(MaterialPageRoute(
-                                                                  //     builder: (BuildContext context) => Cart()));
-                                                                  // cart(context);
-                                                                },
-                                                                child:
-                                                                    Container(
-                                                                  width: 150,
-                                                                  height: 50,
-                                                                  alignment:
-                                                                      Alignment
-                                                                          .center,
-                                                                  child: Text(
-                                                                      "Add To Cart",
-                                                                      style: TextStyle(
-                                                                          color: Colors
-                                                                              .white,
-                                                                          fontWeight: FontWeight
-                                                                              .bold,
-                                                                          fontSize:
-                                                                              18)),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            SizedBox(
-                                                                height:
-                                                                    size.height *
-                                                                        0.1),
-                                                          ]),
-                                                    ),
-                                                  ),
-                                                ),
-                                                // title: new Text('Warning'),
-                                                // content: new Text(
-                                                //     'Hi this is Flutter Alert Dialog'),
-                                                // actions: <Widget>[
-                                                //   new IconButton(
-                                                //       icon: new Icon(Icons.close),
-                                                //       onPressed: () {
-                                                //         Navigator.pop(context);
-                                                //       })
-                                                // ],
-                                              ));
+                                      //print("object");
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => ProductDetail(
+                                                  item: productsdisplay[index]
+                                                      ['itemno'],
+                                                  productname:
+                                                      productsdisplay[index]
+                                                          ['desc'],
+                                                  stockstatus:
+                                                      productsdisplay[index]
+                                                          ['stock-colour'],
+                                                  unitconv: "",
+                                                  todo: productsdisplay[index]
+                                                      ['unitconv'],
+                                                )
+                                            // settings: RouteSettings(
+                                            //     arguments:
+                                            //         productsdisplay[index]),
+                                            ),
+                                      );
                                     },
                                     child: ListTile(
                                       leading: Icon(
