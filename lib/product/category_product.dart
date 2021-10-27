@@ -353,9 +353,6 @@ class _CategoryProductState extends State<CategoryProduct> {
                                             builder: (context) => ProductDetail(
                                                   item: productsdisplay[index]
                                                       ['itemno'],
-                                                  productname:
-                                                      productsdisplay[index]
-                                                          ['desc'],
                                                   stockstatus:
                                                       productsdisplay[index]
                                                           ['stock-colour'],

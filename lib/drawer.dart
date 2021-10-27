@@ -4,6 +4,7 @@ import 'package:orderapp/drawerpages/cart.dart';
 import 'package:orderapp/drawerpages/certificate.dart';
 
 import 'package:orderapp/drawerpages/fevstore.dart';
+import 'package:orderapp/homepage/homesearch.dart';
 import 'package:orderapp/testpage.dart';
 // import 'package:orderapp/product/product_grid.dart';
 
@@ -40,7 +41,8 @@ class _MyDrawerState extends State<MyDrawer> {
           children: <Widget>[
             Container(
               // color: Theme.of(context).primaryColor,
-              color: Colors.white,
+              // color: Colors.white,
+              color: Colors.blue[100],
               width: double.infinity,
               child: Column(
                 children: <Widget>[
@@ -100,39 +102,26 @@ class _MyDrawerState extends State<MyDrawer> {
               ),
               onTap: () => {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (BuildContext context) => Store()))
+                    builder: (BuildContext context) => HomeSearch()))
               },
             ),
 
-            ListTile(
-              title: Text('Balance Summary', style: TextStyle(fontSize: 20)),
-              tileColor: Colors.white10,
-              leading: Icon(
-                Icons.shop,
-                color: Colors.black,
-              ),
-              onTap: () => {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (BuildContext context) => BalanceSummary()))
-              },
-            ),
-
-            ListTile(
-              title: Text('Test', style: TextStyle(fontSize: 20)),
-              tileColor: Colors.white10,
-              leading: Icon(
-                Icons.shop,
-                color: Colors.black,
-              ),
-              onTap: () => {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (BuildContext context) => Test()))
-              },
-            ),
+            // ListTile(
+            //   title: Text('Test', style: TextStyle(fontSize: 20)),
+            //   tileColor: Colors.white10,
+            //   leading: Icon(
+            //     Icons.shop,
+            //     color: Colors.black,
+            //   ),
+            //   onTap: () => {
+            //     Navigator.of(context).pushReplacement(MaterialPageRoute(
+            //         builder: (BuildContext context) => Test()))
+            //   },
+            // ),
 
             ListTile(
               title: Text('Favourite Store', style: TextStyle(fontSize: 20)),
-              tileColor: Colors.white10,
+              tileColor: Colors.blue[100],
               leading: Icon(
                 Icons.favorite,
                 color: Colors.black,
@@ -155,7 +144,7 @@ class _MyDrawerState extends State<MyDrawer> {
 
             ListTile(
               title: Text('Order Enquiry', style: TextStyle(fontSize: 20)),
-              tileColor: Colors.white10,
+              tileColor: Colors.blue[100],
               leading: Icon(
                 Icons.message,
                 color: Colors.black,
@@ -166,18 +155,18 @@ class _MyDrawerState extends State<MyDrawer> {
               },
             ),
 
-            ListTile(
-              title: Text('Pending Order', style: TextStyle(fontSize: 20)),
-              tileColor: Colors.white10,
-              leading: Icon(
-                Icons.pending_actions,
-                color: Colors.black,
-              ),
-              onTap: () => {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (BuildContext context) => PendingOrder()))
-              },
-            ),
+            // ListTile(
+            //   title: Text('Pending Order', style: TextStyle(fontSize: 20)),
+            //   tileColor: Colors.white10,
+            //   leading: Icon(
+            //     Icons.pending_actions,
+            //     color: Colors.black,
+            //   ),
+            //   onTap: () => {
+            //     Navigator.of(context).pushReplacement(MaterialPageRoute(
+            //         builder: (BuildContext context) => PendingOrder()))
+            //   },
+            // ),
 
             ListTile(
               title:
@@ -195,7 +184,7 @@ class _MyDrawerState extends State<MyDrawer> {
 
             ListTile(
               title: Text('Print Invoice', style: TextStyle(fontSize: 20)),
-              tileColor: Colors.white10,
+              tileColor: Colors.blue[100],
               leading: Icon(
                 Icons.print,
                 color: Colors.black,
@@ -221,7 +210,7 @@ class _MyDrawerState extends State<MyDrawer> {
 
             ListTile(
               title: Text('Ledger', style: TextStyle(fontSize: 20)),
-              tileColor: Colors.white10,
+              tileColor: Colors.blue[100],
               leading: Icon(
                 Icons.book,
                 color: Colors.black,
@@ -232,18 +221,18 @@ class _MyDrawerState extends State<MyDrawer> {
               },
             ),
 
-            ListTile(
-              title: Text('Sales History', style: TextStyle(fontSize: 20)),
-              tileColor: Colors.white10,
-              leading: Icon(
-                Icons.stacked_line_chart,
-                color: Colors.black,
-              ),
-              onTap: () => {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (BuildContext context) => SalesHistory()))
-              },
-            ),
+            // ListTile(
+            //   title: Text('Sales History', style: TextStyle(fontSize: 20)),
+            //   tileColor: Colors.white10,
+            //   leading: Icon(
+            //     Icons.stacked_line_chart,
+            //     color: Colors.black,
+            //   ),
+            //   onTap: () => {
+            //     Navigator.of(context).pushReplacement(MaterialPageRoute(
+            //         builder: (BuildContext context) => SalesHistory()))
+            //   },
+            // ),
 
             //ListTiles Ends Here
           ],

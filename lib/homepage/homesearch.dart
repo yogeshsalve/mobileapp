@@ -104,7 +104,7 @@ class _HomeSearchState extends State<HomeSearch> {
       appBar: AppBar(
         backgroundColor: Colors.blueAccent[700],
         // title: TopBar1(),
-        title: Text("PRODUCTS"),
+        title: Text("STORE"),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () => Navigator.push(

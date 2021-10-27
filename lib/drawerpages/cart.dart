@@ -2,7 +2,8 @@ import 'dart:convert';
 // import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:orderapp/bottomnavigation.dart';
-import 'package:orderapp/drawer.dart';
+import 'package:orderapp/dashboard.dart';
+
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:http/http.dart' as http;
 // ignore: import_of_legacy_library_into_null_safe
@@ -16,6 +17,7 @@ class Cart extends StatefulWidget {
 class _CartState extends State<Cart> {
   String? userName;
   List products = [];
+  var recordid = "";
   var delid = "";
   var itemNo = "";
   var qty = "";
@@ -35,13 +37,13 @@ class _CartState extends State<Cart> {
     userCookie = pref.getString('userCookiekey')!;
     setState(() {});
 
-    print(userCookie);
+    //print(userCookie);
 
     // -------------token ------------------------
 
     var url = Uri.parse('http://114.143.151.6:901/cart-list');
     var response = await http.get(url, headers: {'Cookie': userCookie});
-
+    print(response.body);
     if (response.statusCode == 200) {
       var items = jsonDecode(response.body);
       // print(items);
@@ -59,7 +61,37 @@ class _CartState extends State<Cart> {
         products = [];
       });
 
-    print(products);
+    //print(products);
+  }
+
+//###########################################
+  emptyCart() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    userCookie = pref.getString('userCookiekey')!;
+    setState(() {});
+    print(userCookie);
+// -------------token ------------------------
+    var url = Uri.parse("http://114.143.151.6:901/cart-empty");
+    // ignore: unused_local_variable
+    var response = await http.post(url, headers: {'Cookie': userCookie});
+    //print(response.body);
+  }
+
+  //###########################################
+  deleteData() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    userCookie = pref.getString('userCookiekey')!;
+    setState(() {});
+    print(userCookie);
+// -------------token ------------------------
+    var url = Uri.parse("http://114.143.151.6:901/cart-delete");
+    // ignore: unused_local_variable
+    var response = await http.post(url, body: {
+      "record_id": recordid,
+    }, headers: {
+      'Cookie': userCookie
+    });
+    print(response.body);
   }
 
   // deleteData() async {
@@ -83,39 +115,151 @@ class _CartState extends State<Cart> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueAccent[700],
         title: const Text('Cart'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Dashboard()),
+          ),
+        ),
       ),
       //body: Container(),
-      body: ListView.builder(
-          itemCount: products.length,
-          itemBuilder: (BuildContext context, int index) {
-            return InkWell(
-              onTap: () {},
-              child: Card(
-                elevation: 16.0,
-                child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ListTile(
-                      leading: Icon(Icons.list),
-                      title: Text(
-                        "Product :" + " " + products[index]['desc'].toString(),
-                        style: TextStyle(color: Colors.black, fontSize: 15),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(14.0),
+            child: InkWell(
+              onTap: () {
+                // print("jkjsfb");
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    title: const Text('Alert'),
+                    content: const Text('Are You Sure..?'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, 'Cancel'),
+                        child: const Text('Cancel'),
                       ),
-                      subtitle: Text(
-                        "Quantity :" +
-                            " " +
-                            products[index]['quantity'].toString(),
-                        style: TextStyle(color: Colors.black, fontSize: 15),
+                      TextButton(
+                        onPressed: () {
+                          emptyCart();
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Cart()));
+                        },
+                        child: const Text('OK'),
                       ),
-                    )),
+                    ],
+                  ),
+                );
+                //%%%%%%%%%%%%%%%%%%%%
+              },
+              child: Container(
+                child: Center(
+                  child: Text(
+                    'Delete All Items',
+                    textScaleFactor: 1.8,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(color: Colors.black12, spreadRadius: 2),
+                  ],
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.red,
+                ),
+                padding: EdgeInsets.all(1),
+                //color: Colors.yellow,
+                height: size.height * 0.07,
+                width: size.width * 1,
               ),
-            );
-          }),
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+                itemCount: products.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Card(
+                    elevation: 16.0,
+                    child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ListTile(
+                          leading: Icon(Icons.list),
+                          trailing: InkWell(
+                            child: Icon(
+                              Icons.delete,
+                              color: Colors.red,
+                            ),
+                            onTap: () {
+                              //*********************** */
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                  title: const Text('Alert'),
+                                  content: const Text('Are You Sure..?'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(context, 'Cancel'),
+                                      child: const Text('Cancel'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          recordid = products[index]['recordid']
+                                              .toString();
+                                        });
+                                        deleteData();
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => Cart()));
+                                      },
+                                      child: const Text('OK'),
+                                    ),
+                                  ],
+                                ),
+                              );
+                              //*********************** */
+                            },
+                          ),
+                          title: Text(
+                            "PRODUCT :" +
+                                " " +
+                                products[index]['desc'].toString(),
+                            style: TextStyle(color: Colors.black, fontSize: 15),
+                          ),
+                          subtitle: Text(
+                            "Quantity :" +
+                                " " +
+                                products[index]['quantity'].toString(),
+                            style: TextStyle(color: Colors.black, fontSize: 15),
+                          ),
+                        )),
+                  );
+                }),
+          ),
+          if (products.isEmpty)
+            Padding(
+              padding: const EdgeInsets.all(160.0),
+              child: Center(
+                child: SizedBox(
+                  child: CircularProgressIndicator(),
+                  width: 60,
+                  height: 60,
+                ),
+              ),
+            ),
+        ],
+      ),
 
-      drawer: MyDrawer(),
       bottomNavigationBar: BottomNavigation(),
     );
   }
@@ -257,6 +401,7 @@ class _CartState extends State<Cart> {
   //                   ],
   //                 )
   //               ],
+
   //             ),
   //           ),
   //         ),

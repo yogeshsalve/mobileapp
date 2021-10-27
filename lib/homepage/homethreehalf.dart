@@ -30,6 +30,7 @@ class Homehreehalf extends StatelessWidget {
                 SizedBox(
                   width: size.width * 0.1,
                 ),
+
                 // ignore: deprecated_member_use
                 RaisedButton(
                   elevation: 16.0,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:orderapp/drawerpages/orderdetails.dart';
-import 'package:orderapp/drawerpages/orderenquiry.dart';
+// import 'package:orderapp/drawerpages/orderdetails.dart';
+// import 'package:orderapp/drawerpages/orderenquiry.dart';
 // import 'package:orderapp/homepage/monthlypurchase.dart';
 
 class HomeSeventh extends StatelessWidget {
@@ -14,39 +15,64 @@ class HomeSeventh extends StatelessWidget {
         padding: const EdgeInsets.all(14.0),
         child: Column(
           children: [
-            Row(
-              children: <Widget>[
-                // ignore: deprecated_member_use
-                RaisedButton(
-                  elevation: 16.0,
-                  child: Text('Order Enquiry'),
-                  color: Colors.yellow,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(16.0))),
-                  onPressed: () {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (BuildContext context) => OrderEnquiry()));
-                  },
+            InkWell(
+              onTap: () {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (BuildContext context) => OrderDetails()));
+              },
+              child: Container(
+                child: Center(
+                  child: Text(
+                    'Order Details',
+                    textScaleFactor: 1.8,
+                    style: TextStyle(color: Colors.black),
+                  ),
                 ),
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(color: Colors.black12, spreadRadius: 2),
+                  ],
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.white,
+                ),
+                padding: EdgeInsets.all(1),
+                //color: Colors.yellow,
+                height: size.height * 0.07,
+                width: size.width * 1,
+              ),
+            ),
 
-                SizedBox(
-                  width: size.width * 0.1,
-                ),
-                // ignore: deprecated_member_use
-                RaisedButton(
-                  elevation: 16.0,
-                  child: Text('Order Details'),
-                  color: Colors.yellow,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(16.0))),
-                  onPressed: () {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (BuildContext context) => OrderDetails()));
-                  },
-                ),
-              ], //<Widget>[]
-              mainAxisAlignment: MainAxisAlignment.center,
-            ), //Row
+            // Row(
+            //   children: <Widget>[
+            //     Expanded(
+            //       // ignore: deprecated_member_use
+            //       child: RaisedButton(
+            //         child: Text('Approve'),
+            //         onPressed: () => null,
+            //       ),
+            //     ),
+            //     SizedBox(
+            //       width: size.width * 0.1,
+            //     ),
+            //     Expanded(
+            //       // ignore: deprecated_member_use
+            //       child: RaisedButton(
+            //         child: Text('Order Details'),
+            //         onPressed: () => null,
+            //       ),
+            //     ),
+            //     SizedBox(
+            //       width: size.width * 0.1,
+            //     ),
+            //     Expanded(
+            //       // ignore: deprecated_member_use
+            //       child: RaisedButton(
+            //         child: Text('Need Revise'),
+            //         onPressed: () => null,
+            //       ),
+            //     )
+            //   ],
+            // ),
           ],
         ),
       ),

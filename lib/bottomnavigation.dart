@@ -4,7 +4,8 @@ import 'package:orderapp/dashboard.dart';
 import 'package:orderapp/drawerpages/cart.dart';
 import 'package:orderapp/drawerpages/fevstore.dart';
 import 'package:orderapp/drawerpages/profile.dart';
-import 'package:orderapp/drawerpages/store.dart';
+
+import 'package:orderapp/homepage/homesearch.dart';
 
 class BottomNavigation extends StatefulWidget {
   @override
@@ -45,8 +46,8 @@ class _BottomNavigationState extends State<BottomNavigation> {
                 builder: (BuildContext context) => FavStore()));
           } else if (index == 1) {
             _page = index;
-            Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (BuildContext context) => Store()));
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (BuildContext context) => HomeSearch()));
           } else if (index == 2) {
             _page = index;
             Navigator.of(context).pushReplacement(MaterialPageRoute(

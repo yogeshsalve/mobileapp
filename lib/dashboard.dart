@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:orderapp/bottomnavigation.dart';
 import 'package:orderapp/drawer.dart';
+import 'package:orderapp/drawerpages/cart.dart';
+// import 'package:orderapp/drawerpages/cart%20copy.dart';
 import 'package:orderapp/drawerpages/changepassword.dart';
+import 'package:orderapp/drawerpages/ledger.dart';
 import 'package:orderapp/homepage/homefifth.dart';
 import 'package:orderapp/homepage/homefourth.dart';
 import 'package:orderapp/homepage/homeseventh.dart';
@@ -9,6 +12,7 @@ import 'package:orderapp/homepage/homesixth.dart';
 import 'package:orderapp/homepage/homethreehalf.dart';
 import 'package:orderapp/homepage/top_bar.dart';
 import 'package:orderapp/loginscreen.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -69,13 +73,19 @@ class _DashboardState extends State<Dashboard> {
             Container(
               child: Row(
                 children: <Widget>[
-                  IconButton(
-                    icon: Icon(Icons.mic, color: Colors.white),
-                    onPressed: () {},
-                  ),
+                  // IconButton(
+                  //   icon: Icon(Icons.mic, color: Colors.white),
+                  //   onPressed: () {
+                  //     Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  //         builder: (BuildContext context) => Ledger()));
+                  //   },
+                  // ),
                   IconButton(
                     icon: Icon(Icons.shopping_cart, color: Colors.white),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (BuildContext context) => Cart()));
+                    },
                   ),
                   PopupMenuButton<String>(
                     onSelected: handleClick,
@@ -100,75 +110,82 @@ class _DashboardState extends State<Dashboard> {
       backgroundColor: Colors.white,
 
       //BODY
-      body: SafeArea(
-          child: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            TopBar(),
-            Container(
-              height: size.height * 0.06,
-              width: size.width * 1,
-              color: Colors.blue,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Center(
-                  child: Text(
-                    "Welcome $userName",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.start,
+      body: Scrollbar(
+        thickness: 8,
+        isAlwaysShown: true,
+        radius: Radius.circular(10),
+        child: SafeArea(
+            child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              TopBar(),
+              Container(
+                height: size.height * 0.06,
+                width: size.width * 1,
+                color: Colors.blue,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: Text(
+                      "Welcome $userName",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.start,
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: size.height * 0.01,
-            ),
-            Homefourth(),
-            SizedBox(
-              height: size.height * 0.01,
-            ),
-            Homehreehalf(),
-            SizedBox(
-              height: size.height * 0.01,
-            ),
-            Homefifth(),
-            // SizedBox(
-            //   height: size.height * 0.01,
-            // ),
-            // Container(
-            //   color: Colors.blue,
-            //   height: size.width * 0.01,
-            // ),
-            Homesixth(),
-            // Container(
-            //   color: Colors.blue,
-            //   height: size.width * 0.01,
-            // ),
-            SizedBox(
-              height: size.height * 0.01,
-            ),
-            HomeSeventh(),
-            Container(
-              height: size.height * 0.15,
-              width: size.width * 1,
-              color: Colors.white,
-              //Put your child widget here.
-            ),
-            SizedBox(
-              height: size.height * 0.01,
-            ),
-            Container(
-              height: size.height * 0.1,
-              width: size.width * 1,
-              color: Colors.yellow,
-              //Put your child widget here.
-            ),
-          ],
-        ),
-      )),
+              SizedBox(
+                height: size.height * 0.01,
+              ),
+              Homefourth(),
+              SizedBox(
+                height: size.height * 0.01,
+              ),
+              Homehreehalf(),
+              SizedBox(
+                height: size.height * 0.01,
+              ),
+              Homefifth(),
+              // SizedBox(
+              //   height: size.height * 0.01,
+              // ),
+              // Container(
+              //   color: Colors.blue,
+              //   height: size.width * 0.01,
+              // ),
+              Homesixth(),
+              // Container(
+              //   color: Colors.blue,
+              //   height: size.width * 0.01,
+              // ),
+              SizedBox(
+                height: size.height * 0.01,
+              ),
+              HomeSeventh(),
+              // Container(
+              //   height: size.height * 0.15,
+              //   width: size.width * 1,
+              //   color: Colors.white,
+              //   //Put your child widget here.
+              // ),
+
+              // SizedBox(
+              //   height: size.height * 0.01,
+              // ),
+
+              // Container(
+              //   height: size.height * 0.1,
+              //   width: size.width * 1,
+              //   color: Colors.yellow,
+              //   //Put your child widget here.
+              // ),
+            ],
+          ),
+        )),
+      ),
 
       drawer: MyDrawer(),
     );
