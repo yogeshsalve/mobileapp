@@ -23,6 +23,8 @@ class _ProfileState extends State<Profile> {
   String company = "";
   String address = "";
   String contactno = "";
+  // ignore: non_constant_identifier_names
+  DateTime pre_backpress = DateTime.now();
   @override
   void initState() {
     super.initState();
@@ -75,24 +77,25 @@ class _ProfileState extends State<Profile> {
         backgroundColor: Colors.blueAccent[700],
         title: const Text('Profile'),
       ),
-      // floatingActionButton: FloatingActionButton.extended(
-      //   backgroundColor: Colors.orangeAccent[400],
-      //   foregroundColor: Colors.black,
-      //   onPressed: () async {
-      //     launch('tel://$number');
-      //     // Navigator.push(
-      //     //     context, MaterialPageRoute(builder: (context) => PlaceOrder()));
-      //   },
-      //   icon: Icon(Icons.phone),
-      //   label: Text(
-      //     "CAll US",
-      //     style: TextStyle(),
-      //   ),
-      // ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       drawer: MyDrawer(),
       bottomNavigationBar: BottomNavigation(),
-      body: SingleChildScrollView(
+      body: WillPopScope(
+        onWillPop: () async {
+          final timegap = DateTime.now().difference(pre_backpress);
+          final cantExit = timegap >= Duration(seconds: 2);
+          pre_backpress = DateTime.now();
+          if (cantExit) {
+            //show snackbar
+            final snack = SnackBar(
+              content: Text('Press Back button again to Exit'),
+              duration: Duration(seconds: 2),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snack);
+            return false; // false will do nothing when back press
+          } else {
+            return true; // true will exit the app
+          }
+        },
         child: Column(
           children: <Widget>[
             Container(

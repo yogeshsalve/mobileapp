@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:orderapp/dashboard.dart';
 
 class MonthlyPurchase extends StatefulWidget {
   late final Widget child;
@@ -16,6 +17,8 @@ class _MonthlyPurchaseState extends State<MonthlyPurchase> {
   late List<charts.Series<Pollution, String>> _seriesData;
   late List<charts.Series<Task, String>> _seriesPieData;
   late List<charts.Series<Sales, int>> _seriesLineData;
+  // ignore: non_constant_identifier_names
+  DateTime pre_backpress = DateTime.now();
 
   _generateData() {
     var data1 = [
@@ -158,139 +161,162 @@ class _MonthlyPurchaseState extends State<MonthlyPurchase> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: DefaultTabController(
-        length: 3,
-        child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Color(0xff1976d2),
-            //backgroundColor: Color(0xff308e1c),
-            bottom: TabBar(
-              indicatorColor: Color(0xff9962D0),
-              tabs: [
-                Tab(
-                  icon: Icon(FontAwesomeIcons.solidChartBar),
+      home: WillPopScope(
+        onWillPop: () async {
+          final timegap = DateTime.now().difference(pre_backpress);
+          final cantExit = timegap >= Duration(seconds: 2);
+          pre_backpress = DateTime.now();
+          if (cantExit) {
+            //show snackbar
+            final snack = SnackBar(
+              content: Text('Press Back button again to Exit'),
+              duration: Duration(seconds: 2),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snack);
+            return false; // false will do nothing when back press
+          } else {
+            return true; // true will exit the app
+          }
+        },
+        child: DefaultTabController(
+          length: 3,
+          child: Scaffold(
+            appBar: AppBar(
+              backgroundColor: Color(0xff1976d2),
+              //backgroundColor: Color(0xff308e1c),
+              bottom: TabBar(
+                indicatorColor: Color(0xff9962D0),
+                tabs: [
+                  Tab(
+                    icon: Icon(FontAwesomeIcons.solidChartBar),
+                  ),
+                  Tab(icon: Icon(FontAwesomeIcons.chartPie)),
+                  Tab(icon: Icon(FontAwesomeIcons.chartLine)),
+                ],
+              ),
+              title: Text('Monthly Purchase'),
+              leading: BackButton(
+                  color: Colors.white,
+                  onPressed: () => Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Dashboard()))),
+            ),
+            body: TabBarView(
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Container(
+                    child: Center(
+                      child: Column(
+                        children: <Widget>[
+                          Text(
+                            'Monthly purchase Graph',
+                            style: TextStyle(
+                                fontSize: 24.0, fontWeight: FontWeight.bold),
+                          ),
+                          Expanded(
+                            child: charts.BarChart(
+                              _seriesData,
+                              animate: true,
+                              barGroupingType: charts.BarGroupingType.grouped,
+                              //behaviors: [new charts.SeriesLegend()],
+                              animationDuration: Duration(seconds: 5),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
-                Tab(icon: Icon(FontAwesomeIcons.chartPie)),
-                Tab(icon: Icon(FontAwesomeIcons.chartLine)),
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Container(
+                    child: Center(
+                      child: Column(
+                        children: <Widget>[
+                          Text(
+                            'Time spent on daily tasks',
+                            style: TextStyle(
+                                fontSize: 24.0, fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          Expanded(
+                            child: charts.PieChart(_seriesPieData,
+                                animate: true,
+                                animationDuration: Duration(seconds: 5),
+                                behaviors: [
+                                  new charts.DatumLegend(
+                                    outsideJustification:
+                                        charts.OutsideJustification.endDrawArea,
+                                    horizontalFirst: false,
+                                    desiredMaxRows: 2,
+                                    cellPadding: new EdgeInsets.only(
+                                        right: 4.0, bottom: 4.0),
+                                    entryTextStyle: charts.TextStyleSpec(
+                                        color: charts.MaterialPalette.purple
+                                            .shadeDefault,
+                                        fontFamily: 'Georgia',
+                                        fontSize: 11),
+                                  )
+                                ],
+                                defaultRenderer: new charts.ArcRendererConfig(
+                                    arcWidth: 100,
+                                    arcRendererDecorators: [
+                                      new charts.ArcLabelDecorator(
+                                          labelPosition:
+                                              charts.ArcLabelPosition.inside)
+                                    ])),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Container(
+                    child: Center(
+                      child: Column(
+                        children: <Widget>[
+                          Text(
+                            'Purchase for the Last Month',
+                            style: TextStyle(
+                                fontSize: 24.0, fontWeight: FontWeight.bold),
+                          ),
+                          Expanded(
+                            child: charts.LineChart(_seriesLineData,
+                                defaultRenderer: new charts.LineRendererConfig(
+                                    includeArea: true, stacked: true),
+                                animate: true,
+                                animationDuration: Duration(seconds: 5),
+                                behaviors: [
+                                  new charts.ChartTitle('Months',
+                                      behaviorPosition:
+                                          charts.BehaviorPosition.bottom,
+                                      titleOutsideJustification: charts
+                                          .OutsideJustification.middleDrawArea),
+                                  new charts.ChartTitle('Purchases',
+                                      behaviorPosition:
+                                          charts.BehaviorPosition.start,
+                                      titleOutsideJustification: charts
+                                          .OutsideJustification.middleDrawArea),
+                                  new charts.ChartTitle(
+                                    'Departments',
+                                    behaviorPosition:
+                                        charts.BehaviorPosition.end,
+                                    titleOutsideJustification: charts
+                                        .OutsideJustification.middleDrawArea,
+                                  )
+                                ]),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
-            title: Text('Monthly Purchase'),
-          ),
-          body: TabBarView(
-            children: [
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Container(
-                  child: Center(
-                    child: Column(
-                      children: <Widget>[
-                        Text(
-                          'Monthly purchase Graph',
-                          style: TextStyle(
-                              fontSize: 24.0, fontWeight: FontWeight.bold),
-                        ),
-                        Expanded(
-                          child: charts.BarChart(
-                            _seriesData,
-                            animate: true,
-                            barGroupingType: charts.BarGroupingType.grouped,
-                            //behaviors: [new charts.SeriesLegend()],
-                            animationDuration: Duration(seconds: 5),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Container(
-                  child: Center(
-                    child: Column(
-                      children: <Widget>[
-                        Text(
-                          'Time spent on daily tasks',
-                          style: TextStyle(
-                              fontSize: 24.0, fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        Expanded(
-                          child: charts.PieChart(_seriesPieData,
-                              animate: true,
-                              animationDuration: Duration(seconds: 5),
-                              behaviors: [
-                                new charts.DatumLegend(
-                                  outsideJustification:
-                                      charts.OutsideJustification.endDrawArea,
-                                  horizontalFirst: false,
-                                  desiredMaxRows: 2,
-                                  cellPadding: new EdgeInsets.only(
-                                      right: 4.0, bottom: 4.0),
-                                  entryTextStyle: charts.TextStyleSpec(
-                                      color: charts
-                                          .MaterialPalette.purple.shadeDefault,
-                                      fontFamily: 'Georgia',
-                                      fontSize: 11),
-                                )
-                              ],
-                              defaultRenderer: new charts.ArcRendererConfig(
-                                  arcWidth: 100,
-                                  arcRendererDecorators: [
-                                    new charts.ArcLabelDecorator(
-                                        labelPosition:
-                                            charts.ArcLabelPosition.inside)
-                                  ])),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Container(
-                  child: Center(
-                    child: Column(
-                      children: <Widget>[
-                        Text(
-                          'Purchase for the Last Month',
-                          style: TextStyle(
-                              fontSize: 24.0, fontWeight: FontWeight.bold),
-                        ),
-                        Expanded(
-                          child: charts.LineChart(_seriesLineData,
-                              defaultRenderer: new charts.LineRendererConfig(
-                                  includeArea: true, stacked: true),
-                              animate: true,
-                              animationDuration: Duration(seconds: 5),
-                              behaviors: [
-                                new charts.ChartTitle('Months',
-                                    behaviorPosition:
-                                        charts.BehaviorPosition.bottom,
-                                    titleOutsideJustification: charts
-                                        .OutsideJustification.middleDrawArea),
-                                new charts.ChartTitle('Purchases',
-                                    behaviorPosition:
-                                        charts.BehaviorPosition.start,
-                                    titleOutsideJustification: charts
-                                        .OutsideJustification.middleDrawArea),
-                                new charts.ChartTitle(
-                                  'Departments',
-                                  behaviorPosition: charts.BehaviorPosition.end,
-                                  titleOutsideJustification: charts
-                                      .OutsideJustification.middleDrawArea,
-                                )
-                              ]),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ],
           ),
         ),
       ),

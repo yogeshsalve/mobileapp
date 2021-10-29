@@ -44,10 +44,12 @@ dependencies:
   fluttertoast: ^8.0.8
   charts_flutter: ^0.11.0
   flutter_typeahead: ^3.2.1
+  badges: ^2.0.1
 
   
   
   logger: ^1.1.0
+  
   
 
 dev_dependencies:

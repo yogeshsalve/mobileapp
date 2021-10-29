@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future fetchData() async {
-// ---------------token-------------------
+    // ---------------token-------------------
     final SharedPreferences pref = await SharedPreferences.getInstance();
     userCookie = pref.getString('userCookiekey')!;
     setState(() {});

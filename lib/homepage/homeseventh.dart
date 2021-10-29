@@ -10,7 +10,7 @@ class HomeSeventh extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
         child: Container(
-      color: Colors.blue[700],
+      color: Colors.white,
       child: Padding(
         padding: const EdgeInsets.all(14.0),
         child: Column(
@@ -25,15 +25,15 @@ class HomeSeventh extends StatelessWidget {
                   child: Text(
                     'Order Details',
                     textScaleFactor: 1.8,
-                    style: TextStyle(color: Colors.black),
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(color: Colors.black12, spreadRadius: 2),
                   ],
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.blue[700],
                 ),
                 padding: EdgeInsets.all(1),
                 //color: Colors.yellow,

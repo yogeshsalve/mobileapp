@@ -7,7 +7,8 @@ class Homehreehalf extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
         child: Container(
-      color: Colors.blue[700],
+      // color: Colors.blue[700],
+      color: Colors.blueAccent.shade700,
       child: Padding(
         padding: const EdgeInsets.all(14.0),
         child: Column(

@@ -46,6 +46,8 @@ class _CategoryProductState extends State<CategoryProduct> {
   List items1 = [];
   List productsdisplay = [];
   String userCookie = '';
+  // ignore: non_constant_identifier_names
+  DateTime pre_backpress = DateTime.now();
   @override
   void initState() {
     super.initState();
@@ -126,297 +128,325 @@ class _CategoryProductState extends State<CategoryProduct> {
       //   onPressed: fetchProduct(),
       // ),
 
-      body: Column(mainAxisAlignment: MainAxisAlignment.start,
+      body: WillPopScope(
+        onWillPop: () async {
+          final timegap = DateTime.now().difference(pre_backpress);
+          final cantExit = timegap >= Duration(seconds: 2);
+          pre_backpress = DateTime.now();
+          if (cantExit) {
+            //show snackbar
+            final snack = SnackBar(
+              content: Text('Press Back button again to Exit'),
+              duration: Duration(seconds: 2),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snack);
+            return false; // false will do nothing when back press
+          } else {
+            return true; // true will exit the app
+          }
+        },
+        child: Column(mainAxisAlignment: MainAxisAlignment.start,
 
-          // crossAxisAlignment: CrossAxisAlignment.stretch,
+            // crossAxisAlignment: CrossAxisAlignment.stretch,
 
-          children: <Widget>[
-            // TopBar(),
-            Container(
-              padding: EdgeInsets.all(5),
-              color: Colors.grey[350],
-              height: size.height * 0.09,
-              child: Column(
-                children: [
-                  Container(
-                      padding: EdgeInsets.only(left: 10, right: 10),
-                      margin: EdgeInsets.all(5),
-                      color: Colors.white,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Container(
-                            width: size.width * 0.7,
-                            height: size.height * 0.06,
-                            child: Center(
-                              child: TextFormField(
-                                decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: 'Search APLORDER Item',
-                                    icon:
-                                        Icon(Icons.search, color: Colors.blue)),
-                                onChanged: (text) {
-                                  text.toLowerCase();
-                                  setState(() {
-                                    productsdisplay = items3.where((items3) {
-                                      items3 = items3.toString();
-                                      items3 = items3.toLowerCase();
-                                      return items3.contains(text.toString());
-                                    }).toList();
-                                  });
-                                },
+            children: <Widget>[
+              // TopBar(),
+              Container(
+                padding: EdgeInsets.all(5),
+                color: Colors.grey[350],
+                height: size.height * 0.09,
+                child: Column(
+                  children: [
+                    Container(
+                        padding: EdgeInsets.only(left: 10, right: 10),
+                        margin: EdgeInsets.all(5),
+                        color: Colors.white,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Container(
+                              width: size.width * 0.7,
+                              height: size.height * 0.06,
+                              child: Center(
+                                child: TextFormField(
+                                  decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: 'Search APLORDER Item',
+                                      icon: Icon(Icons.search,
+                                          color: Colors.blue)),
+                                  onChanged: (text) {
+                                    text.toLowerCase();
+                                    setState(() {
+                                      productsdisplay = items3.where((items3) {
+                                        items3 = items3.toString();
+                                        items3 = items3.toLowerCase();
+                                        return items3.contains(text.toString());
+                                      }).toList();
+                                    });
+                                  },
+                                ),
                               ),
                             ),
-                          ),
-                          Icon(Icons.camera_alt, color: Colors.blue)
-                        ],
-                      )),
-                ],
+                            Icon(Icons.camera_alt, color: Colors.blue)
+                          ],
+                        )),
+                  ],
+                ),
               ),
-            ),
-            //-----------------
-            SizedBox(
-              width: double.infinity,
-              child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.blue,
-                      border: Border.all(
-                        color: Colors.black,
-                        width: 1.0,
-                      )),
-                  height: 60.0,
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              final dynamic tooltip = _toolTipKey1.currentState;
-                              tooltip.ensureTooltipVisible();
-                            },
-                            child: Tooltip(
-                              key: _toolTipKey1,
-                              message: 'No Stock',
-                              child: Icon(
-                                Icons.circle,
-                                size: 20.0,
-                                color: Colors.red,
+              //-----------------
+              SizedBox(
+                width: double.infinity,
+                child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.blue,
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 1.0,
+                        )),
+                    height: 60.0,
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: GestureDetector(
+                              onTap: () {
+                                final dynamic tooltip =
+                                    _toolTipKey1.currentState;
+                                tooltip.ensureTooltipVisible();
+                              },
+                              child: Tooltip(
+                                key: _toolTipKey1,
+                                message: 'No Stock',
+                                child: Icon(
+                                  Icons.circle,
+                                  size: 20.0,
+                                  color: Colors.red,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              final dynamic tooltip = _toolTipKey2.currentState;
-                              tooltip.ensureTooltipVisible();
-                            },
-                            child: Tooltip(
-                              key: _toolTipKey2,
-                              message: '15 to 20 Days',
-                              child: Icon(
-                                Icons.circle,
-                                size: 20.0,
-                                color: Colors.yellow,
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: GestureDetector(
+                              onTap: () {
+                                final dynamic tooltip =
+                                    _toolTipKey2.currentState;
+                                tooltip.ensureTooltipVisible();
+                              },
+                              child: Tooltip(
+                                key: _toolTipKey2,
+                                message: '15 to 20 Days',
+                                child: Icon(
+                                  Icons.circle,
+                                  size: 20.0,
+                                  color: Colors.yellow,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              final dynamic tooltip = _toolTipKey3.currentState;
-                              tooltip.ensureTooltipVisible();
-                            },
-                            child: Tooltip(
-                              key: _toolTipKey3,
-                              message: '10 to 15 Days',
-                              child: Icon(
-                                Icons.circle,
-                                size: 20.0,
-                                color: Colors.orange,
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: GestureDetector(
+                              onTap: () {
+                                final dynamic tooltip =
+                                    _toolTipKey3.currentState;
+                                tooltip.ensureTooltipVisible();
+                              },
+                              child: Tooltip(
+                                key: _toolTipKey3,
+                                message: '10 to 15 Days',
+                                child: Icon(
+                                  Icons.circle,
+                                  size: 20.0,
+                                  color: Colors.orange,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              final dynamic tooltip = _toolTipKey4.currentState;
-                              tooltip.ensureTooltipVisible();
-                            },
-                            child: Tooltip(
-                              key: _toolTipKey4,
-                              message: '3 to 4 Days',
-                              child: Icon(
-                                Icons.circle,
-                                size: 20.0,
-                                color: Colors.blue[900],
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: GestureDetector(
+                              onTap: () {
+                                final dynamic tooltip =
+                                    _toolTipKey4.currentState;
+                                tooltip.ensureTooltipVisible();
+                              },
+                              child: Tooltip(
+                                key: _toolTipKey4,
+                                message: '3 to 4 Days',
+                                child: Icon(
+                                  Icons.circle,
+                                  size: 20.0,
+                                  color: Colors.blue[900],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              final dynamic tooltip = _toolTipKey5.currentState;
-                              tooltip.ensureTooltipVisible();
-                            },
-                            child: Tooltip(
-                              key: _toolTipKey5,
-                              message: 'Total Stock',
-                              child: Icon(
-                                Icons.circle,
-                                size: 20.0,
-                                color: Colors.green,
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: GestureDetector(
+                              onTap: () {
+                                final dynamic tooltip =
+                                    _toolTipKey5.currentState;
+                                tooltip.ensureTooltipVisible();
+                              },
+                              child: Tooltip(
+                                key: _toolTipKey5,
+                                message: 'Total Stock',
+                                child: Icon(
+                                  Icons.circle,
+                                  size: 20.0,
+                                  color: Colors.green,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ])),
-            ),
-            //----------
-            Form(
-              key: _formKey,
-              child: Visibility(
-                visible: false,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    readOnly: true,
+                        ])),
+              ),
+              //----------
+              Form(
+                key: _formKey,
+                child: Visibility(
+                  visible: false,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      readOnly: true,
 
-                    controller: myController1..text = args,
-                    textAlign: TextAlign.center,
+                      controller: myController1..text = args,
+                      textAlign: TextAlign.center,
 
-                    // controller: passwordText,
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
+                      // controller: passwordText,
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      decoration: InputDecoration(hoverColor: Colors.amber),
                     ),
-                    decoration: InputDecoration(hoverColor: Colors.amber),
                   ),
                 ),
               ),
-            ),
-            if (productsdisplay.isNotEmpty)
-              //--------------
-              Expanded(
-                child: new ListView.builder(
-                  itemCount: productsdisplay.length,
-                  itemBuilder: (BuildContext ctxt, int index) {
-                    getColor() {
-                      if (productsdisplay[index]['stock-colour'] == "RED")
-                        return Colors.red;
-                      else if (productsdisplay[index]['stock-colour'] ==
-                          "YELLOW")
-                        return Colors.yellow;
-                      else if (productsdisplay[index]['stock-colour'] ==
-                          "ORANGE")
-                        return Colors.orange;
-                      else if (productsdisplay[index]['stock-colour'] == "BLUE")
-                        return Colors.blue;
-                      else if (productsdisplay[index]['stock-colour'] ==
-                          "GREEN") return Colors.green;
-                    }
+              if (productsdisplay.isNotEmpty)
+                //--------------
+                Expanded(
+                  child: new ListView.builder(
+                    itemCount: productsdisplay.length,
+                    itemBuilder: (BuildContext ctxt, int index) {
+                      getColor() {
+                        if (productsdisplay[index]['stock-colour'] == "RED")
+                          return Colors.red;
+                        else if (productsdisplay[index]['stock-colour'] ==
+                            "YELLOW")
+                          return Colors.yellow;
+                        else if (productsdisplay[index]['stock-colour'] ==
+                            "ORANGE")
+                          return Colors.orange;
+                        else if (productsdisplay[index]['stock-colour'] ==
+                            "BLUE")
+                          return Colors.blue;
+                        else if (productsdisplay[index]['stock-colour'] ==
+                            "GREEN") return Colors.green;
+                      }
 
-                    return InkWell(
-                      child: Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Card(
-                          elevation: 16.0,
-                          color: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                              color: Colors.black,
-                              width: 2.0,
+                      return InkWell(
+                        child: Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Card(
+                            elevation: 16.0,
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                color: Colors.black,
+                                width: 2.0,
+                              ),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(10.0),
+                              ),
                             ),
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(10.0),
-                            ),
-                          ),
-                          child: Column(
-                            children: [
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      //print("object");
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => ProductDetail(
-                                                  item: productsdisplay[index]
-                                                      ['itemno'],
-                                                  stockstatus:
-                                                      productsdisplay[index]
-                                                          ['stock-colour'],
-                                                  unitconv: "",
-                                                  todo: productsdisplay[index]
-                                                      ['unitconv'],
-                                                )
-                                            // settings: RouteSettings(
-                                            //     arguments:
-                                            //         productsdisplay[index]),
-                                            ),
-                                      );
-                                    },
-                                    child: ListTile(
-                                      leading: Icon(
-                                        Icons.circle,
-                                        size: 30.0,
-                                        color: getColor(),
-                                      ),
-                                      title: Text(
-                                        "Product :" +
-                                            " " +
-                                            productsdisplay[index]['desc']
-                                                .toString(),
-                                        style: TextStyle(
-                                            color: Colors.black, fontSize: 15),
-                                      ),
-                                      subtitle: Text(
-                                        "Item No :" +
-                                            " " +
-                                            productsdisplay[index]['itemno']
-                                                .toString(),
-                                        style: TextStyle(
-                                            color: Colors.black, fontSize: 15),
-                                      ),
-                                      trailing: Text(
-                                        productsdisplay[index]['unit'],
-                                        style: TextStyle(
-                                            color: Colors.green, fontSize: 15),
+                            child: Column(
+                              children: [
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        //print("object");
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ProductDetail(
+                                                    item: productsdisplay[index]
+                                                        ['itemno'],
+                                                    stockstatus:
+                                                        productsdisplay[index]
+                                                            ['stock-colour'],
+                                                    unitconv: "",
+                                                    todo: productsdisplay[index]
+                                                        ['unitconv'],
+                                                  )
+                                              // settings: RouteSettings(
+                                              //     arguments:
+                                              //         productsdisplay[index]),
+                                              ),
+                                        );
+                                      },
+                                      child: ListTile(
+                                        leading: Icon(
+                                          Icons.circle,
+                                          size: 30.0,
+                                          color: getColor(),
+                                        ),
+                                        title: Text(
+                                          "Product :" +
+                                              " " +
+                                              productsdisplay[index]['desc']
+                                                  .toString(),
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 15),
+                                        ),
+                                        subtitle: Text(
+                                          "Item No :" +
+                                              " " +
+                                              productsdisplay[index]['itemno']
+                                                  .toString(),
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 15),
+                                        ),
+                                        trailing: Text(
+                                          productsdisplay[index]['unit'],
+                                          style: TextStyle(
+                                              color: Colors.green,
+                                              fontSize: 15),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            if (productsdisplay.isEmpty)
-              Padding(
-                padding: const EdgeInsets.all(160.0),
-                child: Center(
-                  child: SizedBox(
-                    child: CircularProgressIndicator(),
-                    width: 60,
-                    height: 60,
+                      );
+                    },
                   ),
                 ),
-              ),
-          ]),
+              if (productsdisplay.isEmpty)
+                Padding(
+                  padding: const EdgeInsets.all(160.0),
+                  child: Center(
+                    child: SizedBox(
+                      child: CircularProgressIndicator(),
+                      width: 60,
+                      height: 60,
+                    ),
+                  ),
+                ),
+            ]),
+      ),
     );
   }
 
