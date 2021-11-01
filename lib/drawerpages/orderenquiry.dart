@@ -3,9 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:orderapp/bottomnavigation.dart';
 import 'package:orderapp/dashboard.dart';
-// import 'package:orderapp/drawer.dart';
+import 'package:orderapp/drawer.dart';
 import 'package:http/http.dart' as http;
+import 'package:orderapp/mobile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:syncfusion_flutter_pdf/pdf.dart';
 
 class OrderEnquiry extends StatefulWidget {
   @override
@@ -82,7 +84,35 @@ class _OrderEnquiryState extends State<OrderEnquiry> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueAccent[700],
-        title: const Text('Order Enquiry'),
+        title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Container(
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      width: size.width * 0.5,
+                      child: Text("Order Enquiry"),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      //width: size.width * 0.5,
+                      child: IconButton(
+                        icon: Icon(Icons.file_download, color: Colors.white),
+                        onPressed: () {
+                          _createPDF();
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ]),
         leading: BackButton(
             color: Colors.white,
             onPressed: () => Navigator.push(
@@ -205,29 +235,113 @@ class _OrderEnquiryState extends State<OrderEnquiry> {
                 ],
               ),
               SizedBox(height: size.height * 0.05),
-              Container(
-                alignment: Alignment.center,
-                color: Colors.white,
-                child: ElevatedButton(
-                  child: Text('Print Report'),
-                  onPressed: () {
-                    postData();
-                  },
-                  style: ElevatedButton.styleFrom(
-                      primary: Colors.deepPurple,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 80, vertical: 15),
-                      textStyle:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                      shape: StadiumBorder()),
-                ),
-              ),
+              // Container(
+              //   alignment: Alignment.center,
+              //   color: Colors.white,
+              //   child: ElevatedButton(
+              //     child: Text('Print Report'),
+              //     onPressed: () {
+              //       postData();
+              //     },
+              //     style: ElevatedButton.styleFrom(
+              //         primary: Colors.deepPurple,
+              //         padding:
+              //             EdgeInsets.symmetric(horizontal: 80, vertical: 15),
+              //         textStyle:
+              //             TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              //         shape: StadiumBorder()),
+              //   ),
+              // ),
             ],
           ),
         ),
       ),
-      // drawer: MyDrawer(),
+      drawer: MyDrawer(),
       bottomNavigationBar: BottomNavigation(),
     );
+  }
+
+  Future<void> _createPDF() async {
+    PdfDocument document = PdfDocument();
+    //final page = document.pages.add();
+    // page.graphics
+    //     .drawString("Welcome", PdfStandardFont(PdfFontFamily.helvetica, 30));
+
+    // *******************************
+    PdfGrid grid = PdfGrid();
+    grid.columns.add(count: 3);
+    grid.headers.add(1);
+    //grid.columns[1].width = 50;
+    PdfGridRow header = grid.headers[0];
+    header.cells[0].value = "No";
+    header.cells[1].value = "Head";
+    header.cells[2].value = "Description";
+
+    // *******************************
+
+    PdfGridRow row = grid.rows.add();
+    row.cells[0].value = "1";
+    row.cells[1].value = "discount";
+    row.cells[2].value = productsdisplay[0]['discount'].toString();
+
+    row = grid.rows.add();
+    row.cells[0].value = "2";
+    row.cells[1].value = "last_post_date";
+    row.cells[2].value = productsdisplay[0]['last_post_date'].toString();
+
+    row = grid.rows.add();
+    row.cells[0].value = "3";
+    row.cells[1].value = "order_number";
+    row.cells[2].value = productsdisplay[0]['order_number'].toString();
+
+    row = grid.rows.add();
+    row.cells[0].value = "4";
+    row.cells[1].value = "po_number";
+    row.cells[2].value = productsdisplay[0]['po_number'].toString();
+
+    row = grid.rows.add();
+    row.cells[0].value = "5";
+    row.cells[1].value = "ship_via_code:";
+    row.cells[2].value = productsdisplay[0]['ship_via_code'].toString();
+
+    row = grid.rows.add();
+    row.cells[0].value = "6";
+    row.cells[1].value = "ship_via_code_desc";
+    row.cells[2].value = productsdisplay[0]['ship_via_code_desc'].toString();
+
+    row = grid.rows.add();
+    row.cells[0].value = "7";
+    row.cells[1].value = "subtotal";
+    row.cells[2].value = productsdisplay[0]['subtotal'].toString();
+
+    row = grid.rows.add();
+    row.cells[0].value = "8";
+    row.cells[1].value = "terms_code";
+    row.cells[2].value = productsdisplay[0]['terms_code'].toString();
+
+    row = grid.rows.add();
+    row.cells[0].value = "9";
+    row.cells[1].value = "total_ex_tax";
+    row.cells[2].value = productsdisplay[0]['total_ex_tax'].toString();
+
+    row = grid.rows.add();
+    row.cells[0].value = "10";
+    row.cells[1].value = "total_in_tax";
+    row.cells[2].value = productsdisplay[0]['total_in_tax'].toString();
+
+    row = grid.rows.add();
+    row.cells[0].value = "11";
+    row.cells[1].value = "total_tax";
+    row.cells[2].value = productsdisplay[0]['total_tax'].toString();
+    grid.style = PdfGridStyle(
+        cellPadding: PdfPaddings(left: 2, right: 3, top: 4, bottom: 5),
+        backgroundBrush: PdfBrushes.white,
+        textBrush: PdfBrushes.black,
+        font: PdfStandardFont(PdfFontFamily.timesRoman, 25));
+    grid.draw(
+        page: document.pages.add(), bounds: const Rect.fromLTWH(0, 0, 0, 0));
+    List<int> bytes = document.save();
+    document.dispose();
+    saveAndLaunchFile(bytes, 'Order Details Report.pdf');
   }
 }
