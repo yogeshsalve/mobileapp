@@ -6,8 +6,10 @@ import 'package:orderapp/dashboard.dart';
 // import 'package:orderapp/drawer.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:http/http.dart' as http;
+import 'package:orderapp/mobile.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:syncfusion_flutter_pdf/pdf.dart';
 
 class OrderDetails extends StatefulWidget {
   @override
@@ -15,6 +17,7 @@ class OrderDetails extends StatefulWidget {
 }
 
 class _OrderDetailsState extends State<OrderDetails> {
+  List subjects = ['1', '2', '3', '4', '5'];
   String? userName;
   List products = [];
   var delid = "";
@@ -85,18 +88,48 @@ class _OrderDetailsState extends State<OrderDetails> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueAccent[700],
-        title: const Text('Order Details List'),
+        title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Container(
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      width: size.width * 0.5,
+                      child: Text("Order Details"),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      //width: size.width * 0.5,
+                      child: IconButton(
+                        icon: Icon(Icons.file_download, color: Colors.white),
+                        onPressed: () {
+                          _createPDF();
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ]),
         leading: BackButton(
             color: Colors.white,
             onPressed: () => Navigator.push(
                 context, MaterialPageRoute(builder: (context) => Dashboard()))),
       ),
+
       //body: Container(),
       body: Scrollbar(
-        thickness: 8,
+        thickness: 5,
         isAlwaysShown: true,
         radius: Radius.circular(10),
         child: SingleChildScrollView(
@@ -110,49 +143,49 @@ class _OrderDetailsState extends State<OrderDetails> {
                   columns: const <DataColumn>[
                     DataColumn(
                       label: Text(
-                        'Expected Date',
+                        'expected_date',
                         style: TextStyle(fontStyle: FontStyle.italic),
                       ),
                     ),
                     DataColumn(
                       label: Text(
-                        'On Hold',
+                        'on_hold',
                         style: TextStyle(fontStyle: FontStyle.italic),
                       ),
                     ),
                     DataColumn(
                       label: Text(
-                        'Order Date',
+                        'order_date',
                         style: TextStyle(fontStyle: FontStyle.italic),
                       ),
                     ),
                     DataColumn(
                       label: Text(
-                        'Order Number',
+                        'order_number',
                         style: TextStyle(fontStyle: FontStyle.italic),
                       ),
                     ),
                     DataColumn(
                       label: Text(
-                        'Order Total',
+                        'order_total',
                         style: TextStyle(fontStyle: FontStyle.italic),
                       ),
                     ),
                     DataColumn(
                       label: Text(
-                        'Orduniq',
+                        'orduniq',
                         style: TextStyle(fontStyle: FontStyle.italic),
                       ),
                     ),
                     DataColumn(
                       label: Text(
-                        'PO Number',
+                        'po_number',
                         style: TextStyle(fontStyle: FontStyle.italic),
                       ),
                     ),
                     DataColumn(
                       label: Text(
-                        'Reference',
+                        'reference',
                         style: TextStyle(fontStyle: FontStyle.italic),
                       ),
                     ),
@@ -391,5 +424,44 @@ class _OrderDetailsState extends State<OrderDetails> {
     final SharedPreferences pref = await SharedPreferences.getInstance();
     userName = pref.getString('usernamekey')!;
     setState(() {});
+  }
+
+  Future<void> _createPDF() async {
+    PdfDocument document = PdfDocument();
+    //final page = document.pages.add();
+    // page.graphics
+    //     .drawString("Welcome", PdfStandardFont(PdfFontFamily.helvetica, 30));
+
+    // *******************************
+    PdfGrid grid = PdfGrid();
+    grid.columns.add(count: 8);
+    grid.headers.add(1);
+    PdfGridRow header = grid.headers[0];
+    header.cells[0].value = "Expected Date";
+    header.cells[1].value = "On Hold";
+    header.cells[2].value = "Order Date";
+    header.cells[3].value = "Order Number";
+    header.cells[4].value = "Order Total";
+    header.cells[5].value = "Order Uniq";
+    header.cells[6].value = "Po Number";
+    header.cells[7].value = "Reference";
+    // *******************************
+    for (var p in products) {
+      PdfGridRow row = grid.rows.add();
+      row.cells[0].value = p["expected_date"].toString();
+      row.cells[1].value = p["on_hold"].toString();
+      row.cells[2].value = p["order_date"].toString();
+      row.cells[3].value = p["order_number"].toString();
+      row.cells[4].value = p["order_total"].toString();
+      row.cells[5].value = p["orduniq"].toString();
+      row.cells[6].value = p["po_number"].toString();
+      row.cells[7].value = p["reference"].toString();
+    }
+
+    grid.draw(
+        page: document.pages.add(), bounds: const Rect.fromLTWH(0, 0, 0, 0));
+    List<int> bytes = document.save();
+    document.dispose();
+    saveAndLaunchFile(bytes, 'Order Details Report.pdf');
   }
 }

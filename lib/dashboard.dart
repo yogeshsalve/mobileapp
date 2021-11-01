@@ -142,8 +142,8 @@ class _DashboardState extends State<Dashboard> {
             //logoutUser();
             logOut();
             // {
-            //   Navigator.of(context).pushReplacement(MaterialPageRoute(
-            //       builder: (BuildContext context) => LoginScreen()));
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (BuildContext context) => LoginScreen()));
             // }
           }
           break;
@@ -347,7 +347,7 @@ class _DashboardState extends State<Dashboard> {
   Future logOut() async {
     var url = Uri.parse('http://114.143.151.6:901/logout');
     String userCookie = '';
-// ---------------token-------------------
+    // ---------------token-------------------
     final SharedPreferences pref = await SharedPreferences.getInstance();
     userCookie = pref.getString('userCookiekey')!;
     setState(() {});
