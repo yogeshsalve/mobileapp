@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:orderapp/bottomnavigation.dart';
-import 'package:orderapp/drawer.dart';
+import 'package:orderapp/dashboard.dart';
+//import 'package:orderapp/drawer.dart';
 //import 'package:date_field/date_field.dart';
 
 class Certificate extends StatefulWidget {
@@ -17,6 +18,10 @@ class _CertificateState extends State<Certificate> {
       appBar: AppBar(
         backgroundColor: Colors.blueAccent[700],
         title: const Text('Certificate'),
+        leading: BackButton(
+            color: Colors.white,
+            onPressed: () => Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Dashboard()))),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -24,30 +29,32 @@ class _CertificateState extends State<Certificate> {
           children: <Widget>[
             SizedBox(height: size.height * 0.02),
 
-            new Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                new Radio(
-                  value: 0,
-                  groupValue: _radioValue,
-                  onChanged: null,
-                ),
-                new Text(
-                  'Inovice Wise',
-                  style: new TextStyle(fontSize: 16.0),
-                ),
-                new Radio(
-                  value: 1,
-                  groupValue: _radioValue,
-                  onChanged: null,
-                ),
-                new Text(
-                  'Batch Wise',
-                  style: new TextStyle(
-                    fontSize: 16.0,
+            Center(
+              child: new Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  new Radio(
+                    value: 0,
+                    groupValue: _radioValue,
+                    onChanged: null,
                   ),
-                ),
-              ],
+                  new Text(
+                    'Inovice Wise',
+                    style: new TextStyle(fontSize: 16.0),
+                  ),
+                  new Radio(
+                    value: 1,
+                    groupValue: _radioValue,
+                    onChanged: null,
+                  ),
+                  new Text(
+                    'Batch Wise',
+                    style: new TextStyle(
+                      fontSize: 16.0,
+                    ),
+                  ),
+                ],
+              ),
             ),
             SizedBox(height: size.height * 0.03),
             Container(
@@ -72,6 +79,14 @@ class _CertificateState extends State<Certificate> {
             Container(
               alignment: Alignment.center,
               margin: EdgeInsets.symmetric(horizontal: 50),
+              width: 420,
+              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  border: Border.all(
+                      color: Colors.blueGrey,
+                      width: 1,
+                      style: BorderStyle.solid)),
               child: DropdownButton<String>(
                 isExpanded: true,
                 icon: Icon(Icons.arrow_drop_down_circle),
@@ -132,7 +147,7 @@ class _CertificateState extends State<Certificate> {
           ],
         ),
       ),
-      drawer: MyDrawer(),
+      // drawer: MyDrawer(),
       bottomNavigationBar: BottomNavigation(),
     );
   }

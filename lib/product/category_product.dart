@@ -75,7 +75,8 @@ class _CategoryProductState extends State<CategoryProduct> {
 
     var url = Uri.parse('http://114.143.151.6:901/products-by-category');
     var response = await http.post(url,
-        body: {"category": productName}, headers: {'Cookie': userCookie});
+        body: {"category": productName, "limit": "10000"},
+        headers: {'Cookie': userCookie});
 
     items3.clear();
     if (response.statusCode == 200) {
@@ -103,11 +104,11 @@ class _CategoryProductState extends State<CategoryProduct> {
   var a;
   @override
   Widget build(BuildContext context) {
-    GlobalKey _toolTipKey1 = GlobalKey();
-    GlobalKey _toolTipKey2 = GlobalKey();
-    GlobalKey _toolTipKey3 = GlobalKey();
-    GlobalKey _toolTipKey4 = GlobalKey();
-    GlobalKey _toolTipKey5 = GlobalKey();
+    // GlobalKey _toolTipKey1 = GlobalKey();
+    // GlobalKey _toolTipKey2 = GlobalKey();
+    // GlobalKey _toolTipKey3 = GlobalKey();
+    // GlobalKey _toolTipKey4 = GlobalKey();
+    // GlobalKey _toolTipKey5 = GlobalKey();
     var args = ModalRoute.of(context)!.settings.arguments.toString();
     Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -195,115 +196,230 @@ class _CategoryProductState extends State<CategoryProduct> {
               ),
               //-----------------
               SizedBox(
-                width: double.infinity,
-                child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.blue,
-                        border: Border.all(
-                          color: Colors.black,
-                          width: 1.0,
-                        )),
-                    height: 60.0,
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  width: double.infinity,
+                  child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.blue,
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 1.0,
+                          )),
+                      height: 35.0,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: GestureDetector(
-                              onTap: () {
-                                final dynamic tooltip =
-                                    _toolTipKey1.currentState;
-                                tooltip.ensureTooltipVisible();
-                              },
-                              child: Tooltip(
-                                key: _toolTipKey1,
-                                message: 'No Stock',
-                                child: Icon(
-                                  Icons.circle,
-                                  size: 20.0,
-                                  color: Colors.red,
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.circle,
+                                      size: 15.0,
+                                      color: Colors.blue[900],
+                                    ),
+                                    Text(
+                                      " 3 to 4 Days",
+                                      style: TextStyle(fontSize: 12),
+                                    )
+                                  ],
                                 ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: GestureDetector(
-                              onTap: () {
-                                final dynamic tooltip =
-                                    _toolTipKey2.currentState;
-                                tooltip.ensureTooltipVisible();
-                              },
-                              child: Tooltip(
-                                key: _toolTipKey2,
-                                message: '15 to 20 Days',
-                                child: Icon(
-                                  Icons.circle,
-                                  size: 20.0,
-                                  color: Colors.yellow,
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.circle,
+                                      size: 15.0,
+                                      color: Colors.orange,
+                                    ),
+                                    Text(
+                                      " 10 to 15 Days",
+                                      style: TextStyle(fontSize: 12),
+                                    )
+                                  ],
                                 ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: GestureDetector(
-                              onTap: () {
-                                final dynamic tooltip =
-                                    _toolTipKey3.currentState;
-                                tooltip.ensureTooltipVisible();
-                              },
-                              child: Tooltip(
-                                key: _toolTipKey3,
-                                message: '10 to 15 Days',
-                                child: Icon(
-                                  Icons.circle,
-                                  size: 20.0,
-                                  color: Colors.orange,
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.circle,
+                                      size: 15.0,
+                                      color: Colors.yellow,
+                                    ),
+                                    Text(
+                                      " 15 to 20 Days",
+                                      style: TextStyle(fontSize: 12),
+                                    )
+                                  ],
                                 ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: GestureDetector(
-                              onTap: () {
-                                final dynamic tooltip =
-                                    _toolTipKey4.currentState;
-                                tooltip.ensureTooltipVisible();
-                              },
-                              child: Tooltip(
-                                key: _toolTipKey4,
-                                message: '3 to 4 Days',
-                                child: Icon(
-                                  Icons.circle,
-                                  size: 20.0,
-                                  color: Colors.blue[900],
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.circle,
+                                      size: 15.0,
+                                      color: Colors.red,
+                                    ),
+                                    Text(
+                                      " No Stock",
+                                      style: TextStyle(fontSize: 12),
+                                    )
+                                  ],
                                 ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: GestureDetector(
-                              onTap: () {
-                                final dynamic tooltip =
-                                    _toolTipKey5.currentState;
-                                tooltip.ensureTooltipVisible();
-                              },
-                              child: Tooltip(
-                                key: _toolTipKey5,
-                                message: 'Total Stock',
-                                child: Icon(
-                                  Icons.circle,
-                                  size: 20.0,
-                                  color: Colors.green,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ])),
-              ),
+                              ]),
+                          // Row(
+                          //     mainAxisAlignment: MainAxisAlignment.start,
+                          //     children: [
+                          //       // Row(
+                          //       //   children: [
+                          //       //     Icon(
+                          //       //       Icons.circle,
+                          //       //       size: 15.0,
+                          //       //       color: Colors.yellow,
+                          //       //     ),
+                          //       //     Text(
+                          //       //       " 15 to 20 Days",
+                          //       //       style: TextStyle(fontSize: 12),
+                          //       //     )
+                          //       //   ],
+                          //       // ),
+                          //       // Row(
+                          //       //   children: [
+                          //       //     Icon(
+                          //       //       Icons.circle,
+                          //       //       size: 15.0,
+                          //       //       color: Colors.red,
+                          //       //     ),
+                          //       //     Text(
+                          //       //       " No Stock",
+                          //       //       style: TextStyle(fontSize: 12),
+                          //       //     )
+                          //       //   ],
+                          //       // ),
+                          //       Row(
+                          //         children: [
+                          //           Icon(
+                          //             Icons.circle,
+                          //             size: 15.0,
+                          //             color: Colors.green,
+                          //           ),
+                          //           Text(
+                          //             "  Total Stock",
+                          //             style: TextStyle(fontSize: 12),
+                          //           )
+                          //         ],
+                          //       ),
+                          //     ]),
+                        ],
+                      ))),
+              //-----------------
+              // SizedBox(
+              //   width: double.infinity,
+              //   child: Container(
+              //       decoration: BoxDecoration(
+              //           color: Colors.blue,
+              //           border: Border.all(
+              //             color: Colors.black,
+              //             width: 1.0,
+              //           )),
+              //       height: 60.0,
+              //       child: Row(
+              //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //           children: [
+              //             Padding(
+              //               padding: const EdgeInsets.all(10.0),
+              //               child: GestureDetector(
+              //                 onTap: () {
+              //                   final dynamic tooltip =
+              //                       _toolTipKey1.currentState;
+              //                   tooltip.ensureTooltipVisible();
+              //                 },
+              //                 child: Tooltip(
+              //                   key: _toolTipKey1,
+              //                   message: 'No Stock',
+              //                   child: Icon(
+              //                     Icons.circle,
+              //                     size: 20.0,
+              //                     color: Colors.red,
+              //                   ),
+              //                 ),
+              //               ),
+              //             ),
+              //             Padding(
+              //               padding: const EdgeInsets.all(10.0),
+              //               child: GestureDetector(
+              //                 onTap: () {
+              //                   final dynamic tooltip =
+              //                       _toolTipKey2.currentState;
+              //                   tooltip.ensureTooltipVisible();
+              //                 },
+              //                 child: Tooltip(
+              //                   key: _toolTipKey2,
+              //                   message: '15 to 20 Days',
+              //                   child: Icon(
+              //                     Icons.circle,
+              //                     size: 20.0,
+              //                     color: Colors.yellow,
+              //                   ),
+              //                 ),
+              //               ),
+              //             ),
+              //             Padding(
+              //               padding: const EdgeInsets.all(10.0),
+              //               child: GestureDetector(
+              //                 onTap: () {
+              //                   final dynamic tooltip =
+              //                       _toolTipKey3.currentState;
+              //                   tooltip.ensureTooltipVisible();
+              //                 },
+              //                 child: Tooltip(
+              //                   key: _toolTipKey3,
+              //                   message: '10 to 15 Days',
+              //                   child: Icon(
+              //                     Icons.circle,
+              //                     size: 20.0,
+              //                     color: Colors.orange,
+              //                   ),
+              //                 ),
+              //               ),
+              //             ),
+              //             Padding(
+              //               padding: const EdgeInsets.all(10.0),
+              //               child: GestureDetector(
+              //                 onTap: () {
+              //                   final dynamic tooltip =
+              //                       _toolTipKey4.currentState;
+              //                   tooltip.ensureTooltipVisible();
+              //                 },
+              //                 child: Tooltip(
+              //                   key: _toolTipKey4,
+              //                   message: '3 to 4 Days',
+              //                   child: Icon(
+              //                     Icons.circle,
+              //                     size: 20.0,
+              //                     color: Colors.blue[900],
+              //                   ),
+              //                 ),
+              //               ),
+              //             ),
+              //             Padding(
+              //               padding: const EdgeInsets.all(10.0),
+              //               child: GestureDetector(
+              //                 onTap: () {
+              //                   final dynamic tooltip =
+              //                       _toolTipKey5.currentState;
+              //                   tooltip.ensureTooltipVisible();
+              //                 },
+              //                 child: Tooltip(
+              //                   key: _toolTipKey5,
+              //                   message: 'Total Stock',
+              //                   child: Icon(
+              //                     Icons.circle,
+              //                     size: 20.0,
+              //                     color: Colors.green,
+              //                   ),
+              //                 ),
+              //               ),
+              //             ),
+              //           ])),
+              // ),
               //----------
               Form(
                 key: _formKey,

@@ -129,7 +129,7 @@ class _ProductDetailState extends State<ProductDetail> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueAccent[700],
-        title: const Text('ProductDetail'),
+        title: const Text('Add To Cart'),
         leading: BackButton(
             color: Colors.white,
             onPressed: () => Navigator.push(
@@ -143,7 +143,7 @@ class _ProductDetailState extends State<ProductDetail> {
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-                        SizedBox(height: size.height * 0.05),
+                        SizedBox(height: size.height * 0.1),
                         Container(
                           alignment: Alignment.center,
                           margin: EdgeInsets.symmetric(horizontal: 50),
@@ -161,16 +161,25 @@ class _ProductDetailState extends State<ProductDetail> {
                             ),
                           ),
                         ),
-                        SizedBox(height: size.height * 0.05),
+                        SizedBox(height: size.height * 0.02),
                         Container(
                           alignment: Alignment.center,
                           margin: EdgeInsets.symmetric(horizontal: 50),
+                          width: 400,
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(
+                                  color: Colors.blueGrey,
+                                  width: 1,
+                                  style: BorderStyle.solid)),
                           child: DropdownButton(
                             isExpanded: true,
-                            //style: TextStyle(fontSize: 18),
+
                             hint: Text(
                               'Please choose a uom',
-                              style: TextStyle(fontSize: 24),
+                              style: TextStyle(fontSize: 18),
                             ), // Not necessary for Option 1
                             value: selectedLocation,
                             onChanged: (newValue) {
@@ -187,7 +196,7 @@ class _ProductDetailState extends State<ProductDetail> {
                             }).toList(),
                           ),
                         ),
-                        SizedBox(height: size.height * 0.01),
+                        SizedBox(height: size.height * 0.02),
                         Container(
                           alignment: Alignment.center,
                           margin: EdgeInsets.symmetric(horizontal: 50),
@@ -206,7 +215,7 @@ class _ProductDetailState extends State<ProductDetail> {
                             ),
                           ),
                         ),
-                        SizedBox(height: size.height * 0.01),
+                        SizedBox(height: size.height * 0.02),
                         Visibility(
                           visible: false,
                           child: Container(
@@ -234,10 +243,8 @@ class _ProductDetailState extends State<ProductDetail> {
                           margin: EdgeInsets.symmetric(horizontal: 50),
                           child: TextFormField(
                             readOnly: true,
-                            //controller: _controller,
                             controller: myController4
                               ..text = widget.stockstatus,
-                            // controller: passwordText,
                             style: TextStyle(fontSize: 18),
                             decoration: InputDecoration(
                               labelText: "Stock Status",
@@ -270,11 +277,6 @@ class _ProductDetailState extends State<ProductDetail> {
                           ),
                         ),
                         SizedBox(height: size.height * 0.01),
-                        //Text(widget.todo.toString()),
-                        SizedBox(height: size.height * 0.01),
-                        // Text(stringList),
-
-                        //Text(selectedLocation ?? 'default value'),
                         ElevatedButton(
                             onPressed: () {
                               postData();

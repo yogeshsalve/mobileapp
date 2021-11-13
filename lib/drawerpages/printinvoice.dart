@@ -19,7 +19,8 @@
 import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
 import 'package:orderapp/bottomnavigation.dart';
-import 'package:orderapp/drawer.dart';
+import 'package:orderapp/dashboard.dart';
+// import 'package:orderapp/drawer.dart';
 
 class PrintInvoice extends StatelessWidget {
   @override
@@ -29,6 +30,10 @@ class PrintInvoice extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.blueAccent[700],
         title: const Text('Print Invoice'),
+        leading: BackButton(
+            color: Colors.white,
+            onPressed: () => Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Dashboard()))),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -172,7 +177,7 @@ class PrintInvoice extends StatelessWidget {
           ],
         ),
       ),
-      drawer: MyDrawer(),
+      // drawer: MyDrawer(),
       bottomNavigationBar: BottomNavigation(),
     );
   }

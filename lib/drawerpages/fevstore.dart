@@ -6,6 +6,7 @@ import 'package:orderapp/dashboard.dart';
 // import 'package:orderapp/drawer.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:http/http.dart' as http;
+// import 'package:orderapp/product/product_detail.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -142,7 +143,6 @@ class _FavStoreState extends State<FavStore> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           if (products.isEmpty)
-          
             Center(
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -182,7 +182,20 @@ class _FavStoreState extends State<FavStore> {
                 itemCount: products.length,
                 itemBuilder: (BuildContext context, int index) {
                   return InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) => ProductDetail(
+                      //             item: products[index]['itemno'],
+                      //             stockstatus: products[index]['stock-colour'],
+                      //             unitconv: "",
+                      //             todo: products[index]['unitconv'],
+                      //           )
+
+                      //       ),
+                      // );
+                    },
                     child: Card(
                       elevation: 16.0,
                       child: Padding(
