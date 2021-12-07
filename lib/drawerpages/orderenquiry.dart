@@ -83,7 +83,8 @@ class _OrderEnquiryState extends State<OrderEnquiry> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent[700],
+        // backgroundColor: Colors.blueAccent[700],
+        backgroundColor: Colors.grey[850],
         title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -97,27 +98,28 @@ class _OrderEnquiryState extends State<OrderEnquiry> {
                   ],
                 ),
               ),
-              Container(
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      //width: size.width * 0.5,
-                      child: IconButton(
-                        icon: Icon(Icons.file_download, color: Colors.white),
-                        onPressed: () {
-                          _createPDF();
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              // Container(
+              //   child: Row(
+              //     children: <Widget>[
+              //       Container(
+              //         //width: size.width * 0.5,
+              //         child: IconButton(
+              //           icon: Icon(Icons.file_download, color: Colors.white),
+              //           onPressed: () {
+              //             _createPDF();
+              //           },
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
             ]),
         leading: BackButton(
             color: Colors.white,
             onPressed: () => Navigator.push(
                 context, MaterialPageRoute(builder: (context) => Dashboard()))),
       ),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
@@ -128,12 +130,12 @@ class _OrderEnquiryState extends State<OrderEnquiry> {
               Container(
                 color: Colors.white,
                 alignment: Alignment.centerLeft,
-                padding: EdgeInsets.symmetric(horizontal: 40),
+                padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Center(
                   child: TextField(
                     controller: myController1..text,
                     decoration: InputDecoration(
-                      labelText: "Item/Order Search",
+                      labelText: "Order Search",
                       // prefixIcon: Icon(Icons.search),
                       suffixIcon: IconButton(
                         onPressed: () {
@@ -149,89 +151,145 @@ class _OrderEnquiryState extends State<OrderEnquiry> {
                   ),
                 ),
               ),
-              SizedBox(height: size.height * 0.05),
-              DataTable(
-                columnSpacing: 10,
-                columns: [
-                  DataColumn(
-                      label: Text(
-                    'No',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+              SizedBox(height: size.height * 0.02),
+              //button
+              Container(
+                alignment: Alignment.center,
+                //color: Colors.white,
+                width: size.width * 0.8,
+                child: ElevatedButton(
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.download,
+                        // color: Colors.black,
+                      ),
+                      Text(
+                        '   Print Order Report',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ],
+                  ),
+                  onPressed: () {
+                    _createPDF();
+                  },
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.green,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 60, vertical: 10),
+                      textStyle:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      shape: StadiumBorder()),
+                ),
+              ),
+              //button end
+              SizedBox(height: size.height * 0.01),
+              const Divider(
+                // height: 20,
+                thickness: 2,
+                indent: 0,
+                endIndent: 0,
+                color: Colors.grey,
+              ),
+              SizedBox(height: size.height * 0.01),
+
+              Column(
+                children: [
+                  SingleChildScrollView(
+                    child: DataTable(
+                      headingRowColor: MaterialStateColor.resolveWith(
+                          (states) => Colors.grey.shade400),
+                      // columnSpacing: 20,
+                      columns: [
+                        DataColumn(
+                            label: Text(
+                          'No',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )),
+                        DataColumn(
+                            label: Text('Head',
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold))),
+                        DataColumn(
+                            label: Text('Description',
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold))),
+                      ],
+                      rows: [
+                        DataRow(cells: [
+                          DataCell(Text('1')),
+                          DataCell(Text('discount')),
+                          DataCell(
+                              Text(productsdisplay[0]['discount'].toString())),
+                        ]),
+                        DataRow(cells: [
+                          DataCell(Text('2')),
+                          DataCell(Text('last_post_date')),
+                          DataCell(Text(
+                              productsdisplay[0]['last_post_date'].toString())),
+                        ]),
+                        DataRow(cells: [
+                          DataCell(Text('3')),
+                          DataCell(Text('order_number')),
+                          DataCell(Text(
+                              productsdisplay[0]['order_number'].toString())),
+                        ]),
+                        DataRow(cells: [
+                          DataCell(Text('4')),
+                          DataCell(Text('po_number')),
+                          DataCell(
+                              Text(productsdisplay[0]['po_number'].toString())),
+                        ]),
+                        DataRow(cells: [
+                          DataCell(Text('5')),
+                          DataCell(Text('ship_via_code')),
+                          DataCell(Text(
+                              productsdisplay[0]['ship_via_code'].toString())),
+                        ]),
+                        DataRow(cells: [
+                          DataCell(Text('6')),
+                          DataCell(Text('ship_via_code_desc')),
+                          DataCell(Text(productsdisplay[0]['ship_via_code_desc']
+                              .toString())),
+                        ]),
+                        DataRow(cells: [
+                          DataCell(Text('7')),
+                          DataCell(Text('subtotal')),
+                          DataCell(
+                              Text(productsdisplay[0]['subtotal'].toString())),
+                        ]),
+                        DataRow(cells: [
+                          DataCell(Text('8')),
+                          DataCell(Text('terms_code')),
+                          DataCell(Text(
+                              productsdisplay[0]['terms_code'].toString())),
+                        ]),
+                        DataRow(cells: [
+                          DataCell(Text('9')),
+                          DataCell(Text('total_ex_tax')),
+                          DataCell(Text(
+                              productsdisplay[0]['total_ex_tax'].toString())),
+                        ]),
+                        DataRow(cells: [
+                          DataCell(Text('10')),
+                          DataCell(Text('total_in_tax')),
+                          DataCell(Text(
+                              productsdisplay[0]['total_in_tax'].toString())),
+                        ]),
+                        DataRow(cells: [
+                          DataCell(Text('11')),
+                          DataCell(Text('total_tax')),
+                          DataCell(
+                              Text(productsdisplay[0]['total_tax'].toString())),
+                        ]),
+                      ],
                     ),
-                  )),
-                  DataColumn(
-                      label: Text('Head',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold))),
-                  DataColumn(
-                      label: Text('Description',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold))),
-                ],
-                rows: [
-                  DataRow(cells: [
-                    DataCell(Text('1')),
-                    DataCell(Text('discount')),
-                    DataCell(Text(productsdisplay[0]['discount'].toString())),
-                  ]),
-                  DataRow(cells: [
-                    DataCell(Text('2')),
-                    DataCell(Text('last_post_date')),
-                    DataCell(
-                        Text(productsdisplay[0]['last_post_date'].toString())),
-                  ]),
-                  DataRow(cells: [
-                    DataCell(Text('3')),
-                    DataCell(Text('order_number')),
-                    DataCell(
-                        Text(productsdisplay[0]['order_number'].toString())),
-                  ]),
-                  DataRow(cells: [
-                    DataCell(Text('4')),
-                    DataCell(Text('po_number')),
-                    DataCell(Text(productsdisplay[0]['po_number'].toString())),
-                  ]),
-                  DataRow(cells: [
-                    DataCell(Text('5')),
-                    DataCell(Text('ship_via_code')),
-                    DataCell(
-                        Text(productsdisplay[0]['ship_via_code'].toString())),
-                  ]),
-                  DataRow(cells: [
-                    DataCell(Text('6')),
-                    DataCell(Text('ship_via_code_desc')),
-                    DataCell(Text(
-                        productsdisplay[0]['ship_via_code_desc'].toString())),
-                  ]),
-                  DataRow(cells: [
-                    DataCell(Text('7')),
-                    DataCell(Text('subtotal')),
-                    DataCell(Text(productsdisplay[0]['subtotal'].toString())),
-                  ]),
-                  DataRow(cells: [
-                    DataCell(Text('8')),
-                    DataCell(Text('terms_code')),
-                    DataCell(Text(productsdisplay[0]['terms_code'].toString())),
-                  ]),
-                  DataRow(cells: [
-                    DataCell(Text('9')),
-                    DataCell(Text('total_ex_tax')),
-                    DataCell(
-                        Text(productsdisplay[0]['total_ex_tax'].toString())),
-                  ]),
-                  DataRow(cells: [
-                    DataCell(Text('10')),
-                    DataCell(Text('total_in_tax')),
-                    DataCell(
-                        Text(productsdisplay[0]['total_in_tax'].toString())),
-                  ]),
-                  DataRow(cells: [
-                    DataCell(Text('11')),
-                    DataCell(Text('total_tax')),
-                    DataCell(Text(productsdisplay[0]['total_tax'].toString())),
-                  ]),
+                  ),
                 ],
               ),
               SizedBox(height: size.height * 0.05),

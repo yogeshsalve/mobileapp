@@ -45,6 +45,7 @@ dependencies:
   charts_flutter: ^0.11.0
   flutter_typeahead: ^3.2.1
   badges: ^2.0.1
+  sqflite: any
 
   
   

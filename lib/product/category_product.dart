@@ -104,11 +104,6 @@ class _CategoryProductState extends State<CategoryProduct> {
   var a;
   @override
   Widget build(BuildContext context) {
-    // GlobalKey _toolTipKey1 = GlobalKey();
-    // GlobalKey _toolTipKey2 = GlobalKey();
-    // GlobalKey _toolTipKey3 = GlobalKey();
-    // GlobalKey _toolTipKey4 = GlobalKey();
-    // GlobalKey _toolTipKey5 = GlobalKey();
     var args = ModalRoute.of(context)!.settings.arguments.toString();
     Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -493,6 +488,8 @@ class _CategoryProductState extends State<CategoryProduct> {
                                           MaterialPageRoute(
                                               builder: (context) =>
                                                   ProductDetail(
+                                                    desc: productsdisplay[index]
+                                                        ['desc'],
                                                     item: productsdisplay[index]
                                                         ['itemno'],
                                                     stockstatus:

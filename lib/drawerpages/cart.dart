@@ -8,6 +8,7 @@ import 'package:orderapp/dashboard.dart';
 import 'package:http/http.dart' as http;
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:shared_preferences/shared_preferences.dart';
+//import 'package:orderapp/product/product_detail.dart';
 
 class Cart extends StatefulWidget {
   @override
@@ -15,6 +16,7 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
+  String ordno = "";
   String? userName;
   List products = [];
   var recordid = "";
@@ -94,25 +96,6 @@ class _CartState extends State<Cart> {
     print(response.body);
   }
 
-  // deleteData() async {
-  //   try {
-  //     var response = await http.post(
-  //         Uri.parse("https://yogeshsalve.com/API/products/deletecart.php"),
-  //         body: {
-  //           "id": delid,
-  //           "Item_no": itemNo,
-  //           "quantity": qty,
-  //         });
-  //     print(response.body);
-  //     if (response.statusCode == 200) {
-  //       Navigator.push(
-  //           context, MaterialPageRoute(builder: (context) => Cart()));
-  //     }
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  // }
-
   //------------------------place order api-----------------------
   postData() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
@@ -123,25 +106,22 @@ class _CartState extends State<Cart> {
     print(userCookie);
 // -------------token ------------------------
     var url = Uri.parse("http://aplhome.info:701/PlaceOrderApi/api/values");
-    Map<String, dynamic> formMap = {
-      "INVDISCPER": "0",
-      "REFERENCE": "WEB-ORDER",
-      "ReportPath":
-          "D:\\\\Projects\\\\AFPL\\\\AFPL\\\\Content\\\\PDF Report\\\\",
-      "IDCUST": "AK691",
-      "NAMECUST": "ATUL K      ",
-      "OrdNumber": " ",
-      "SNAMECUST": " ",
-      "EMAIL1": "atul@aplhome.com",
-      "TEXTSTRE1": "    ",
-      "TEXTSTRE2": "   ",
-      "TEXTSTRE3": "       ",
-      "TEXTSTRE4": "   ",
-      "NAMECITY": "  ",
-      "CODESTTE": "  ",
-      "CODEPSTL": "  ",
-      "CODECTRY": "  ",
-      "NAMECTAC": "Atul",
+    var response = await http.post(url, body: {
+      //----------------------------------------
+      "IDCUST": userName,
+      "NAMECUST": " ",
+      "OrdNumber": "",
+      "SNAMECUST": "",
+      "EMAIL1": "",
+      "TEXTSTRE1": "",
+      "TEXTSTRE2": "",
+      "TEXTSTRE3": "",
+      "TEXTSTRE4": "",
+      "NAMECITY": "",
+      "CODESTTE": "",
+      "CODEPSTL": "",
+      "CODECTRY": "",
+      "NAMECTAC": "",
       "STEXTSTRE1": "",
       "STEXTSTRE2": "",
       "STEXTSTRE3": "",
@@ -161,59 +141,71 @@ class _CartState extends State<Cart> {
       "ORDEMAIL": "",
       "PRIMSHIPTO": "",
       "RepError": "",
-    };
-    for (var i = 0; i < products.length; i++) {
-      formMap["OrderLineItems[$i][ITEMNO]"] = products[i]['itemno'].toString();
-      formMap["OrderLineItems[$i][LineDiscount]"] = "0";
-      formMap["OrderLineItems[$i][PRIUNTPRC]"] = "0";
-      formMap["OrderLineItems[$i][QUANTITY]"] =
-          products[i]['quantity'].toString();
-      formMap["OrderLineItems[$i][STOCKUNIT]"] = products[i]['unit'].toString();
-      formMap["OrderLineItems[$i][UnitPrice]"] = "0";
-    }
-    var response =
-        await http.post(url, body: formMap, headers: {'Cookie': userCookie});
+      "OrderLineItems[0][ITEMNO]": products[0]['itemno'].toString(),
+      "OrderLineItems[0][LineDiscount]": "0",
+      "OrderLineItems[0][PRIUNTPRC]": "0",
+      "OrderLineItems[0][QUANTITY]": products[0]['quantity'].toString(),
+      "OrderLineItems[0][STOCKUNIT]": products[0]['unit'].toString(),
+      "OrderLineItems[0][UnitPrice]": "0",
+    }, headers: {
+      'Cookie': userCookie
+    });
     print(response.body);
     print(response.statusCode);
     if (response.statusCode == 200) {
       var items = jsonDecode(response.body);
       if (items["OrdNumber"] != null) {
+        setState(() {
+          ordno = items["OrdNumber"].toString();
+        });
         emptyCart();
       }
+      Size size = MediaQuery.of(context).size;
       showDialog(
         context: context,
         builder: (BuildContext context) => AlertDialog(
-          title: const Text('Info'),
-          content: const Text('Order Placed Successfully'),
+          title: Column(children: [
+            Center(
+              child:
+                  // Image.network(
+                  //   'https://flutter-examples.com/wp-content/uploads/2019/12/android_icon.png',
+                  Container(
+                margin: EdgeInsets.all(10),
+                width: size.width * 0.15,
+                height: size.height * 0.1,
+                decoration: BoxDecoration(
+                  // shape: BoxShape.circle,
+                  image: DecorationImage(
+                      image: AssetImage('images/orderplaced.png'),
+                      fit: BoxFit.fill),
+                ),
+              ),
+            ),
+
+            // Text('Order placed successfully..!!')
+          ]),
+          content: Text(
+            "Order placed!!  \n Order no: " + ordno.toString(),
+            style: TextStyle(fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
+          ),
           actions: <Widget>[
             TextButton(
-              onPressed: () => Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Cart())),
-              child: const Text('OK'),
+              onPressed: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Dashboard())),
+              child: const Text('Continue Shopping'),
+            ),
+            TextButton(
+              onPressed: () {},
+              // =>
+              // Navigator.push(
+              //     context, MaterialPageRoute(builder: (context) => Cart())),
+              child: const Text('View all Orders'),
             ),
           ],
         ),
       );
     }
-    // if (response.statusCode == 500) {
-    //   showDialog(
-    //     context: context,
-    //     builder: (BuildContext context) => AlertDialog(
-    //       title: const Text('Alert'),
-    //       content: const Text('Invalid Input Quantity'),
-    //       actions: <Widget>[
-    //         // TextButton(
-    //         //   onPressed: () => Navigator.pop(context, 'OK'),
-    //         //   child: const Text('Cancel'),
-    //         // ),
-    //         TextButton(
-    //           onPressed: () => Navigator.pop(context),
-    //           child: const Text('OK'),
-    //         ),
-    //       ],
-    //     ),
-    //   );
-    // }
   }
 
   //-------------------------------------------------------------

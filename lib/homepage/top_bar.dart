@@ -31,29 +31,6 @@ class TopBar extends StatelessWidget {
                       Container(
                         // width: size.width * 0.8,
                         height: size.height * 0.06,
-                        // child: Center(
-                        // ignore: deprecated_member_use
-                        // child: ElevatedButton.icon(
-                        //   style: ElevatedButton.styleFrom(
-                        //     primary: Colors.white, // background
-                        //     onPrimary: Colors.blue,
-                        //     shape: RoundedRectangleBorder(
-                        //         side: BorderSide(
-                        //       color: Colors.white,
-                        //     )), // foreground
-                        //   ),
-                        //   icon: Icon(Icons.search, color: dark_blue),
-                        //   label: Text(
-                        //       'SEARCH APL PRODUCTS                         .'),
-                        //   onPressed: () => {
-                        //     Navigator.of(context).pushReplacement(
-                        //         MaterialPageRoute(
-                        //             builder: (BuildContext context) =>
-                        //                 HomeSearch())),
-                        //   },
-                        // ),
-
-                        // ),
                       ),
                       // Icon(Icons.search, color: dark_blue)
                     ],

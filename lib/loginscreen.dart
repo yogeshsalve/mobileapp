@@ -227,20 +227,25 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               SizedBox(height: size.height * 0.03),
+
+              // temporary button
+
               // Container(
               //   alignment: Alignment.center,
               //   margin: EdgeInsets.symmetric(horizontal: 40, vertical: 5),
               //   child: InkWell(
               //     child: Text(
-              //       "SignUp Here",
+              //       "Temporary Login",
               //       style: TextStyle(fontSize: 22, color: Color(0XFF2661FA)),
               //     ),
               //     onTap: () {
               //       Navigator.of(context).pushReplacement(MaterialPageRoute(
-              //           builder: (BuildContext context) => Register()));
+              //           builder: (BuildContext context) => Dashboard()));
               //     },
               //   ),
               // ),
+
+              // temporary button
             ],
           ),
         ),

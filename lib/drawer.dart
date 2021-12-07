@@ -4,6 +4,7 @@ import 'package:orderapp/drawerpages/cart.dart';
 import 'package:orderapp/drawerpages/certificate.dart';
 
 import 'package:orderapp/drawerpages/fevstore.dart';
+import 'package:orderapp/drawerpages/sqlitetest.dart';
 import 'package:orderapp/homepage/homesearch.dart';
 // import 'package:orderapp/pdf.dart';
 // import 'package:orderapp/testpage.dart';
@@ -107,18 +108,18 @@ class _MyDrawerState extends State<MyDrawer> {
               },
             ),
 
-            // ListTile(
-            //   title: Text('Test', style: TextStyle(fontSize: 20)),
-            //   tileColor: Colors.white10,
-            //   leading: Icon(
-            //     Icons.shop,
-            //     color: Colors.black,
-            //   ),
-            //   onTap: () => {
-            //     Navigator.of(context).pushReplacement(MaterialPageRoute(
-            //         builder: (BuildContext context) => TabletoPdf()))
-            //   },
-            // ),
+            ListTile(
+              title: Text('SqliteTest', style: TextStyle(fontSize: 20)),
+              tileColor: Colors.white10,
+              leading: Icon(
+                Icons.shop,
+                color: Colors.black,
+              ),
+              onTap: () => {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (BuildContext context) => SqliteTest()))
+              },
+            ),
 
             ListTile(
               title: Text('Favourite Store', style: TextStyle(fontSize: 20)),

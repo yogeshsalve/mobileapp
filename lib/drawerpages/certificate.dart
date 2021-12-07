@@ -124,7 +124,7 @@ class _CertificateState extends State<Certificate> {
             //     )),
 
             SizedBox(
-              height: size.height * 0.20,
+              height: size.height * 0.10,
             ),
             Container(
               alignment: Alignment.center,

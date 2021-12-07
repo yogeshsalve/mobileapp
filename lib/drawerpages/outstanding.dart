@@ -1,10 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:orderapp/bottomnavigation.dart';
+//import 'package:orderapp/bottomnavigation.dart';
 import 'package:orderapp/dashboard.dart';
 // import 'package:orderapp/drawer.dart';
 import 'package:http/http.dart' as http;
+// import 'package:orderapp/drawerpages/obreport.dart';
 import 'package:orderapp/mobile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
@@ -17,6 +18,7 @@ class Outstanding extends StatefulWidget {
 
 class _OutstandingState extends State<Outstanding> {
   String userCookie = '';
+  List products = [];
 
   List products2 = [];
 
@@ -42,18 +44,16 @@ class _OutstandingState extends State<Outstanding> {
   void initState() {
     super.initState();
     postData();
+    fetchProduct();
   }
 
   postData() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
-
     // ---------------token-------------------
     // final SharedPreferences pref = await SharedPreferences.getInstance();
     userCookie = pref.getString('userCookiekey')!;
     setState(() {});
-
     print(userCookie);
-
     // -------------token ------------------------
     var url = Uri.parse("http://114.143.151.6:901/balance-summary");
     var response = await http.post(url, headers: {'Cookie': userCookie});
@@ -79,12 +79,44 @@ class _OutstandingState extends State<Outstanding> {
     print(productsdisplay);
   }
 
+  fetchProduct() async {
+    // ---------------token-------------------
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    userCookie = pref.getString('userCookiekey')!;
+    setState(() {});
+    print(userCookie);
+    // -------------token ------------------------
+
+    var url = Uri.parse('http://114.143.151.6:901/balance-list');
+    var response = await http.post(url,
+        body: {"limit": "500", "page": "1"}, headers: {'Cookie': userCookie});
+
+    if (response.statusCode == 200) {
+      var items = jsonDecode(response.body);
+      print(items);
+      List products2 = [];
+      for (var item in items) {
+        //   print(item);
+        products2.add(item);
+      }
+      // print(products2);
+      setState(() {
+        products = products2;
+      });
+    } else
+      setState(() {
+        products = [];
+      });
+
+    print(products);
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent[700],
+        backgroundColor: Colors.grey[850],
         title: const Text('Outstanding Balance'),
         leading: BackButton(
             color: Colors.white,
@@ -97,24 +129,33 @@ class _OutstandingState extends State<Outstanding> {
           children: <Widget>[
             SizedBox(height: size.height * 0.02),
             SizedBox(height: size.height * 0.05),
-            SizedBox(height: size.height * 0.05),
             DataTable(
+              // headingRowColor: MaterialStateColor.resolveWith((states) {return HexColor('#222D65');},),
+              headingRowColor: MaterialStateColor.resolveWith(
+                  (states) => Colors.grey.shade300),
               decoration:
                   BoxDecoration(border: Border.all(color: Colors.black38)),
               columns: [
                 DataColumn(
                     label: Text(
                   'ID',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.green[600],
+                      fontWeight: FontWeight.bold),
                 )),
                 DataColumn(
                     label: Text('Outstanding',
                         style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold))),
+                            fontSize: 18,
+                            color: Colors.green[600],
+                            fontWeight: FontWeight.bold))),
                 DataColumn(
                     label: Text('Unpaid',
                         style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold))),
+                            fontSize: 18,
+                            color: Colors.green[600],
+                            fontWeight: FontWeight.bold))),
               ],
               rows: [
                 DataRow(cells: [
@@ -124,28 +165,199 @@ class _OutstandingState extends State<Outstanding> {
                 ]),
               ],
             ),
-            SizedBox(height: size.height * 0.08),
+            SizedBox(height: size.height * 0.03),
             Container(
               alignment: Alignment.center,
-              color: Colors.white,
+              //color: Colors.white,
+              width: size.width * 0.8,
               child: ElevatedButton(
-                child: Text('Print Outstanding Report'),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.print,
+                      // color: Colors.black,
+                    ),
+                    Text(
+                      '   Print Outstanding',
+                      // style: TextStyle(color: Colors.black),
+                    ),
+                  ],
+                ),
                 onPressed: () {
                   _createPDF();
                 },
                 style: ElevatedButton.styleFrom(
-                    primary: Colors.deepPurple,
-                    padding: EdgeInsets.symmetric(horizontal: 80, vertical: 15),
+                    primary: Colors.green,
+                    padding: EdgeInsets.symmetric(horizontal: 60, vertical: 10),
                     textStyle:
-                        TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     shape: StadiumBorder()),
               ),
+            ),
+            // Divider(),
+            SizedBox(height: size.height * 0.02),
+            const Divider(
+              height: 20,
+              thickness: 2,
+              indent: 0,
+              endIndent: 0,
+              color: Colors.grey,
+            ),
+            SizedBox(height: size.height * 0.02),
+            Column(
+              children: [
+                SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: DataTable(
+                      headingRowColor: MaterialStateColor.resolveWith(
+                          (states) => Colors.grey.shade400),
+                      columns: const <DataColumn>[
+                        DataColumn(
+                          label: Text(
+                            'Inv No.',
+                            style: TextStyle(fontStyle: FontStyle.italic),
+                          ),
+                        ),
+                        DataColumn(
+                          label: Text(
+                            'Inv Date',
+                            style: TextStyle(fontStyle: FontStyle.italic),
+                          ),
+                        ),
+                        DataColumn(
+                          label: Text(
+                            'Due Date',
+                            style: TextStyle(fontStyle: FontStyle.italic),
+                          ),
+                        ),
+                        DataColumn(
+                          label: Text(
+                            'Po Number',
+                            style: TextStyle(fontStyle: FontStyle.italic),
+                          ),
+                        ),
+                        DataColumn(
+                          label: Text(
+                            'Inv Amount',
+                            style: TextStyle(fontStyle: FontStyle.italic),
+                          ),
+                        ),
+                        DataColumn(
+                          label: Text(
+                            'Overdue Days',
+                            style: TextStyle(fontStyle: FontStyle.italic),
+                          ),
+                        ),
+                        DataColumn(
+                          label: Text(
+                            'Outstanding Amount',
+                            style: TextStyle(fontStyle: FontStyle.italic),
+                          ),
+                        ),
+                        // DataColumn(
+                        //   label: Text(
+                        //     'Print',
+                        //     style: TextStyle(fontStyle: FontStyle.italic),
+                        //   ),
+                        // ),
+
+                        // DataColumn(
+                        //   label: Text(
+                        //     'Inv Date',
+                        //     style: TextStyle(fontStyle: FontStyle.italic),
+                        //   ),
+                        // ),
+
+                        // DataColumn(
+                        //   label: Text(
+                        //     'Reference',
+                        //     style: TextStyle(fontStyle: FontStyle.italic),
+                        //   ),
+                        // ),
+                      ],
+                      rows: <DataRow>[
+                        for (var p in products)
+                          DataRow(
+                            cells: <DataCell>[
+                              DataCell(Text(
+                                p["invoice_id"].toString(),
+                                style: TextStyle(fontStyle: FontStyle.italic),
+                              )),
+                              DataCell(Text(
+                                p["invoice_date"].toString(),
+                                style: TextStyle(fontStyle: FontStyle.italic),
+                              )),
+                              DataCell(Text(
+                                p["due_date"].toString(),
+                                style: TextStyle(fontStyle: FontStyle.italic),
+                              )),
+                              DataCell(Text(
+                                p["po_number"].toString(),
+                                style: TextStyle(fontStyle: FontStyle.italic),
+                              )),
+                              DataCell(Text(
+                                p["invoice_amount"].toString(),
+                                style: TextStyle(fontStyle: FontStyle.italic),
+                              )),
+                              DataCell(Text(
+                                p["overdue days"].toString(),
+                                style: TextStyle(fontStyle: FontStyle.italic),
+                              )),
+                              DataCell(Text(
+                                p["amount_outstanding"].toString(),
+                                style: TextStyle(fontStyle: FontStyle.italic),
+                              )),
+
+                              // DataCell(
+                              //   IconButton(
+                              //     icon: Icon(
+                              //       Icons.local_print_shop_outlined,
+                              //     ),
+                              //     iconSize: 30,
+                              //     color: Colors.black,
+                              //     splashColor: Colors.purple,
+                              //     onPressed: () {
+                              //       Navigator.of(context)
+                              //           .pushReplacement(MaterialPageRoute(
+                              //         builder: (BuildContext context) =>
+                              //             Obreport(),
+                              //         settings: RouteSettings(
+                              //             arguments:
+                              //                 p["invoice_id"].toString()),
+                              //       ));
+                              //     },
+                              //   ),
+                              // ),
+
+                              // DataCell(Text(
+                              //   p["due_date"].toString(),
+                              //   style: TextStyle(fontStyle: FontStyle.italic),
+                              // )),
+
+                              // DataCell(Text(
+                              //   p["invoice_date"].toString(),
+                              //   style: TextStyle(fontStyle: FontStyle.italic),
+                              // )),
+
+                              // DataCell(Text(
+                              //   p["reference"].toString(),
+                              //   style: TextStyle(fontStyle: FontStyle.italic),
+                              // )),
+                            ],
+                          ),
+                      ],
+                      columnSpacing: 30,
+                      horizontalMargin: 10,
+                      // rowsPerPage: 8,
+                      showCheckboxColumn: false,
+                    ))
+              ],
             ),
           ],
         ),
       ),
       // drawer: MyDrawer(),
-      bottomNavigationBar: BottomNavigation(),
+      //bottomNavigationBar: BottomNavigation(),
     );
   }
 

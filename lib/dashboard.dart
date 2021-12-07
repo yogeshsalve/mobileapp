@@ -4,13 +4,15 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:orderapp/bottomnavigation.dart';
 import 'package:orderapp/drawer.dart';
+import 'package:orderapp/drawerpages/cart.dart';
 //import 'package:orderapp/drawerpages/cart.dart';
 //import 'package:orderapp/drawerpages/cart%20copy.dart';
 import 'package:orderapp/drawerpages/changepassword.dart';
+import 'package:orderapp/drawerpages/orderdetails.dart';
 // import 'package:orderapp/drawerpages/ledger.dart';
 import 'package:orderapp/homepage/homefifth.dart';
 import 'package:orderapp/homepage/homefourth.dart';
-import 'package:orderapp/homepage/homeseventh.dart';
+// import 'package:orderapp/homepage/homeseventh.dart';
 import 'package:orderapp/homepage/homesixth.dart';
 import 'package:orderapp/homepage/homethreehalf.dart';
 import 'package:orderapp/homepage/top_bar.dart';
@@ -172,7 +174,7 @@ class _DashboardState extends State<Dashboard> {
             Container(
               child: Row(
                 children: <Widget>[
-                  _textBadge(),
+                  _textBadge(context),
                   // IconButton(
                   //   icon: Icon(Icons.shopping_cart, color: Colors.white),
                   //   onPressed: () {
@@ -264,13 +266,44 @@ class _DashboardState extends State<Dashboard> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Center(
-                      child: Text(
-                        "Welcome $userName",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.start,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            "Welcome $userName",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.start,
+                          ),
+                          // ignore: deprecated_member_use
+                          // new RaisedButton(
+                          //   child: new Text('Order Details'),
+                          //   onPressed: null,
+                          // ),
+                          // ignore: deprecated_member_use
+                          RaisedButton(
+                            elevation: 16.0,
+                            child: Text(
+                              'Order Details',
+                              // style: TextStyle(
+                              //   color: Colors.white,
+                              //   fontSize: 15.0,
+                              // ),
+                            ),
+                            color: Colors.orange,
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(16.0))),
+                            onPressed: () {
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          OrderDetails()));
+                            },
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -302,13 +335,7 @@ class _DashboardState extends State<Dashboard> {
                 SizedBox(
                   height: size.height * 0.01,
                 ),
-                HomeSeventh(),
-                // Container(
-                //   height: size.height * 0.15,
-                //   width: size.width * 1,
-                //   color: Colors.white,
-                //   //Put your child widget here.
-                // ),
+                // HomeSeventh(),
 
                 // SizedBox(
                 //   height: size.height * 0.01,
@@ -361,7 +388,7 @@ class _DashboardState extends State<Dashboard> {
   }
 }
 
-Widget _textBadge() {
+Widget _textBadge(context) {
   return Padding(
     padding: const EdgeInsets.all(20),
     child: Badge(
@@ -372,7 +399,10 @@ Widget _textBadge() {
       ),
       child: IconButton(
         icon: Icon(Icons.shopping_cart, color: Colors.white),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (BuildContext context) => Cart()));
+        },
       ),
       position: BadgePosition.topEnd(top: 2),
     ),

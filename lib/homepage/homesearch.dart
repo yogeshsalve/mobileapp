@@ -250,6 +250,8 @@ class _HomeSearchState extends State<HomeSearch> {
                                           MaterialPageRoute(
                                               builder: (context) =>
                                                   ProductDetail(
+                                                    desc: productsdisplay[index]
+                                                        ['desc'],
                                                     item: productsdisplay[index]
                                                         ['itemno'],
                                                     stockstatus:
