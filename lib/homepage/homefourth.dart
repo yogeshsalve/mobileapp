@@ -67,16 +67,17 @@ class _HomefourthState extends State<Homefourth> {
     Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Container(
-        color: Colors.blue[100],
+        // color: Colors.blue[100],
+        color: Colors.grey[850],
         child: SizedBox(
-          height: size.height * 0.15, // card height
+          height: size.height * 0.10, // card height
           child: PageView.builder(
             itemCount: getList.length,
-            controller: PageController(viewportFraction: 0.28),
+            controller: PageController(viewportFraction: 0.20),
             onPageChanged: (int index) => setState(() => _index = index),
             itemBuilder: (_, i) {
               return Transform.scale(
-                scale: i == _index ? 1 : 0.9,
+                scale: i == _index ? 1 : 1,
                 child: InkWell(
                   onTap: () => {
                     setProductName(getList[i].toString()),
@@ -98,7 +99,7 @@ class _HomefourthState extends State<Homefourth> {
                       child: Text(
                         getList[i].toString(),
                         style: TextStyle(
-                            fontSize: 15,
+                            fontSize: 12,
                             color: Colors.white,
                             fontWeight: FontWeight.bold),
                       ),

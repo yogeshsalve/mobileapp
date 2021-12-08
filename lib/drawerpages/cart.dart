@@ -161,50 +161,51 @@ class _CartState extends State<Cart> {
         emptyCart();
       }
       Size size = MediaQuery.of(context).size;
-      showDialog(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: Column(children: [
-            Center(
-              child:
-                  // Image.network(
-                  //   'https://flutter-examples.com/wp-content/uploads/2019/12/android_icon.png',
-                  Container(
-                margin: EdgeInsets.all(10),
-                width: size.width * 0.15,
-                height: size.height * 0.1,
-                decoration: BoxDecoration(
-                  // shape: BoxShape.circle,
-                  image: DecorationImage(
-                      image: AssetImage('images/orderplaced.png'),
-                      fit: BoxFit.fill),
+      if (items["OrdNumber"] != null) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: Column(children: [
+              Center(
+                child: Container(
+                  margin: EdgeInsets.all(10),
+                  width: size.width * 0.15,
+                  height: size.height * 0.1,
+                  decoration: BoxDecoration(
+                    // shape: BoxShape.circle,
+                    image: DecorationImage(
+                        image: AssetImage('images/orderplaced.png'),
+                        fit: BoxFit.fill),
+                  ),
                 ),
               ),
-            ),
 
-            // Text('Order placed successfully..!!')
-          ]),
-          content: Text(
-            "Order placed!!  \n Order no: " + ordno.toString(),
-            style: TextStyle(fontWeight: FontWeight.bold),
-            textAlign: TextAlign.center,
+              // Text('Order placed successfully..!!')
+            ]),
+            content: Text(
+              "Order placed!!  \n Order no: " + ordno.toString(),
+              style: TextStyle(fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Dashboard())),
+                child: const Text('Continue Shopping'),
+              ),
+              TextButton(
+                onPressed: () {},
+                // =>
+                // Navigator.push(
+                //     context, MaterialPageRoute(builder: (context) => Cart())),
+                child: const Text('View all Orders'),
+              ),
+            ],
           ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Dashboard())),
-              child: const Text('Continue Shopping'),
-            ),
-            TextButton(
-              onPressed: () {},
-              // =>
-              // Navigator.push(
-              //     context, MaterialPageRoute(builder: (context) => Cart())),
-              child: const Text('View all Orders'),
-            ),
-          ],
-        ),
-      );
+        );
+      } else {
+        print("no order placed");
+      }
     }
   }
 
@@ -215,7 +216,8 @@ class _CartState extends State<Cart> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent[700],
+        // backgroundColor: Colors.blueAccent[700],
+        backgroundColor: Colors.grey[850],
         title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -274,13 +276,13 @@ class _CartState extends State<Cart> {
                 context, MaterialPageRoute(builder: (context) => Dashboard()))),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: Colors.deepOrange,
+        backgroundColor: Colors.green,
         label: Text('PLACE ORDER'),
         onPressed: () {
           postData();
         },
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerTop,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [

@@ -105,7 +105,8 @@ class _HomeSearchState extends State<HomeSearch> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent[700],
+        // backgroundColor: Colors.blueAccent[700],
+        backgroundColor: Colors.grey[850],
         // title: TopBar1(),
         title: Text("STORE"),
         leading: IconButton(
@@ -144,6 +145,10 @@ class _HomeSearchState extends State<HomeSearch> {
 
             children: <Widget>[
               // TopBar(),
+              Container(
+                color: Colors.blue,
+                height: size.height * 0.03,
+              ),
               Container(
                 padding: EdgeInsets.all(5),
                 color: Colors.grey[350],

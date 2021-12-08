@@ -161,6 +161,7 @@ class _MonthlyPurchaseState extends State<MonthlyPurchase> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: WillPopScope(
         onWillPop: () async {
           final timegap = DateTime.now().difference(pre_backpress);
@@ -182,8 +183,8 @@ class _MonthlyPurchaseState extends State<MonthlyPurchase> {
           length: 3,
           child: Scaffold(
             appBar: AppBar(
-              backgroundColor: Color(0xff1976d2),
-              //backgroundColor: Color(0xff308e1c),
+              // backgroundColor: Color(0xff1976d2),
+              backgroundColor: Colors.grey[850],
               bottom: TabBar(
                 indicatorColor: Color(0xff9962D0),
                 tabs: [

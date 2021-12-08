@@ -6,6 +6,7 @@ import 'package:orderapp/dashboard.dart';
 // import 'package:orderapp/drawer.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:http/http.dart' as http;
+import 'package:orderapp/drawerpages/orderenquiry2.dart';
 import 'package:orderapp/mobile.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:shared_preferences/shared_preferences.dart';
@@ -91,7 +92,8 @@ class _OrderDetailsState extends State<OrderDetails> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent[700],
+        // backgroundColor: Colors.blueAccent[700],
+        backgroundColor: Colors.grey[850],
         title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -135,21 +137,44 @@ class _OrderDetailsState extends State<OrderDetails> {
         child: SingleChildScrollView(
           child: Column(
             children: [
+              Container(
+                color: Colors.blue,
+                height: size.height * 0.03,
+              ),
+              // const Divider(
+              //   // height: 20,
+              //   thickness: 5,
+              //   indent: 0,
+              //   endIndent: 0,
+              //   color: Colors.grey,
+              // ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: DataTable(
                   headingRowColor: MaterialStateColor.resolveWith(
-                      (states) => Colors.orangeAccent),
+                      (states) => Colors.grey.shade400),
                   columns: const <DataColumn>[
                     DataColumn(
                       label: Text(
-                        'expected_date',
+                        'order_number',
+                        style: TextStyle(fontStyle: FontStyle.italic),
+                      ),
+                    ),
+                    // DataColumn(
+                    //   label: Text(
+                    //     'Action',
+                    //     style: TextStyle(fontStyle: FontStyle.italic),
+                    //   ),
+                    // ),
+                    DataColumn(
+                      label: Text(
+                        'on_hold',
                         style: TextStyle(fontStyle: FontStyle.italic),
                       ),
                     ),
                     DataColumn(
                       label: Text(
-                        'on_hold',
+                        'reference',
                         style: TextStyle(fontStyle: FontStyle.italic),
                       ),
                     ),
@@ -161,7 +186,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                     ),
                     DataColumn(
                       label: Text(
-                        'order_number',
+                        'expected ship date',
                         style: TextStyle(fontStyle: FontStyle.italic),
                       ),
                     ),
@@ -171,24 +196,18 @@ class _OrderDetailsState extends State<OrderDetails> {
                         style: TextStyle(fontStyle: FontStyle.italic),
                       ),
                     ),
-                    DataColumn(
-                      label: Text(
-                        'orduniq',
-                        style: TextStyle(fontStyle: FontStyle.italic),
-                      ),
-                    ),
-                    DataColumn(
-                      label: Text(
-                        'po_number',
-                        style: TextStyle(fontStyle: FontStyle.italic),
-                      ),
-                    ),
-                    DataColumn(
-                      label: Text(
-                        'reference',
-                        style: TextStyle(fontStyle: FontStyle.italic),
-                      ),
-                    ),
+                    // DataColumn(
+                    //   label: Text(
+                    //     'orduniq',
+                    //     style: TextStyle(fontStyle: FontStyle.italic),
+                    //   ),
+                    // ),
+                    // DataColumn(
+                    //   label: Text(
+                    //     'po_number',
+                    //     style: TextStyle(fontStyle: FontStyle.italic),
+                    //   ),
+                    // ),
                   ],
                   // for ( 1==1)
 
@@ -196,14 +215,51 @@ class _OrderDetailsState extends State<OrderDetails> {
                     for (var p in products)
                       DataRow(
                         cells: <DataCell>[
-                          DataCell(Text(p["expected_date"].toString())),
+                          DataCell(
+                            InkWell(
+                                child: Text(
+                              p["order_number"].toString(),
+                              style: TextStyle(
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18),
+                            )),
+                            onTap: () {
+                              Navigator.of(context)
+                                  .pushReplacement(MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    OrderEnquiry2(),
+                                settings: RouteSettings(
+                                    arguments: p["orduniq"].toString()),
+                              ));
+                            },
+                          ),
+                          // DataCell(
+                          //   IconButton(
+                          //     icon: Icon(
+                          //       Icons.file_present,
+                          //     ),
+                          //     iconSize: 30,
+                          //     color: Colors.black,
+                          //     splashColor: Colors.purple,
+                          //     onPressed: () {
+                          //       Navigator.of(context)
+                          //           .pushReplacement(MaterialPageRoute(
+                          //         builder: (BuildContext context) =>
+                          //             OrderEnquiry2(),
+                          //         settings: RouteSettings(
+                          //             arguments: p["orduniq"].toString()),
+                          //       ));
+                          //     },
+                          //   ),
+                          // ),
                           DataCell(Text(p["on_hold"].toString())),
-                          DataCell(Text(p["order_date"].toString())),
-                          DataCell(Text(p["order_number"].toString())),
-                          DataCell(Text(p["order_total"].toString())),
-                          DataCell(Text(p["orduniq"].toString())),
-                          DataCell(Text(p["po_number"].toString())),
                           DataCell(Text(p["reference"].toString())),
+                          DataCell(Text(p["order_date"].toString())),
+                          DataCell(Text(p["expected_date"].toString())),
+                          DataCell(Text(p["order_total"].toString())),
+                          // DataCell(Text(p["orduniq"].toString())),
+                          // DataCell(Text(p["po_number"].toString())),
                         ],
                       ),
                   ],

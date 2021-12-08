@@ -9,7 +9,7 @@ class Homesixth extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
         child: Container(
-      color: Colors.blue[50],
+      color: Colors.white,
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(

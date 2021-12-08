@@ -41,7 +41,9 @@ class _StoreState extends State<Store> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent[700],
+        // backgroundColor: Colors.blueAccent[700],
+        backgroundColor: Colors.grey[850],
+
         title: const Text('Store'),
       ),
       drawer: MyDrawer(),

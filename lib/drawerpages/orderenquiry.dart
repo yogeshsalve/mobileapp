@@ -1,10 +1,10 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:orderapp/bottomnavigation.dart';
 import 'package:orderapp/dashboard.dart';
 import 'package:orderapp/drawer.dart';
 import 'package:http/http.dart' as http;
+import 'package:orderapp/drawerpages/orderdetails.dart';
 import 'package:orderapp/mobile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
@@ -121,197 +121,259 @@ class _OrderEnquiryState extends State<OrderEnquiry> {
       ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(height: size.height * 0.02),
-              Container(
-                color: Colors.white,
-                alignment: Alignment.centerLeft,
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Center(
-                  child: TextField(
-                    controller: myController1..text,
-                    decoration: InputDecoration(
-                      labelText: "Order Search",
-                      // prefixIcon: Icon(Icons.search),
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          postData();
-                        },
-                        icon: Icon(Icons.search),
-                      ),
-                      // border: InputBorder.none,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: size.height * 0.02),
-              //button
-              Container(
-                alignment: Alignment.center,
-                //color: Colors.white,
-                width: size.width * 0.8,
-                child: ElevatedButton(
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.download,
-                        // color: Colors.black,
-                      ),
-                      Text(
-                        '   Print Order Report',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ],
-                  ),
-                  onPressed: () {
-                    _createPDF();
-                  },
-                  style: ElevatedButton.styleFrom(
-                      primary: Colors.green,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 60, vertical: 10),
-                      textStyle:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                      shape: StadiumBorder()),
-                ),
-              ),
-              //button end
-              SizedBox(height: size.height * 0.01),
-              const Divider(
-                // height: 20,
-                thickness: 2,
-                indent: 0,
-                endIndent: 0,
-                color: Colors.grey,
-              ),
-              SizedBox(height: size.height * 0.01),
-
-              Column(
-                children: [
-                  SingleChildScrollView(
-                    child: DataTable(
-                      headingRowColor: MaterialStateColor.resolveWith(
-                          (states) => Colors.grey.shade400),
-                      // columnSpacing: 20,
-                      columns: [
-                        DataColumn(
-                            label: Text(
-                          'No',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+        child: Column(
+          children: [
+            Container(
+              color: Colors.blue,
+              height: size.height * 0.03,
+            ),
+            // const Divider(
+            //   // height: 20,
+            //   thickness: 5,
+            //   indent: 0,
+            //   endIndent: 0,
+            //   color: Colors.grey,
+            // ),
+            SingleChildScrollView(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    SizedBox(height: size.height * 0.02),
+                    Container(
+                      color: Colors.white,
+                      alignment: Alignment.centerLeft,
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: Center(
+                        child: TextField(
+                          controller: myController1..text,
+                          decoration: InputDecoration(
+                            labelText: "Order Search",
+                            // prefixIcon: Icon(Icons.search),
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                postData();
+                              },
+                              icon: Icon(Icons.search),
+                            ),
+                            // border: InputBorder.none,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
                           ),
-                        )),
-                        DataColumn(
-                            label: Text('Head',
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: size.height * 0.01),
+                    //---------------------------------
+                    Container(
+                      color: Colors.white,
+                      child: Row(
+                        // mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Expanded(
+                            child: new Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: ElevatedButton(
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.download,
+                                      color: Colors.white10,
+                                    ),
+                                    Text(
+                                      '  Order List',
+                                      style: TextStyle(color: Colors.orange),
+                                    ),
+                                  ],
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              OrderDetails()));
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    primary: Colors.white70,
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 10),
+                                    textStyle: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
+                                    shape: StadiumBorder()),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: new Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: ElevatedButton(
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.download,
+                                      // color: Colors.black,
+                                    ),
+                                    Text(
+                                      '  Print Report',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                                onPressed: () {
+                                  _createPDF();
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    primary: Colors.green,
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 10),
+                                    textStyle: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
+                                    shape: StadiumBorder()),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    //----------------------------------
+                    // SizedBox(height: size.height * 0.01),
+                    const Divider(
+                      // height: 20,
+                      thickness: 2,
+                      indent: 0,
+                      endIndent: 0,
+                      color: Colors.grey,
+                    ),
+                    SizedBox(height: size.height * 0.01),
+
+                    Column(
+                      children: [
+                        SingleChildScrollView(
+                          child: DataTable(
+                            headingRowColor: MaterialStateColor.resolveWith(
+                                (states) => Colors.grey.shade400),
+                            // columnSpacing: 20,
+                            columns: [
+                              DataColumn(
+                                  label: Text(
+                                'No',
                                 style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold))),
-                        DataColumn(
-                            label: Text('Description',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold))),
-                      ],
-                      rows: [
-                        DataRow(cells: [
-                          DataCell(Text('1')),
-                          DataCell(Text('discount')),
-                          DataCell(
-                              Text(productsdisplay[0]['discount'].toString())),
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('2')),
-                          DataCell(Text('last_post_date')),
-                          DataCell(Text(
-                              productsdisplay[0]['last_post_date'].toString())),
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('3')),
-                          DataCell(Text('order_number')),
-                          DataCell(Text(
-                              productsdisplay[0]['order_number'].toString())),
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('4')),
-                          DataCell(Text('po_number')),
-                          DataCell(
-                              Text(productsdisplay[0]['po_number'].toString())),
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('5')),
-                          DataCell(Text('ship_via_code')),
-                          DataCell(Text(
-                              productsdisplay[0]['ship_via_code'].toString())),
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('6')),
-                          DataCell(Text('ship_via_code_desc')),
-                          DataCell(Text(productsdisplay[0]['ship_via_code_desc']
-                              .toString())),
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('7')),
-                          DataCell(Text('subtotal')),
-                          DataCell(
-                              Text(productsdisplay[0]['subtotal'].toString())),
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('8')),
-                          DataCell(Text('terms_code')),
-                          DataCell(Text(
-                              productsdisplay[0]['terms_code'].toString())),
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('9')),
-                          DataCell(Text('total_ex_tax')),
-                          DataCell(Text(
-                              productsdisplay[0]['total_ex_tax'].toString())),
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('10')),
-                          DataCell(Text('total_in_tax')),
-                          DataCell(Text(
-                              productsdisplay[0]['total_in_tax'].toString())),
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('11')),
-                          DataCell(Text('total_tax')),
-                          DataCell(
-                              Text(productsdisplay[0]['total_tax'].toString())),
-                        ]),
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )),
+                              DataColumn(
+                                  label: Text('Head',
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold))),
+                              DataColumn(
+                                  label: Text('Description',
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold))),
+                            ],
+                            rows: [
+                              DataRow(cells: [
+                                DataCell(Text('1')),
+                                DataCell(Text('discount')),
+                                DataCell(Text(
+                                    productsdisplay[0]['discount'].toString())),
+                              ]),
+                              DataRow(cells: [
+                                DataCell(Text('2')),
+                                DataCell(Text('last_post_date')),
+                                DataCell(Text(productsdisplay[0]
+                                        ['last_post_date']
+                                    .toString())),
+                              ]),
+                              DataRow(cells: [
+                                DataCell(Text('3')),
+                                DataCell(Text('order_number')),
+                                DataCell(Text(productsdisplay[0]['order_number']
+                                    .toString())),
+                              ]),
+                              DataRow(cells: [
+                                DataCell(Text('4')),
+                                DataCell(Text('po_number')),
+                                DataCell(Text(productsdisplay[0]['po_number']
+                                    .toString())),
+                              ]),
+                              DataRow(cells: [
+                                DataCell(Text('5')),
+                                DataCell(Text('ship_via_code')),
+                                DataCell(Text(productsdisplay[0]
+                                        ['ship_via_code']
+                                    .toString())),
+                              ]),
+                              DataRow(cells: [
+                                DataCell(Text('6')),
+                                DataCell(Text('ship_via_code_desc')),
+                                DataCell(Text(productsdisplay[0]
+                                        ['ship_via_code_desc']
+                                    .toString())),
+                              ]),
+                              DataRow(cells: [
+                                DataCell(Text('7')),
+                                DataCell(Text('subtotal')),
+                                DataCell(Text(
+                                    productsdisplay[0]['subtotal'].toString())),
+                              ]),
+                              DataRow(cells: [
+                                DataCell(Text('8')),
+                                DataCell(Text('terms_code')),
+                                DataCell(Text(productsdisplay[0]['terms_code']
+                                    .toString())),
+                              ]),
+                              DataRow(cells: [
+                                DataCell(Text('9')),
+                                DataCell(Text('total_ex_tax')),
+                                DataCell(Text(productsdisplay[0]['total_ex_tax']
+                                    .toString())),
+                              ]),
+                              DataRow(cells: [
+                                DataCell(Text('10')),
+                                DataCell(Text('total_in_tax')),
+                                DataCell(Text(productsdisplay[0]['total_in_tax']
+                                    .toString())),
+                              ]),
+                              DataRow(cells: [
+                                DataCell(Text('11')),
+                                DataCell(Text('total_tax')),
+                                DataCell(Text(productsdisplay[0]['total_tax']
+                                    .toString())),
+                              ]),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
-                  ),
-                ],
+                    SizedBox(height: size.height * 0.05),
+                    // Container(
+                    //   alignment: Alignment.center,
+                    //   color: Colors.white,
+                    //   child: ElevatedButton(
+                    //     child: Text('Print Report'),
+                    //     onPressed: () {
+                    //       postData();
+                    //     },
+                    //     style: ElevatedButton.styleFrom(
+                    //         primary: Colors.deepPurple,
+                    //         padding:
+                    //             EdgeInsets.symmetric(horizontal: 80, vertical: 15),
+                    //         textStyle:
+                    //             TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                    //         shape: StadiumBorder()),
+                    //   ),
+                    // ),
+                  ],
+                ),
               ),
-              SizedBox(height: size.height * 0.05),
-              // Container(
-              //   alignment: Alignment.center,
-              //   color: Colors.white,
-              //   child: ElevatedButton(
-              //     child: Text('Print Report'),
-              //     onPressed: () {
-              //       postData();
-              //     },
-              //     style: ElevatedButton.styleFrom(
-              //         primary: Colors.deepPurple,
-              //         padding:
-              //             EdgeInsets.symmetric(horizontal: 80, vertical: 15),
-              //         textStyle:
-              //             TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-              //         shape: StadiumBorder()),
-              //   ),
-              // ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       drawer: MyDrawer(),

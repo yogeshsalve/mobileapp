@@ -8,7 +8,7 @@ import 'package:orderapp/drawerpages/cart.dart';
 //import 'package:orderapp/drawerpages/cart.dart';
 //import 'package:orderapp/drawerpages/cart%20copy.dart';
 import 'package:orderapp/drawerpages/changepassword.dart';
-import 'package:orderapp/drawerpages/orderdetails.dart';
+// import 'package:orderapp/drawerpages/orderdetails.dart';
 // import 'package:orderapp/drawerpages/ledger.dart';
 import 'package:orderapp/homepage/homefifth.dart';
 import 'package:orderapp/homepage/homefourth.dart';
@@ -157,7 +157,8 @@ class _DashboardState extends State<Dashboard> {
       appBar: AppBar(
         elevation: 0,
         // backgroundColor: Colors.blue[700],
-        backgroundColor: Colors.blueAccent.shade700,
+        // backgroundColor: Colors.blueAccent.shade700,
+        backgroundColor: Colors.grey[850],
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
@@ -250,107 +251,105 @@ class _DashboardState extends State<Dashboard> {
         //     return true; // true will exit the app
         //   }
         // },
-        child: Scrollbar(
-          thickness: 8,
-          isAlwaysShown: true,
-          radius: Radius.circular(10),
-          child: SafeArea(
-              child: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                TopBar(),
-                Container(
-                  height: size.height * 0.06,
-                  width: size.width * 1,
-                  color: Colors.blueAccent.shade700,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(
-                            "Welcome $userName",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.start,
-                          ),
-                          // ignore: deprecated_member_use
-                          // new RaisedButton(
-                          //   child: new Text('Order Details'),
-                          //   onPressed: null,
-                          // ),
-                          // ignore: deprecated_member_use
-                          RaisedButton(
-                            elevation: 16.0,
-                            child: Text(
-                              'Order Details',
-                              // style: TextStyle(
-                              //   color: Colors.white,
-                              //   fontSize: 15.0,
-                              // ),
-                            ),
-                            color: Colors.orange,
-                            shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(16.0))),
-                            onPressed: () {
-                              Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          OrderDetails()));
-                            },
-                          ),
-                        ],
-                      ),
+        child: SafeArea(
+            child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              TopBar(),
+              Container(
+                height: size.height * 0.06,
+                width: size.width * 1,
+                color: Colors.blueAccent.shade700,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          "Welcome $userName",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.start,
+                        ),
+
+                        // ignore: deprecated_member_use
+                        // RaisedButton(
+                        //   elevation: 16.0,
+                        //   child: Text(
+                        //     'Order Details',
+                        //     // style: TextStyle(
+                        //     //   color: Colors.white,
+                        //     //   fontSize: 15.0,
+                        //     // ),
+                        //   ),
+                        //   color: Colors.orange,
+                        //   shape: RoundedRectangleBorder(
+                        //       borderRadius:
+                        //           BorderRadius.all(Radius.circular(16.0))),
+                        //   onPressed: () {
+                        //     Navigator.of(context).pushReplacement(
+                        //         MaterialPageRoute(
+                        //             builder: (BuildContext context) =>
+                        //                 OrderDetails()));
+                        //   },
+                        // ),
+                      ],
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: size.height * 0.01,
-                ),
-                Homefourth(),
-                SizedBox(
-                  height: size.height * 0.01,
-                ),
-                Homehreehalf(),
-                SizedBox(
-                  height: size.height * 0.01,
-                ),
-                Homefifth(),
-                // SizedBox(
-                //   height: size.height * 0.01,
-                // ),
-                // Container(
-                //   color: Colors.blue,
-                //   height: size.width * 0.01,
-                // ),
-                Homesixth(),
-                // Container(
-                //   color: Colors.blue,
-                //   height: size.width * 0.01,
-                // ),
-                SizedBox(
-                  height: size.height * 0.01,
-                ),
-                // HomeSeventh(),
+              ),
+              SizedBox(
+                height: size.height * 0.01,
+              ),
+              Homefourth(),
+              SizedBox(
+                height: size.height * 0.01,
+              ),
+              Homehreehalf(),
+              const Divider(
+                // height: 20,
+                thickness: 2,
+                indent: 0,
+                endIndent: 0,
+                color: Colors.grey,
+              ),
+              // SizedBox(
+              //   height: size.height * 0.01,
+              // ),
+              Homefifth(),
+              // SizedBox(
+              //   height: size.height * 0.01,
+              // ),
+              // Container(
+              //   color: Colors.blue,
+              //   height: size.width * 0.01,
+              // ),
+              Homesixth(),
+              // Container(
+              //   color: Colors.blue,
+              //   height: size.width * 0.01,
+              // ),
+              SizedBox(
+                height: size.height * 0.01,
+              ),
+              // HomeSeventh(),
 
-                // SizedBox(
-                //   height: size.height * 0.01,
-                // ),
+              // SizedBox(
+              //   height: size.height * 0.01,
+              // ),
 
-                // Container(
-                //   height: size.height * 0.1,
-                //   width: size.width * 1,
-                //   color: Colors.yellow,
-                //   //Put your child widget here.
-                // ),
-              ],
-            ),
-          )),
-        ),
+              // Container(
+              //   height: size.height * 0.1,
+              //   width: size.width * 1,
+              //   color: Colors.yellow,
+              //   //Put your child widget here.
+              // ),
+            ],
+          ),
+        )),
       ),
 
       drawer: MyDrawer(),

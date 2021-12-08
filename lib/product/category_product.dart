@@ -108,7 +108,8 @@ class _CategoryProductState extends State<CategoryProduct> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent[700],
+        // backgroundColor: Colors.blueAccent[700],
+        backgroundColor: Colors.grey[850],
         // title: TopBar1(),
         title: Text(args),
         leading: IconButton(

@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:orderapp/bottomnavigation.dart';
 import 'package:orderapp/dashboard.dart';
 import 'package:orderapp/drawer.dart';
-// import 'package:orderapp/drawerpages/cart.dart';
-import 'package:orderapp/drawerpages/dbhelper.dart';
+import 'package:orderapp/drawerpages/cart.dart';
+
+// import 'package:orderapp/drawerpages/dbhelper.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:orderapp/homepage/homesearch.dart';
 // import 'package:orderapp/drawerpages/cart%20copy.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:http/http.dart' as http;
+import 'package:http/http.dart' as http;
 
 // ignore: must_be_immutable
 class ProductDetail extends StatefulWidget {
@@ -32,89 +33,90 @@ class _ProductDetailState extends State<ProductDetail> {
   final myController1 = TextEditingController();
   final myController2 = TextEditingController();
   final myController3 = TextEditingController();
-  // final myController4 = TextEditingController();
+  final myController4 = TextEditingController();
+  final myController5 = TextEditingController();
 
-  final dbhelper = Databasehelper.instance;
-  void insertdata() async {
-    Map<String, dynamic> row = {
-      Databasehelper.columnDesc: myController1.text,
-      Databasehelper.columnQuantity: myController2.text,
-      Databasehelper.columnUom: myController3.text,
-      // Databasehelper.columnDesc: myController4.text,
-    };
-    final id = await dbhelper.insert(row);
+  // final dbhelper = Databasehelper.instance;
+  // void insertdata() async {
+  //   Map<String, dynamic> row = {
+  //     Databasehelper.columnDesc: myController1.text,
+  //     Databasehelper.columnQuantity: myController2.text,
+  //     Databasehelper.columnUom: myController3.text,
+  //     // Databasehelper.columnDesc: myController4.text,
+  //   };
+  //   final id = await dbhelper.insert(row);
 
-    print(id);
-  }
+  //   print(id);
+  // }
 
   //###########################################
 
-//   postData() async {
-//     final SharedPreferences pref = await SharedPreferences.getInstance();
-// // ---------------token-------------------
+  postData() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+// ---------------token-------------------
 
-//     userCookie = pref.getString('userCookiekey')!;
-//     setState(() {});
-//     print(userCookie);
-// // -------------token ------------------------
-//     var url = Uri.parse("http://114.143.151.6:901/cart-add");
-//     var response = await http.post(url, body: {
-//       "item": myController1.text,
-//       "quantity": myController2.text,
-//       "selected_uom": myController3.text,
-//       //"Desc": myController4.text,
-//       // "all_uom": myController5.text,
+    userCookie = pref.getString('userCookiekey')!;
+    setState(() {});
+    print(userCookie);
+// -------------token ------------------------
+    var url = Uri.parse("http://114.143.151.6:901/cart-add");
+    var response = await http.post(url, body: {
+      "item": myController1.text,
+      "quantity": myController2.text,
+      "selected_uom": myController3.text,
+      "stock_status": myController4.text,
+      "all_uom": myController5.text,
 
-//       // "item": '0912020306',
-//       // "quantity": '790',
-//       // "selected_uom": 'BOX/4000.00',
-//       // "stock_status": 'ORANGE',
-//       // "all_uom": 'BOX/4000.00CASE/80000.00MPCS/1000.00NOS/1.00',
-//     }, headers: {
-//       'Cookie': userCookie
-//     });
-//     print(response.body);
-//     print(response.statusCode);
-//     if (response.statusCode == 200) {
-//       showDialog(
-//         context: context,
-//         builder: (BuildContext context) => AlertDialog(
-//           title: const Text('Info'),
-//           content: const Text('Product Added to Cart'),
-//           actions: <Widget>[
-//             // TextButton(
-//             //   onPressed: () => Navigator.pop(context, 'OK'),
-//             //   child: const Text('Cancel'),
-//             // ),
-//             TextButton(
-//               onPressed: () => Navigator.push(
-//                   context, MaterialPageRoute(builder: (context) => Cart())),
-//               child: const Text('OK'),
-//             ),
-//           ],
-//         ),
-//       );
-//     }
-//     if (response.statusCode == 500) {
-//       showDialog(
-//         context: context,
-//         builder: (BuildContext context) => AlertDialog(
-//           title: const Text('Alert'),
-//           content: const Text('Invalid Input Quantity'),
-//           actions: <Widget>[
-//             // TextButton(
-//             //   onPressed: () => Navigator.pop(context, 'OK'),
-//             //   child: const Text('Cancel'),
-//             // ),
-//             TextButton(
-//               onPressed: () => Navigator.pop(context),
-//               child: const Text('OK'),
-//             ),
-//           ],
-//         ),
-//       );
-//     }
-//   }
+      // "item": '0912020306',
+      // "quantity": '790',
+      // "selected_uom": 'BOX/4000.00',
+      // "stock_status": 'ORANGE',
+      // "all_uom": 'BOX/4000.00CASE/80000.00MPCS/1000.00NOS/1.00',
+    }, headers: {
+      'Cookie': userCookie
+    });
+    print(response.body);
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Info'),
+          content: const Text('Product Added to Cart'),
+          actions: <Widget>[
+            // TextButton(
+            //   onPressed: () => Navigator.pop(context, 'OK'),
+            //   child: const Text('Cancel'),
+            // ),
+            TextButton(
+              onPressed: () => Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Cart())),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
+    if (response.statusCode == 500) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Alert'),
+          content: const Text('Invalid Input Quantity'),
+          actions: <Widget>[
+            // TextButton(
+            //   onPressed: () => Navigator.pop(context, 'OK'),
+            //   child: const Text('Cancel'),
+            // ),
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
+  }
 
   //###########################################
 
@@ -144,7 +146,8 @@ class _ProductDetailState extends State<ProductDetail> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent[700],
+        // backgroundColor: Colors.blueAccent[700],
+        backgroundColor: Colors.grey[850],
         title: const Text('Add To Cart'),
         leading: BackButton(
             color: Colors.white,
@@ -165,8 +168,8 @@ class _ProductDetailState extends State<ProductDetail> {
                           margin: EdgeInsets.symmetric(horizontal: 50),
                           child: TextFormField(
                             //readOnly: true,
-                            //controller: _controller,
-                            controller: myController1..text = widget.desc,
+                            // controller: myController1,
+                            controller: myController1..text = widget.item,
                             // controller: passwordText,
                             style: TextStyle(fontSize: 18),
                             decoration: InputDecoration(
@@ -276,11 +279,40 @@ class _ProductDetailState extends State<ProductDetail> {
                         //   ),
                         // ),
                         SizedBox(height: size.height * 0.01),
-                        ElevatedButton(
+                        Container(
+                          alignment: Alignment.center,
+                          //color: Colors.white,
+                          width: size.width * 0.7,
+                          child: ElevatedButton(
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.add,
+                                  // color: Colors.black,
+                                ),
+                                Text(
+                                  '  Add to Cart',
+                                  // style: TextStyle(color: Colors.black),
+                                ),
+                              ],
+                            ),
                             onPressed: () {
-                              insertdata();
+                              postData();
                             },
-                            child: Text("Add To Cart"))
+                            style: ElevatedButton.styleFrom(
+                                primary: Colors.green,
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 70, vertical: 10),
+                                textStyle: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
+                                shape: StadiumBorder()),
+                          ),
+                        ),
+                        // ElevatedButton(
+                        //     onPressed: () {
+                        //       postData();
+                        //     },
+                        //     child: Text("Add To Cart"))
                       ])))),
 
       // ***********************
