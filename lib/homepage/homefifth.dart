@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:orderapp/drawerpages/orderenquiry.dart';
 import 'package:orderapp/drawerpages/outstanding.dart';
-import 'package:orderapp/drawerpages/purchasehistory.dart';
+import 'package:orderapp/drawerpages/pendingorder.dart';
+// import 'package:orderapp/drawerpages/purchasehistory.dart';
 
 class Homefifth extends StatelessWidget {
   @override
@@ -102,7 +103,7 @@ class Homefifth extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (BuildContext context) => PurchaseHistory()));
+                        builder: (BuildContext context) => PendingOrder()));
                   },
                   child: Container(
                     width: size.width * 0.29,
@@ -120,7 +121,7 @@ class Homefifth extends StatelessWidget {
                           ),
                           Center(
                             child: Text(
-                              "Purchase History",
+                              "Pending Order",
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,

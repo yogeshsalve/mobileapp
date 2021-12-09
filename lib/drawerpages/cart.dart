@@ -277,7 +277,7 @@ class _CartState extends State<Cart> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Colors.green,
-        label: Text('PLACE ORDER'),
+        label: Text('Checkout'),
         onPressed: () {
           postData();
         },
@@ -288,6 +288,11 @@ class _CartState extends State<Cart> {
         children: [
           Padding(
             padding: const EdgeInsets.all(15.0),
+          ),
+          Container(
+            child: Text(
+              "Review Your Cart",
+            ),
           ),
           Expanded(
             child: ListView.builder(
