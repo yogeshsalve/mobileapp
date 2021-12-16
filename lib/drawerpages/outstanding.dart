@@ -178,7 +178,7 @@ class _OutstandingState extends State<Outstanding> {
                       // color: Colors.black,
                     ),
                     Text(
-                      '   Print Outstanding',
+                      '   Outstanding Report',
                       // style: TextStyle(color: Colors.black),
                     ),
                   ],
@@ -362,12 +362,14 @@ class _OutstandingState extends State<Outstanding> {
   }
 
   Future<void> _createPDF() async {
-    PdfDocument document = PdfDocument();
+    PdfDocument document = new PdfDocument();
+
     //final page = document.pages.add();
     // page.graphics
     //     .drawString("Welcome", PdfStandardFont(PdfFontFamily.helvetica, 30));
 
     // *******************************
+
     PdfGrid grid = PdfGrid();
     grid.columns.add(count: 3);
     grid.headers.add(1);

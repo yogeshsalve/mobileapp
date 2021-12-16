@@ -46,6 +46,7 @@ dependencies:
   flutter_typeahead: ^3.2.1
   badges: ^2.0.1
   sqflite: any
+  pdf: ^3.0.0
 
   
   
