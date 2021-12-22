@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:orderapp/dashboard.dart';
 // import 'package:orderapp/drawer.dart';
 import 'package:http/http.dart' as http;
+import 'package:orderapp/drawerpages/newoutstanding.dart';
 // import 'package:orderapp/drawerpages/obreport.dart';
 import 'package:orderapp/mobile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -196,6 +197,24 @@ class _OutstandingState extends State<Outstanding> {
             ),
             // Divider(),
             SizedBox(height: size.height * 0.02),
+
+            //TEST FOR OUTSTADNING API
+
+            Container(
+              child: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => OutstandingData()),
+                    );
+                    // PdfPage();
+                  },
+                  child: Text("OutstandingData")),
+            ),
+
+            //ABOVE IS F TEST OUTSTANDING API BY PRAJKTA
+
             const Divider(
               height: 20,
               thickness: 2,

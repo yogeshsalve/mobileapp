@@ -2,12 +2,15 @@ import 'dart:convert';
 
 // import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
+import 'package:orderapp/drawerpages/newinvoicedata.dart';
+import 'package:orderapp/drawerpages/taxinvoice.dart';
 import 'package:orderapp/invoicepdf/pdf_page.dart';
 import 'package:orderapp/bottomnavigation.dart';
 // import 'package:orderapp/bottomnavigation.dart';
 import 'package:orderapp/dashboard.dart';
 // import 'package:orderapp/drawerpages/orderenquiry2.dart';
 import 'package:orderapp/drawerpages/printinvoice2.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:orderapp/splashscreen.dart';
 // import 'package:orderapp/drawer.dart';
@@ -270,6 +273,18 @@ class _PrintInvoiceState extends State<PrintInvoice> {
                     },
                     child: Text("Invoice")),
               ),
+
+              Container(
+                child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => InvoiceData()),
+                      );
+                      // PdfPage();
+                    },
+                    child: Text("InvoiceData")),
+              ),
               SizedBox(height: size.height * 0.02),
 
               SingleChildScrollView(
@@ -392,10 +407,11 @@ class _PrintInvoiceState extends State<PrintInvoice> {
                               color: Colors.black,
                               splashColor: Colors.purple,
                               onPressed: () {
+                                // _createPDF();
                                 Navigator.of(context)
                                     .pushReplacement(MaterialPageRoute(
                                   builder: (BuildContext context) =>
-                                      PrintInvoice2(),
+                                      TaxInvoice(),
                                   settings: RouteSettings(
                                       arguments: p["invoice_id"].toString()),
                                 ));

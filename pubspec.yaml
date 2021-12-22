@@ -47,6 +47,9 @@ dependencies:
   badges: ^2.0.1
   sqflite: any
   pdf: ^3.0.0
+  printing: any
+  intl: ^0.17.0
+
 
   
   
