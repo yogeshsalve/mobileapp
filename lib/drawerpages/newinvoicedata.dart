@@ -17,6 +17,7 @@ class InvoiceData extends StatefulWidget {
 class _InvoiceDataState extends State<InvoiceData> {
   final myController1 = TextEditingController();
   List products = [];
+  List products2 = [];
 
   @override
   void initState() {
@@ -32,20 +33,18 @@ class _InvoiceDataState extends State<InvoiceData> {
     var response = await http.get(url, headers: {'Authorization': userCookie});
 
     if (response.statusCode == 200) {
-      var items = jsonDecode(response.body);
-      print(items);
+      var items = jsonDecode(jsonDecode(response.body));
 
-      // print(items[].toString());
-      // List products2 = [];
-      // for (var item in items) {
-      //   products2.add(item);
-      // }
+      for (var item in items) {
+        products2.add(item);
+      }
 
-      // print(products2);
+      print(products2[0]["BILPHONE"]);
       // setState(() {
       //   products = products2;
       // });
     }
+
     // else
     //   setState(() {
     //     products = [];
@@ -149,8 +148,10 @@ class _InvoiceDataState extends State<InvoiceData> {
     PdfFont subHeadingFont = PdfStandardFont(PdfFontFamily.timesRoman, 14);
 
     //Creates a text element to add the invoice number
-    PdfTextElement element =
-        PdfTextElement(text: 'INVOICE 001', font: subHeadingFont);
+
+    // var a = products2[0]["SHINUMBER"].toString();
+    PdfTextElement element = PdfTextElement(
+        text: products2[0]["SHINUMBER"].toString(), font: subHeadingFont);
     element.brush = PdfBrushes.white;
 
     //Draws the heading on the page

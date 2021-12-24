@@ -26,26 +26,31 @@ class _OutstandingDataState extends State<OutstandingData> {
     final idgrp = "DEALER";
     final codecurn = "INR";
     final agent = "0000";
+    // List products = [];
     var userCookie = "Basic QURNSU46dmlrcmFtQGFwbDEyMw==";
     var url = Uri.parse(
-        'http://172.16.1.101:701/AplReportsApi/api/Report/OutStandingReport?{"frmidcust" : "$frmidcust", "toidcust" :"$toidcust" , "idgrp":"$idgrp" , "codecurn" :"$codecurn" , "agent" :"$agent"}');
-    // 'http://172.16.1.101:701/AplReportsApi/api/Report/TaxInvoice?shinumber=$shinumber');
+        // 'http://172.16.1.101:701/AplReportsApi/api/Report/OutStandingReport?{"frmidcust" : "$frmidcust", "toidcust" :"$toidcust" , "idgrp":"$idgrp" , "codecurn" :"$codecurn" , "agent" :"$agent"}');
+        'http://172.16.1.101:701/AplReportsApi/api/Report/TaxInvoice?frmidcust=$frmidcust&toidcust=$toidcust&idgrp=$idgrp&codecurn=$codecurn&agent=$agent');
     var response = await http.get(url, headers: {'Authorization': userCookie});
 
     if (response.statusCode == 200) {
+      // Map<String, dynamic> items = json.decode(response.body);
+      // print(items['SHINUMBER']);
+
       var items = jsonDecode(response.body);
       print(items);
 
       // print(items[].toString());
-      List products2 = [];
+
+      List products2 = [""];
       for (var item in items) {
         products2.add(item);
       }
 
       print(products2);
-      // setState(() {
-      //   products = products2;
-      // });
+      //   setState(() {
+      //     products = products2;
+      //   });
     }
 
     // else
