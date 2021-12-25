@@ -170,29 +170,34 @@ class _OutstandingState extends State<Outstanding> {
             Container(
               alignment: Alignment.center,
               //color: Colors.white,
-              width: size.width * 0.8,
+              width: size.width * 0.9,
               child: ElevatedButton(
                 child: Row(
                   children: [
-                    Icon(
-                      Icons.print,
-                      // color: Colors.black,
-                    ),
+                    // Icon(
+                    //   Icons.print,
+                    //   // color: Colors.black,
+                    // ),
                     Text(
-                      '   Outstanding Report',
+                      'Generate Outstanding Report',
                       // style: TextStyle(color: Colors.black),
                     ),
                   ],
                 ),
                 onPressed: () {
-                  _createPDF();
+                  // _createPDF();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => OutstandingData()),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
-                    primary: Colors.green,
-                    padding: EdgeInsets.symmetric(horizontal: 60, vertical: 10),
-                    textStyle:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    shape: StadiumBorder()),
+                  primary: Colors.green,
+                  padding: EdgeInsets.symmetric(horizontal: 60, vertical: 10),
+                  textStyle:
+                      TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  // shape: StadiumBorder()
+                ),
               ),
             ),
             // Divider(),
@@ -200,18 +205,18 @@ class _OutstandingState extends State<Outstanding> {
 
             //TEST FOR OUTSTADNING API
 
-            Container(
-              child: InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => OutstandingData()),
-                    );
-                    // PdfPage();
-                  },
-                  child: Text("OutstandingData")),
-            ),
+            // Container(
+            //   child: InkWell(
+            //       onTap: () {
+            //         Navigator.push(
+            //           context,
+            //           MaterialPageRoute(
+            //               builder: (context) => OutstandingData()),
+            //         );
+            //         // PdfPage();
+            //       },
+            //       child: Text("OutstandingData")),
+            // ),
 
             //ABOVE IS F TEST OUTSTANDING API BY PRAJKTA
 
@@ -326,42 +331,6 @@ class _OutstandingState extends State<Outstanding> {
                                 p["amount_outstanding"].toString(),
                                 style: TextStyle(fontStyle: FontStyle.italic),
                               )),
-
-                              // DataCell(
-                              //   IconButton(
-                              //     icon: Icon(
-                              //       Icons.local_print_shop_outlined,
-                              //     ),
-                              //     iconSize: 30,
-                              //     color: Colors.black,
-                              //     splashColor: Colors.purple,
-                              //     onPressed: () {
-                              //       Navigator.of(context)
-                              //           .pushReplacement(MaterialPageRoute(
-                              //         builder: (BuildContext context) =>
-                              //             Obreport(),
-                              //         settings: RouteSettings(
-                              //             arguments:
-                              //                 p["invoice_id"].toString()),
-                              //       ));
-                              //     },
-                              //   ),
-                              // ),
-
-                              // DataCell(Text(
-                              //   p["due_date"].toString(),
-                              //   style: TextStyle(fontStyle: FontStyle.italic),
-                              // )),
-
-                              // DataCell(Text(
-                              //   p["invoice_date"].toString(),
-                              //   style: TextStyle(fontStyle: FontStyle.italic),
-                              // )),
-
-                              // DataCell(Text(
-                              //   p["reference"].toString(),
-                              //   style: TextStyle(fontStyle: FontStyle.italic),
-                              // )),
                             ],
                           ),
                       ],

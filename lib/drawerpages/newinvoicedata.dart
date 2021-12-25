@@ -29,7 +29,8 @@ class _InvoiceDataState extends State<InvoiceData> {
     final shinumber = 'P14-15/000169';
     var userCookie = "Basic QURNSU46dmlrcmFtQGFwbDEyMw==";
     var url = Uri.parse(
-        'http://172.16.1.101:701/AplReportsApi/api/Report/TaxInvoice?shinumber=$shinumber');
+        'http://aplhome.info:701/AplReportsApi/api/Report/TaxInvoice?shinumber=$shinumber');
+    // 'http://172.16.1.101:701/AplReportsApi/api/Report/TaxInvoice?shinumber=$shinumber');
     var response = await http.get(url, headers: {'Authorization': userCookie});
 
     if (response.statusCode == 200) {
@@ -163,8 +164,8 @@ class _InvoiceDataState extends State<InvoiceData> {
 
     //Measures the width of the text to place it in the correct location
     Size textSize = subHeadingFont.measureString(currentDate);
-    Offset textPosition = Offset(
-        graphics.clientSize.width - textSize.width - 10, result.bounds.top);
+    // Offset textPosition = Offset(
+    //     graphics.clientSize.width - textSize.width - 10, result.bounds.top);
 
     //Draws the date by using drawString method
     graphics.drawString(currentDate, subHeadingFont,
