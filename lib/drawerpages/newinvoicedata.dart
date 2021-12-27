@@ -22,15 +22,15 @@ class _InvoiceDataState extends State<InvoiceData> {
   @override
   void initState() {
     super.initState();
-    this.fetchProduct();
+    this.fetchInvoice();
   }
 
-  fetchProduct() async {
+  fetchInvoice() async {
     final shinumber = 'P14-15/000169';
     var userCookie = "Basic QURNSU46dmlrcmFtQGFwbDEyMw==";
     var url = Uri.parse(
         'http://aplhome.info:701/AplReportsApi/api/Report/TaxInvoice?shinumber=$shinumber');
-    // 'http://172.16.1.101:701/AplReportsApi/api/Report/TaxInvoice?shinumber=$shinumber');
+    //'http://172.16.1.101:701/AplReportsApi/api/Report/TaxInvoice?shinumber=$shinumber');
     var response = await http.get(url, headers: {'Authorization': userCookie});
 
     if (response.statusCode == 200) {

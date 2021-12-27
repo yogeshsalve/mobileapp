@@ -98,7 +98,7 @@ class _PrintInvoiceState extends State<PrintInvoice> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.grey[850],
-          title: const Text('Invoice Print'),
+          title: const Text('Invoices'),
           leading: BackButton(
               color: Colors.white,
               onPressed: () => Navigator.push(context,
@@ -248,11 +248,11 @@ class _PrintInvoiceState extends State<PrintInvoice> {
                       ),
                     ],
                   ),
-                  onPressed: () {
-                    // _createPDF();
+                  onPressed: () => Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => PrintInvoice2())),
 
-                    fetchProduct();
-                  },
+                  // fetchProduct();
+
                   style: ElevatedButton.styleFrom(
                     primary: Colors.green,
                     padding: EdgeInsets.symmetric(horizontal: 60, vertical: 10),
@@ -262,29 +262,31 @@ class _PrintInvoiceState extends State<PrintInvoice> {
                   ),
                 ),
               ),
-              Container(
-                child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => PdfPage1()),
-                      );
-                      // PdfPage();
-                    },
-                    child: Text("Invoice")),
-              ),
 
-              Container(
-                child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => InvoiceData()),
-                      );
-                      // PdfPage();
-                    },
-                    child: Text("InvoiceData")),
-              ),
+              // Container(
+              //   child: InkWell(
+              //       onTap: () {
+              //         Navigator.push(
+              //           context,
+              //           MaterialPageRoute(builder: (context) => PdfPage1()),
+              //         );
+              //         // PdfPage();
+              //       },
+              //       child: Text("Invoice")),
+              // ),
+
+              // Container(
+              //   child: InkWell(
+              //       onTap: () {
+              //         Navigator.push(
+              //           context,
+              //           MaterialPageRoute(builder: (context) => InvoiceData()),
+              //         );
+              //         // PdfPage();
+              //       },
+              //       child: Text("InvoiceData")),
+              // ),
+
               SizedBox(height: size.height * 0.02),
 
               SingleChildScrollView(
