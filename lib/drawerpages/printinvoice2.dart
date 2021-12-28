@@ -406,7 +406,7 @@ class _PrintInvoice2State extends State<PrintInvoice2> {
     grid.columns[0].width = 200;
 
 //Set padding for grid cells
-    grid.style.cellPadding = PdfPaddings(left: 2, right: 2, top: 0, bottom: 1);
+    grid.style.cellPadding = PdfPaddings(left: 2, right: 2, top: 2, bottom: 2);
 
 //Creates the grid cell styles
     PdfGridCellStyle cellStyle = PdfGridCellStyle();
@@ -452,7 +452,7 @@ class _PrintInvoice2State extends State<PrintInvoice2> {
     row11.cells[1].value = products3[0]["ITEM"].toString();
 
     row11.cells[2].value = products3[0]["DESC_OESHID"].toString();
-    row11.cells[3].value = '\$10,000';
+    row11.cells[3].value = products3[0]["PROJECT"].toString();
     row11.cells[4].value = '\$10,000';
     row11.cells[5].value = '\$10,000';
     row11.cells[6].value = '\$10,000';
@@ -526,7 +526,7 @@ class _PrintInvoice2State extends State<PrintInvoice2> {
 //Draws the grid2 to the PDF page
     PdfLayoutResult gridResult1 = grid2.draw(
         page: page,
-        bounds: Rect.fromLTWH(0, bounds.bottom + 150, graphics.clientSize.width,
+        bounds: Rect.fromLTWH(0, bounds.bottom + 170, graphics.clientSize.width,
             graphics.clientSize.height - 50),
         format: layoutFormat)!;
 
