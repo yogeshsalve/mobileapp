@@ -86,8 +86,8 @@ class _PrintInvoice2State extends State<PrintInvoice2> {
   }
 
   fetchInvoice() async {
-    final shinumber = products[0]["invoice_id"];
-    //final shinumber = "22/000025";
+    //final shinumber = products[0]["invoice_id"];
+    final shinumber = "22/010001";
     var userCookie = "Basic QURNSU46dmlrcmFtQGFwbDEyMw==";
     var url = Uri.parse(
         'http://aplhome.info:701/AplReportsApi/api/Report/TaxInvoice?shinumber=$shinumber');
@@ -341,7 +341,7 @@ class _PrintInvoice2State extends State<PrintInvoice2> {
     // graphics.drawRectangle(brush: solidBrush, bounds: bounds);
 
     //Creates a font for adding the heading in the page
-    PdfFont subHeadingFont = PdfStandardFont(PdfFontFamily.timesRoman, 14);
+    PdfFont subHeadingFont = PdfStandardFont(PdfFontFamily.timesRoman, 12);
 
     //Creates a PDF grid
     PdfGrid grid = PdfGrid();
@@ -351,17 +351,26 @@ class _PrintInvoice2State extends State<PrintInvoice2> {
 
 //Add rows to grid
     PdfGridRow row = grid.rows.add();
-    row.cells[0].value = "Billing Address : \ndsgsgsgsgsgsgs";
+    row.cells[0].value =
+        "Billing Address :\n" + products3[0]["SHPNAME"].toString();
     row.cells[1].value = "SHIP TO :";
-    row.cells[2].value = "";
+    row.cells[2].value = "Invoice No.:" +
+        products3[0]["SHINUMBER"].toString() +
+        "Date:" +
+        products3[0]["SHIDATE"].toString();
 
     PdfGridRow row1 = grid.rows.add();
-    // row1.cells[0].value = "";
-    // row1.cells[1].value = "";
+    // // row1.cells[0].value = "";
+    // // row1.cells[1].value = "";
     row1.cells[2].value = "INVOICE NO. 22/010001";
 
     PdfGridRow row2 = grid.rows.add();
-    row2.cells[0].value = "fhsfhshhshshhshhsdfdhfdhdhd sdhshshshshhshshh";
+    row2.cells[0].value = products3[0]["BILADDR1"].toString() +
+        products3[0]["BILADDR2"].toString() +
+        products3[0]["BILCITY"].toString() +
+        products3[0]["BILSTATE"].toString() +
+        products3[0]["BILZIP"].toString() +
+        products3[0]["BILPHONE"].toString();
     row2.cells[1].value = "";
     row2.cells[2].value = "ORDER NO.:";
 
@@ -373,12 +382,18 @@ class _PrintInvoice2State extends State<PrintInvoice2> {
     PdfGridRow row4 = grid.rows.add();
     row4.cells[0].value = "";
     row4.cells[1].value = "";
-    row4.cells[2].value = "DISPATCH THROUGH";
+    row4.cells[2].value =
+        "DISPATCH THROUGH " + products3[0]["VIADESC"].toString();
 
     PdfGridRow row5 = grid.rows.add();
-    row5.cells[0].value = "GSTIN";
-    row5.cells[1].value = "EMAIL \nSTATE CODE:";
-    row5.cells[2].value = "VEHICLE NO. ORD DATE";
+    row5.cells[0].value = "GSTIN " + products3[0]["VALUE-Vw_GSTIN"].toString();
+
+    row5.cells[1].value = "EMAIL " +
+        products3[0]["BILEMAILC"].toString() +
+        "STATE CODE :" +
+        products3[0]["VALUE-Vw_StateCode"].toString();
+    row5.cells[2].value =
+        "VEHICLE NO." "\nORD DATE" + products3[0]["ORDDATE"].toString();
 
     //Set the row span
     row.cells[0].rowSpan = 2;
@@ -387,14 +402,17 @@ class _PrintInvoice2State extends State<PrintInvoice2> {
     row2.cells[0].rowSpan = 3;
     row2.cells[1].rowSpan = 3;
 
+//Set the width
+    grid.columns[0].width = 200;
+
 //Set padding for grid cells
-    grid.style.cellPadding = PdfPaddings(left: 2, right: 2, top: 2, bottom: 2);
+    grid.style.cellPadding = PdfPaddings(left: 2, right: 2, top: 0, bottom: 1);
 
 //Creates the grid cell styles
     PdfGridCellStyle cellStyle = PdfGridCellStyle();
     cellStyle.borders.all = PdfPens.black;
     cellStyle.borders.bottom = PdfPen(PdfColor(217, 217, 217), width: 0.70);
-    cellStyle.font = PdfStandardFont(PdfFontFamily.timesRoman, 12);
+    cellStyle.font = PdfStandardFont(PdfFontFamily.timesRoman, 10);
     cellStyle.textBrush = PdfSolidBrush(PdfColor(131, 130, 136));
 //Adds cell customizations
     for (int i = 0; i < grid.rows.count; i++) {
@@ -404,14 +422,95 @@ class _PrintInvoice2State extends State<PrintInvoice2> {
         if (j == 0 || j == 1) {
           row.cells[j].stringFormat = PdfStringFormat(
               alignment: PdfTextAlignment.left,
-              lineAlignment: PdfVerticalAlignment.middle);
+              lineAlignment: PdfVerticalAlignment.top);
         } else {
           row.cells[j].stringFormat = PdfStringFormat(
               alignment: PdfTextAlignment.left,
-              lineAlignment: PdfVerticalAlignment.middle);
+              lineAlignment: PdfVerticalAlignment.top);
         }
       }
     }
+
+    PdfGrid grid2 = PdfGrid();
+
+//Add columns to second grid
+    grid2.columns.add(count: 8);
+    grid2.headers.add(1);
+    PdfGridRow header1 = grid2.headers[0];
+    header1.cells[0].value = 'Sr. No.';
+    header1.cells[1].value = 'PRODUCT CODE';
+    header1.cells[2].value = 'DECRIPTION';
+    header1.cells[3].value = 'BATCH NO';
+    header1.cells[4].value = 'QUANTITY';
+    header1.cells[5].value = 'UOM';
+    header1.cells[6].value = 'RATE';
+    header1.cells[7].value = 'AMOUNT';
+
+//Add rows to grid
+    PdfGridRow row11 = grid2.rows.add();
+    row11.cells[0].value = '1';
+    row11.cells[1].value = products3[0]["ITEM"].toString();
+
+    row11.cells[2].value = products3[0]["DESC_OESHID"].toString();
+    row11.cells[3].value = '\$10,000';
+    row11.cells[4].value = '\$10,000';
+    row11.cells[5].value = '\$10,000';
+    row11.cells[6].value = '\$10,000';
+    row11.cells[7].value = '\$10,000';
+
+    //Set the row height
+    row11.height = 200;
+
+    grid2.columns[0].width = 30;
+    grid2.columns[1].width = 50;
+    grid2.columns[2].width = 190;
+    grid2.columns[3].width = 40;
+
+//third table start
+    PdfGrid grid3 = PdfGrid();
+
+//Add columns to second grid
+    grid3.columns.add(count: 2);
+    // grid3.headers.add(1);
+    // PdfGridRow header2 = grid2.headers[0];
+    // header2.cells[0].value = 'Employee ID';
+    // header2.cells[1].value = 'Employee Name';
+    // header2.cells[2].value = 'Salary';
+    // header2.cells[3].value = 'Salary';
+    // header2.cells[4].value = 'Salary';
+    // header2.cells[5].value = 'Salary';
+    // header2.cells[6].value = 'Salary';
+    // header2.cells[7].value = 'Salary';
+
+//Add rows to grid
+    PdfGridRow row21 = grid3.rows.add();
+    row21.cells[0].value = 'E01';
+    row21.cells[1].value = 'Clay';
+
+    //Add rows to grid
+    PdfGridRow row31 = grid3.rows.add();
+    row31.cells[0].value = 'E01';
+    row31.cells[1].value = 'Clay';
+
+    //Add rows to grid
+    PdfGridRow row41 = grid3.rows.add();
+    row41.cells[0].value = 'E01';
+    row41.cells[1].value = 'Clay';
+
+    //Add rows to grid
+    PdfGridRow row51 = grid3.rows.add();
+    row51.cells[0].value = 'E01';
+    row51.cells[1].value = 'Clay';
+
+    //Add rows to grid
+    PdfGridRow row61 = grid3.rows.add();
+    row61.cells[0].value = 'E01';
+    row61.cells[1].value = 'Clay';
+
+    //Set the width
+    grid3.columns[0].width = 320;
+
+//third table ends
 
 //Creates layout format settings to allow the table pagination
     PdfLayoutFormat layoutFormat =
@@ -424,16 +523,30 @@ class _PrintInvoice2State extends State<PrintInvoice2> {
             graphics.clientSize.height - 50),
         format: layoutFormat)!;
 
-    gridResult.page.graphics.drawString(
-        'Total Outstanding Amount: INR  ', subHeadingFont,
-        brush: PdfSolidBrush(PdfColor(126, 155, 203)),
-        bounds: Rect.fromLTWH(250, gridResult.bounds.bottom + 10, 0, 0));
+//Draws the grid2 to the PDF page
+    PdfLayoutResult gridResult1 = grid2.draw(
+        page: page,
+        bounds: Rect.fromLTWH(0, bounds.bottom + 150, graphics.clientSize.width,
+            graphics.clientSize.height - 50),
+        format: layoutFormat)!;
 
-    gridResult.page.graphics.drawString('Yous Sincerely,', subHeadingFont,
+//Draws the grid3 to the PDF page
+    PdfLayoutResult gridResult2 = grid3.draw(
+        page: page,
+        bounds: Rect.fromLTWH(0, bounds.bottom + 380, graphics.clientSize.width,
+            graphics.clientSize.height - 50),
+        format: layoutFormat)!;
+
+    // gridResult1.page.graphics.drawString(
+    //     'Total Outstanding Amount: INR  ', subHeadingFont,
+    //     brush: PdfSolidBrush(PdfColor(126, 155, 203)),
+    //     bounds: Rect.fromLTWH(250, gridResult.bounds.bottom + 10, 0, 0));
+
+    gridResult1.page.graphics.drawString('Yous Sincerely,', subHeadingFont,
         brush: PdfBrushes.black,
-        bounds: Rect.fromLTWH(0, gridResult.bounds.bottom + 65, 0, 0));
+        bounds: Rect.fromLTWH(0, gridResult.bounds.bottom + 85, 0, 0));
 
-    gridResult.page.graphics.drawString(
+    gridResult2.page.graphics.drawString(
         'AGARWAL FASTNERS PVT. LTD.', subHeadingFont,
         brush: PdfBrushes.black,
         bounds: Rect.fromLTWH(0, gridResult.bounds.bottom + 85, 0, 0));
