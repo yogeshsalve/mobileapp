@@ -49,6 +49,7 @@ dependencies:
   pdf: ^3.0.0
   printing: any
   intl: ^0.17.0
+  number_to_words: ^1.0.0
 
 
   

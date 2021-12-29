@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:orderapp/bottomnavigation.dart';
 import 'package:orderapp/dashboard.dart';
+
 import 'package:orderapp/drawer.dart';
 import 'package:orderapp/drawerpages/newinvoicedata.dart';
 import 'package:orderapp/drawerpages/printinvoice.dart';
@@ -90,8 +91,8 @@ class _PrintInvoice2State extends State<PrintInvoice2> {
     final shinumber = "22/010001";
     var userCookie = "Basic QURNSU46dmlrcmFtQGFwbDEyMw==";
     var url = Uri.parse(
-        'http://aplhome.info:701/AplReportsApi/api/Report/TaxInvoice?shinumber=$shinumber');
-    //'http://172.16.1.101:701/AplReportsApi/api/Report/TaxInvoice?shinumber=$shinumber');
+        // 'http://aplhome.info:701/AplReportsApi/api/Report/TaxInvoice?shinumber=$shinumber');
+        'http://172.16.1.101:701/AplReportsApi/api/Report/TaxInvoice?shinumber=$shinumber');
     var response = await http.get(url, headers: {'Authorization': userCookie});
 
     if (response.statusCode == 200) {
@@ -341,7 +342,9 @@ class _PrintInvoice2State extends State<PrintInvoice2> {
     // graphics.drawRectangle(brush: solidBrush, bounds: bounds);
 
     //Creates a font for adding the heading in the page
-    PdfFont subHeadingFont = PdfStandardFont(PdfFontFamily.timesRoman, 12);
+    PdfFont subHeadingFont = PdfStandardFont(PdfFontFamily.timesRoman, 10);
+
+    PdfFont subHeadingFont1 = PdfStandardFont(PdfFontFamily.timesRoman, 8);
 
     //Creates a PDF grid
     PdfGrid grid = PdfGrid();
@@ -405,6 +408,8 @@ class _PrintInvoice2State extends State<PrintInvoice2> {
 //Set the width
     grid.columns[0].width = 200;
 
+    row.height = 10;
+
 //Set padding for grid cells
     grid.style.cellPadding = PdfPaddings(left: 2, right: 2, top: 2, bottom: 2);
 
@@ -453,13 +458,13 @@ class _PrintInvoice2State extends State<PrintInvoice2> {
 
     row11.cells[2].value = products3[0]["DESC_OESHID"].toString();
     row11.cells[3].value = products3[0]["PROJECT"].toString();
-    row11.cells[4].value = '\$10,000';
-    row11.cells[5].value = '\$10,000';
-    row11.cells[6].value = '\$10,000';
-    row11.cells[7].value = '\$10,000';
+    row11.cells[4].value = products3[0]["QTYSHIPPED"].toString();
+    row11.cells[5].value = products3[0]["PRICEUNIT"].toString();
+    row11.cells[6].value = products3[0]["QTYSHIPPED"].toString();
+    row11.cells[7].value = products3[0]["TBASE1_OESHID"].toString();
 
     //Set the row height
-    row11.height = 200;
+    row11.height = 130;
 
     grid2.columns[0].width = 30;
     grid2.columns[1].width = 50;
@@ -484,33 +489,61 @@ class _PrintInvoice2State extends State<PrintInvoice2> {
 
 //Add rows to grid
     PdfGridRow row21 = grid3.rows.add();
-    row21.cells[0].value = 'E01';
-    row21.cells[1].value = 'Clay';
+    row21.cells[0].value =
+        'Invoice Amount : \n\n\nI / We hereby certify that my/our registration certificated under the GST ACT 2017 is in force on the date on which the sale of goods specified in this tax invoice is made by me/us and that the transaction of sales covered by this tax invoice has been effected by me/us and it shall be accounted for in the turnover of sales while filing of return and the due tax,if any, payable on the sale has been paid or shall be paid Certify that particulars given above are true and correct and the amount indicated represents the prise actully charged \nand that there is no flow additional consideration directly of indirectly from the buyer \n\n';
+    row21.cells[1].value = 'Amount :                                         ' +
+        products3[0]["TBASE1_OESHID"].toString();
 
     //Add rows to grid
     PdfGridRow row31 = grid3.rows.add();
-    row31.cells[0].value = 'E01';
-    row31.cells[1].value = 'Clay';
+    row31.cells[0].value = '';
+    row31.cells[1].value =
+        'Sub Total :                                         ' +
+            products3[0]["TBASE1"].toString();
 
     //Add rows to grid
     PdfGridRow row41 = grid3.rows.add();
-    row41.cells[0].value = 'E01';
-    row41.cells[1].value = 'Clay';
+    row41.cells[0].value = '';
+    row41.cells[1].value = "CGST @ 9.00 %                                " +
+        products3[0]["TEAMOUNT1"].toString() +
+        "\nSGST @ 9.00 %                                " +
+        products3[0]["TEAMOUNT2"].toString();
 
     //Add rows to grid
     PdfGridRow row51 = grid3.rows.add();
-    row51.cells[0].value = 'E01';
-    row51.cells[1].value = 'Clay';
+    row51.cells[0].value = '';
+    row51.cells[1].value =
+        'SubTotal :                                          ' +
+            products3[0]["SHINETWTX"].toString() +
+            "\n                                           @            " +
+            products3[0]["SHIDISCAMT"].toString();
 
     //Add rows to grid
     PdfGridRow row61 = grid3.rows.add();
-    row61.cells[0].value = 'E01';
-    row61.cells[1].value = 'Clay';
+    row61.cells[0].value = '';
+    row61.cells[1].value =
+        'Grand Total :                                      ' +
+            products3[0]["SHINETWTX"].toString();
+
+    //last row
+    //Add rows to grid
+    PdfGridRow row71 = grid3.rows.add();
+    row71.cells[0].value = products3[0]["SALESPER1"].toString() +
+        "                              BOXES : " +
+        products3[0]["BoxPacked"].toString() +
+        "\n\n1.  Receive the above goods in order and perfect condition. \n\n2. Our responsibility ceases after material delivered to shipping or dispatching authorized \n    and no claim will be accepted for any loss damage or non-delivery during transit. \n\n3. Goods once sold will not be accepted back. \n\n4. 18% Interest will be charged on all accounts remaining unpaid afer the expiry of 30 days.                    Authorised Signature  \n\n\n                                                                                   Subject to Mumbai Jurisdiction.";
 
     //Set the width
     grid3.columns[0].width = 320;
 
+    row21.cells[0].rowSpan = 5;
+    row71.cells[0].columnSpan = 2;
+
 //third table ends
+
+//fourth table starts
+
+//fourth table ends
 
 //Creates layout format settings to allow the table pagination
     PdfLayoutFormat layoutFormat =
@@ -533,7 +566,7 @@ class _PrintInvoice2State extends State<PrintInvoice2> {
 //Draws the grid3 to the PDF page
     PdfLayoutResult gridResult2 = grid3.draw(
         page: page,
-        bounds: Rect.fromLTWH(0, bounds.bottom + 380, graphics.clientSize.width,
+        bounds: Rect.fromLTWH(0, bounds.bottom + 350, graphics.clientSize.width,
             graphics.clientSize.height - 50),
         format: layoutFormat)!;
 
@@ -542,19 +575,21 @@ class _PrintInvoice2State extends State<PrintInvoice2> {
     //     brush: PdfSolidBrush(PdfColor(126, 155, 203)),
     //     bounds: Rect.fromLTWH(250, gridResult.bounds.bottom + 10, 0, 0));
 
-    gridResult1.page.graphics.drawString('Yous Sincerely,', subHeadingFont,
+    gridResult1.page.graphics.drawString(
+        'Total Quantity :' + products3[0]["QTYSHIPPED"].toString(),
+        subHeadingFont,
         brush: PdfBrushes.black,
-        bounds: Rect.fromLTWH(0, gridResult.bounds.bottom + 85, 0, 0));
+        bounds: Rect.fromLTWH(245, gridResult.bounds.bottom + 165, 0, 0));
 
     gridResult2.page.graphics.drawString(
-        'AGARWAL FASTNERS PVT. LTD.', subHeadingFont,
+        'FOR: AGARWAL FASTNERS PVT. LTD.', subHeadingFont1,
         brush: PdfBrushes.black,
-        bounds: Rect.fromLTWH(0, gridResult.bounds.bottom + 85, 0, 0));
+        bounds: Rect.fromLTWH(350, gridResult.bounds.bottom + 320, 0, 0));
 
-    gridResult.page.graphics.drawString(
-        'COMPUTER GENERATED HENCE NOT SIGNED', subHeadingFont,
-        brush: PdfBrushes.black,
-        bounds: Rect.fromLTWH(0, gridResult.bounds.bottom + 105, 0, 0));
+    // gridResult.page.graphics.drawString(
+    //     'COMPUTER GENERATED HENCE 1233 SIGNED', subHeadingFont,
+    //     brush: PdfBrushes.black,
+    //     bounds: Rect.fromLTWH(0, gridResult.bounds.bottom + 105, 0, 0));
 
     List<int> bytes = document.save();
     document.dispose();
