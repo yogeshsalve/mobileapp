@@ -131,69 +131,69 @@ class _ProfileState extends State<Profile> {
                         SizedBox(
                           height: 10.0,
                         ),
-                        Card(
-                          margin: EdgeInsets.symmetric(
-                              horizontal: 20.0, vertical: 5.0),
-                          clipBehavior: Clip.antiAlias,
-                          color: Colors.white,
-                          elevation: 5.0,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 8.0, vertical: 22.0),
-                            child: Row(
-                              children: <Widget>[
-                                Expanded(
-                                  child: Column(
-                                    children: <Widget>[
-                                      Text(
-                                        'Monthly Sale',
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 22.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 5.0,
-                                      ),
-                                      Text(
-                                        "5200",
-                                        style: TextStyle(
-                                          fontSize: 15.0,
-                                          color: Colors.black,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Column(
-                                    children: <Widget>[
-                                      Text(
-                                        "Yearly Sale",
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 22.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 5.0,
-                                      ),
-                                      Text(
-                                        "28.5K",
-                                        style: TextStyle(
-                                          fontSize: 15.0,
-                                          color: Colors.black,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                        // Card(
+                        //   margin: EdgeInsets.symmetric(
+                        //       horizontal: 20.0, vertical: 5.0),
+                        //   clipBehavior: Clip.antiAlias,
+                        //   color: Colors.white,
+                        //   elevation: 5.0,
+                        //   child: Padding(
+                        //     padding: const EdgeInsets.symmetric(
+                        //         horizontal: 8.0, vertical: 22.0),
+                        //     child: Row(
+                        //       children: <Widget>[
+                        //         Expanded(
+                        //           child: Column(
+                        //             children: <Widget>[
+                        //               Text(
+                        //                 'Monthly Sale',
+                        //                 style: TextStyle(
+                        //                   color: Colors.black,
+                        //                   fontSize: 22.0,
+                        //                   fontWeight: FontWeight.bold,
+                        //                 ),
+                        //               ),
+                        //               SizedBox(
+                        //                 height: 5.0,
+                        //               ),
+                        //               Text(
+                        //                 "5200",
+                        //                 style: TextStyle(
+                        //                   fontSize: 15.0,
+                        //                   color: Colors.black,
+                        //                 ),
+                        //               )
+                        //             ],
+                        //           ),
+                        //         ),
+                        //         Expanded(
+                        //           child: Column(
+                        //             children: <Widget>[
+                        //               Text(
+                        //                 "Yearly Sale",
+                        //                 style: TextStyle(
+                        //                   color: Colors.black,
+                        //                   fontSize: 22.0,
+                        //                   fontWeight: FontWeight.bold,
+                        //                 ),
+                        //               ),
+                        //               SizedBox(
+                        //                 height: 5.0,
+                        //               ),
+                        //               Text(
+                        //                 "28.5K",
+                        //                 style: TextStyle(
+                        //                   fontSize: 15.0,
+                        //                   color: Colors.black,
+                        //                 ),
+                        //               )
+                        //             ],
+                        //           ),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),

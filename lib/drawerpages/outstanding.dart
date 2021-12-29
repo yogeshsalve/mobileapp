@@ -1,15 +1,16 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:orderapp/bottomnavigation.dart';
 //import 'package:orderapp/bottomnavigation.dart';
 import 'package:orderapp/dashboard.dart';
 // import 'package:orderapp/drawer.dart';
 import 'package:http/http.dart' as http;
 import 'package:orderapp/drawerpages/newoutstanding.dart';
 // import 'package:orderapp/drawerpages/obreport.dart';
-import 'package:orderapp/mobile.dart';
+// import 'package:orderapp/mobile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:syncfusion_flutter_pdf/pdf.dart';
+// import 'package:syncfusion_flutter_pdf/pdf.dart';
 // import 'package:orderapp/splashscreen.dart';
 
 class Outstanding extends StatefulWidget {
@@ -345,44 +346,44 @@ class _OutstandingState extends State<Outstanding> {
         ),
       ),
       // drawer: MyDrawer(),
-      //bottomNavigationBar: BottomNavigation(),
+      bottomNavigationBar: BottomNavigation(),
     );
   }
 
-  Future<void> _createPDF() async {
-    PdfDocument document = new PdfDocument();
+  // Future<void> _createPDF() async {
+  //   PdfDocument document = new PdfDocument();
 
-    //final page = document.pages.add();
-    // page.graphics
-    //     .drawString("Welcome", PdfStandardFont(PdfFontFamily.helvetica, 30));
+  //   //final page = document.pages.add();
+  //   // page.graphics
+  //   //     .drawString("Welcome", PdfStandardFont(PdfFontFamily.helvetica, 30));
 
-    // *******************************
+  //   // *******************************
 
-    PdfGrid grid = PdfGrid();
-    grid.columns.add(count: 3);
-    grid.headers.add(1);
-    //grid.columns[1].width = 50;
-    PdfGridRow header = grid.headers[0];
-    header.cells[0].value = "ID";
-    header.cells[1].value = "Outstanding";
-    header.cells[2].value = "Unpaid";
+  //   PdfGrid grid = PdfGrid();
+  //   grid.columns.add(count: 3);
+  //   grid.headers.add(1);
+  //   //grid.columns[1].width = 50;
+  //   PdfGridRow header = grid.headers[0];
+  //   header.cells[0].value = "ID";
+  //   header.cells[1].value = "Outstanding";
+  //   header.cells[2].value = "Unpaid";
 
-    // *******************************
+  //   // *******************************
 
-    PdfGridRow row = grid.rows.add();
-    row.cells[0].value = "1";
-    row.cells[1].value = productsdisplay[0]['outstanding'].toString();
-    row.cells[2].value = productsdisplay[0]['unpaid'].toString();
+  //   PdfGridRow row = grid.rows.add();
+  //   row.cells[0].value = "1";
+  //   row.cells[1].value = productsdisplay[0]['outstanding'].toString();
+  //   row.cells[2].value = productsdisplay[0]['unpaid'].toString();
 
-    grid.style = PdfGridStyle(
-        cellPadding: PdfPaddings(left: 2, right: 3, top: 4, bottom: 5),
-        backgroundBrush: PdfBrushes.white,
-        textBrush: PdfBrushes.black,
-        font: PdfStandardFont(PdfFontFamily.timesRoman, 25));
-    grid.draw(
-        page: document.pages.add(), bounds: const Rect.fromLTWH(0, 0, 0, 0));
-    List<int> bytes = document.save();
-    document.dispose();
-    saveAndLaunchFile(bytes, 'Order Details Report.pdf');
-  }
+  //   grid.style = PdfGridStyle(
+  //       cellPadding: PdfPaddings(left: 2, right: 3, top: 4, bottom: 5),
+  //       backgroundBrush: PdfBrushes.white,
+  //       textBrush: PdfBrushes.black,
+  //       font: PdfStandardFont(PdfFontFamily.timesRoman, 25));
+  //   grid.draw(
+  //       page: document.pages.add(), bounds: const Rect.fromLTWH(0, 0, 0, 0));
+  //   List<int> bytes = document.save();
+  //   document.dispose();
+  //   saveAndLaunchFile(bytes, 'Order Details Report.pdf');
+  // }
 }

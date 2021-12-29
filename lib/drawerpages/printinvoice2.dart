@@ -2,16 +2,14 @@ import 'dart:convert';
 // import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
 import 'package:orderapp/bottomnavigation.dart';
-import 'package:orderapp/dashboard.dart';
 
 import 'package:orderapp/drawer.dart';
-import 'package:orderapp/drawerpages/newinvoicedata.dart';
 import 'package:orderapp/drawerpages/printinvoice.dart';
 import 'package:orderapp/mobile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:syncfusion_flutter_pdf/pdf.dart';
-import 'package:intl/intl.dart';
+// import 'package:intl/intl.dart';
 
 class PrintInvoice2 extends StatefulWidget {
   @override
@@ -416,9 +414,9 @@ class _PrintInvoice2State extends State<PrintInvoice2> {
 //Creates the grid cell styles
     PdfGridCellStyle cellStyle = PdfGridCellStyle();
     cellStyle.borders.all = PdfPens.black;
-    cellStyle.borders.bottom = PdfPen(PdfColor(217, 217, 217), width: 0.70);
+    cellStyle.borders.bottom = PdfPen(PdfColor(0, 0, 0), width: 0.70);
     cellStyle.font = PdfStandardFont(PdfFontFamily.timesRoman, 10);
-    cellStyle.textBrush = PdfSolidBrush(PdfColor(131, 130, 136));
+    cellStyle.textBrush = PdfSolidBrush(PdfColor(0, 0, 0));
 //Adds cell customizations
     for (int i = 0; i < grid.rows.count; i++) {
       PdfGridRow row = grid.rows[i];
@@ -593,6 +591,6 @@ class _PrintInvoice2State extends State<PrintInvoice2> {
 
     List<int> bytes = document.save();
     document.dispose();
-    saveAndLaunchFile(bytes, 'Outstanding Report.pdf');
+    saveAndLaunchFile(bytes, 'Invoice.pdf');
   }
 }

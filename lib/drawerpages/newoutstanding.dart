@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:orderapp/bottomnavigation.dart';
 import 'package:orderapp/drawerpages/outstanding.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -148,20 +149,20 @@ class _OutstandingDataState extends State<OutstandingData> {
                     label: Text(
                   'Sr. No.',
                   style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 12,
                       color: Colors.green[600],
                       fontWeight: FontWeight.bold),
                 )),
                 DataColumn(
                     label: Text('Description',
                         style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 12,
                             color: Colors.green[600],
                             fontWeight: FontWeight.bold))),
                 DataColumn(
                     label: Text('Value',
                         style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 12,
                             color: Colors.green[600],
                             fontWeight: FontWeight.bold))),
               ],
@@ -173,13 +174,20 @@ class _OutstandingDataState extends State<OutstandingData> {
                   ),
                   DataCell(Text(productsdisplay[0]["IDCUST"].toString())),
                 ]),
+                DataRow(cells: [
+                  DataCell(Text('2')),
+                  DataCell(
+                    Text("NAME"),
+                  ),
+                  DataCell(Text(productsdisplay[0]["NAMECUST"].toString())),
+                ]),
               ],
             ),
           ],
         ),
       ),
       // drawer: MyDrawer(),
-      // bottomNavigationBar: BottomNavigation(),
+      bottomNavigationBar: BottomNavigation(),
     );
   }
 
