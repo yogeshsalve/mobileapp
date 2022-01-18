@@ -108,18 +108,18 @@ class _MyDrawerState extends State<MyDrawer> {
               },
             ),
 
-            ListTile(
-              title: Text('SqliteTest', style: TextStyle(fontSize: 20)),
-              tileColor: Colors.white10,
-              leading: Icon(
-                Icons.shop,
-                color: Colors.black,
-              ),
-              onTap: () => {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (BuildContext context) => SqliteTest()))
-              },
-            ),
+            // ListTile(
+            //   title: Text('SqliteTest', style: TextStyle(fontSize: 20)),
+            //   tileColor: Colors.white10,
+            //   leading: Icon(
+            //     Icons.shop,
+            //     color: Colors.black,
+            //   ),
+            //   onTap: () => {
+            //     Navigator.of(context).pushReplacement(MaterialPageRoute(
+            //         builder: (BuildContext context) => SqliteTest()))
+            //   },
+            // ),
 
             ListTile(
               title: Text('Favourite Store', style: TextStyle(fontSize: 20)),

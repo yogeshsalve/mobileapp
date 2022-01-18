@@ -89,8 +89,8 @@ class _PrintInvoice2State extends State<PrintInvoice2> {
     final shinumber = "22/010001";
     var userCookie = "Basic QURNSU46dmlrcmFtQGFwbDEyMw==";
     var url = Uri.parse(
-        // 'http://aplhome.info:701/AplReportsApi/api/Report/TaxInvoice?shinumber=$shinumber');
-        'http://172.16.1.101:701/AplReportsApi/api/Report/TaxInvoice?shinumber=$shinumber');
+        'http://aplhome.info:701/AplReportsApi/api/Report/TaxInvoice?shinumber=$shinumber');
+    //'http://172.16.1.101:701/AplReportsApi/api/Report/TaxInvoice?shinumber=$shinumber');
     var response = await http.get(url, headers: {'Authorization': userCookie});
 
     if (response.statusCode == 200) {
@@ -334,6 +334,7 @@ class _PrintInvoice2State extends State<PrintInvoice2> {
 
     // PdfBrush solidBrush = PdfSolidBrush(PdfColor(126, 151, 173));
     //PdfBrush solidBrush = PdfSolidBrush(PdfColor(256, 256, 173));
+
     Rect bounds = Rect.fromLTWH(0, 80, graphics.clientSize.width, 30);
 
     //Draws a rectangle to place the heading in that region
@@ -487,8 +488,9 @@ class _PrintInvoice2State extends State<PrintInvoice2> {
 
 //Add rows to grid
     PdfGridRow row21 = grid3.rows.add();
-    row21.cells[0].value =
-        'Invoice Amount : \n\n\nI / We hereby certify that my/our registration certificated under the GST ACT 2017 is in force on the date on which the sale of goods specified in this tax invoice is made by me/us and that the transaction of sales covered by this tax invoice has been effected by me/us and it shall be accounted for in the turnover of sales while filing of return and the due tax,if any, payable on the sale has been paid or shall be paid Certify that particulars given above are true and correct and the amount indicated represents the prise actully charged \nand that there is no flow additional consideration directly of indirectly from the buyer \n\n';
+    row21.cells[0].value = 'Invoice Amount :' +
+        products3[0]["GRAND_TOTAL_IN_WORDS"].toString() +
+        '\nI / We hereby certify that my/our registration certificated under the GST ACT 2017 is in force on the date on which the sale of goods specified in this tax invoice is made by me/us and that the transaction of sales covered by this tax invoice has been effected by me/us and it shall be accounted for in the turnover of sales while filing of return and the due tax,if any, payable on the sale has been paid or shall be paid Certify that particulars given above are true and correct and the amount indicated represents the prise actully charged \nand that there is no flow additional consideration directly of indirectly from the buyer \n\n';
     row21.cells[1].value = 'Amount :                                         ' +
         products3[0]["TBASE1_OESHID"].toString();
 

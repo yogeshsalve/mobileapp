@@ -38,10 +38,10 @@ class _OutstandingDataState extends State<OutstandingData> {
         // 'http://172.16.1.101:701/AplReportsApi/api/Report/TaxInvoice?frmidcust=$frmidcust&toidcust=$toidcust&idgrp=$idgrp&codecurn=$codecurn&agent=$agent');
 
         //To workfrom out of office
-        //'http://aplhome.info:701/AplReportsApi/api/Report/OutStandingReport?frmidcust=$frmidcust&toidcust=$toidcust&idgrp=$idgrp&codecurn=$codecurn&agent=$agent');
+        'http://aplhome.info:701/AplReportsApi/api/Report/OutStandingReport?frmidcust=$frmidcust&toidcust=$toidcust&idgrp=$idgrp&codecurn=$codecurn&agent=$agent');
 
-        //To work from Office
-        'http://172.16.1.101:701/AplReportsApi/api/Report/OutStandingReport?frmidcust=$frmidcust&toidcust=$toidcust&idgrp=$idgrp&codecurn=$codecurn&agent=$agent');
+    //To work from Office
+    //'http://172.16.1.101:701/AplReportsApi/api/Report/OutStandingReport?frmidcust=$frmidcust&toidcust=$toidcust&idgrp=$idgrp&codecurn=$codecurn&agent=$agent');
     var response = await http.get(url, headers: {'Authorization': userCookie});
 
     if (response.statusCode == 200) {
